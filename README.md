@@ -8,13 +8,10 @@ A disgustingly simple PDF annotation tool. Supports LaTeX and Typst.
   - [ ] Print a goodbye message on exit.
 - [ ] Add a quote/callout component
 
-**LaTeX**
-- [ ] 
-
+#### Annotation
+- [ ] Should have a default style.sty file generated at the project root, with some default macros and packages.
 - [ ] Tectonic
 - [ ] PdfLatex
 - [ ] XeLatex 
 - [ ] Latexmk
-
-**Other Tools**
 - [ ] Typst
