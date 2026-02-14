@@ -6,7 +6,14 @@ type LayoutProps = {
 
 function Layout({ children }: LayoutProps) {
   return (
-    <Box paddingX={1} paddingY={1} flexDirection="column">
+    <Box
+      //      borderStyle="single"
+      //      borderColor="gray"
+      paddingX={1}
+      paddingY={1}
+      width={40}
+      flexDirection="column"
+    >
       {children}
     </Box>
   );
