@@ -2,6 +2,10 @@
 A disgustingly simple PDF annotation tool. Supports LaTeX and Typst.
 
 ### TODO
+- [ ] Custom help page
+- [ ] Handle errors gracefully, and customize the default AnnotateError to contain fields like `message`, and `hint`. 
+- [ ] Should exit on q and ctrl+c gracefully, and print a goodbye message.
+- [ ] Add a quote/callout component
 
 **LaTeX**
 - [ ] Tectonic

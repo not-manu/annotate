@@ -1,2 +1,4 @@
 #!/usr/bin/env bun
-console.log("Hello via Bun!");
+
+import { program } from "commander";
+
