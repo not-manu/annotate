@@ -1,6 +1,14 @@
+type AnnotateErrorOptions = {
+  message: string;
+  hint?: string;
+};
+
 export class AnnotateError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "DotContextError";
+  hint?: string;
+
+  constructor(options: AnnotateErrorOptions) {
+    super(options.message);
+    this.name = "AnnotateError";
+    this.hint = options.hint;
   }
 }

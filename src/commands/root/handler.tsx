@@ -21,13 +21,18 @@ function root(program: Command) {
       }
 
       if (!Project.PDF.isPDF(pdf)) {
-        throw new AnnotateError("The provided file is not a PDF.");
+        throw new AnnotateError({
+          message: `The provided file is not a PDF: ${pdf}`,
+          hint: "Make sure the file exists and has a .pdf extension.",
+        });
       }
 
       if (!Project.isFolderEmpty(pdf)) {
-        throw new AnnotateError(
-          "The folder for this pdf is not empty. Please move or delete the existing files before annotating.",
-        );
+        const folder = Project.getFolder(pdf);
+        throw new AnnotateError({
+          message: `The annotation folder for this PDF is not empty: ${folder}`,
+          hint: "Move or delete the existing files in this folder before annotating.",
+        });
       }
 
       if (!Compiler.Flavor.isValid(options.with)) {
