@@ -4,6 +4,9 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "bin": {
+    "annotate-dev": "./src/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
