@@ -9,6 +9,7 @@ namespace Commands {
 
   function onError(err: unknown) {
     if (err instanceof AnnotateError) {
+      console.error(`Error: ${err.message}`);
       process.exit(1);
     }
     throw err;

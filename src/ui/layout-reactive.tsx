@@ -5,7 +5,7 @@ type LayoutReactiveProps = {
   children: React.ReactNode;
 };
 
-export function LayoutReactive({ children }: LayoutReactiveProps) {
+function LayoutReactive({ children }: LayoutReactiveProps) {
   const { exit } = useApp();
 
   useInput((input, key) => {
@@ -16,3 +16,5 @@ export function LayoutReactive({ children }: LayoutReactiveProps) {
 
   return <Layout>{children}</Layout>;
 }
+
+export { LayoutReactive };
