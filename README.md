@@ -1,15 +1,13 @@
-# annotate 
+# annotate
+A disgustingly simple PDF annotation tool. Supports LaTeX and Typst.
 
-To install dependencies:
+### TODO
 
-```bash
-bun install
-```
+**LaTeX**
+- [ ] Tectonic
+- [ ] PdfLatex
+- [ ] XeLatex 
+- [ ] Latexmk
 
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+**Other Tools**
+- [ ] Typst
