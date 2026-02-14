@@ -8,7 +8,9 @@ function root(program: Command) {
     .name(Core.NAME)
     .version(Core.VERSION, "-V, --version")
     .description(Core.DESCRIPTION)
-    .action(() => {
+    .argument("[pdf]", "Path to PDF file to annotate")
+    .option("-w, --with [latex|typst]", "Annotate with LaTeX or Typst")
+    .action((pdf: string | undefined, options: { with?: string | boolean }) => {
       render(<RootPage />);
     });
 }
