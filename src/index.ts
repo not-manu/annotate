@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
 
-import { program } from "commander";
+import { Commands } from "./commands";
 
+Commands.parse();

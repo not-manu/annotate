@@ -15,8 +15,8 @@ function Header({
       <Text bold color={style === "error" ? "red" : "green"}>
         {Core.NAME} <Text dimColor>v{Core.VERSION}</Text>
       </Text>
-      {variant == "large" && (
-        <Text italic color={style === "error" ? "red" : "gray"}>
+      {variant === "large" && style !== "error" && (
+        <Text italic dimColor>
           {Core.DESCRIPTION}
         </Text>
       )}
