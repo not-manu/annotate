@@ -1,0 +1,222 @@
+\maketitle
+\thispagestyle{fancy}
+
+\noindent
+\textbf{Instructions.}
+Show all work clearly. Justify each step. Write your solutions in the
+spaces provided; use the back of the page or attach extra sheets if needed.
+
+% =========================================================================
+\section{Divisibility}
+% =========================================================================
+
+\begin{defbox}[Definition -- Divisibility]
+Let $a, b \in \mathbb{Z}$ with $a \neq 0$.
+We say \emph{$a$ divides $b$}, written $a \mid b$, if there exists an
+integer $k$ such that $b = ak$.
+We also say that $a$ is a \textbf{divisor} (or \textbf{factor}) of $b$,
+and that $b$ is a \textbf{multiple} of $a$.
+\end{defbox}
+
+\begin{defbox}[Theorem -- Division Algorithm]
+For any integers $a$ and $b$ with $b > 0$, there exist unique integers
+$q$ (the \emph{quotient}) and $r$ (the \emph{remainder}) such that
+\[
+  a = bq + r, \qquad 0 \le r < b.
+\]
+\end{defbox}
+
+\bigskip
+
+\textbf{Problem 1.}\;
+Prove that if $a \mid b$ and $a \mid c$, then $a \mid (b + c)$.
+
+\begin{hintbox}
+Write $b = ak_1$ and $c = ak_2$ for some integers $k_1, k_2$.  What can you
+say about $b + c$?
+\end{hintbox}
+
+\answerspace[2.2in]
+
+\textbf{Problem 2.}\;
+Use the Division Algorithm to find the quotient and remainder when
+$a = 2\,027$ is divided by $b = 37$.  Verify your answer.
+
+\answerspace[1.8in]
+
+\textbf{Problem 3.}\;
+Prove that the square of any integer is of the form $3k$ or $3k+1$ for some
+integer $k$.
+
+\begin{hintbox}
+Consider the three cases $n \equiv 0, 1, 2 \pmod{3}$ and square each.
+\end{hintbox}
+
+\answerspace[2.5in]
+
+% =========================================================================
+\section{Prime Numbers and the Fundamental Theorem of Arithmetic}
+% =========================================================================
+
+\begin{defbox}[Definition -- Prime and Composite]
+An integer $p > 1$ is called \textbf{prime} if its only positive divisors
+are $1$ and $p$ itself.  An integer $n > 1$ that is not prime is called
+\textbf{composite}.
+\end{defbox}
+
+\begin{defbox}[Fundamental Theorem of Arithmetic]
+Every integer $n > 1$ can be written uniquely (up to the order of the
+factors) as a product of primes:
+\[
+  n = p_1^{a_1}\, p_2^{a_2} \cdots p_k^{a_k},
+  \qquad p_1 < p_2 < \cdots < p_k,\quad a_i \ge 1.
+\]
+\end{defbox}
+
+\bigskip
+
+\textbf{Problem 4.}\;
+Find the prime factorization of each of the following:
+\begin{enumerate}[label=(\alph*), itemsep=4pt]
+  \item $3\,780$
+  \item $10\,!$ (i.e.\ $10$ factorial)
+  \item $2^{12} - 1$
+\end{enumerate}
+
+\answerspace[2.2in]
+
+\textbf{Problem 5.}\;
+Prove that there are infinitely many prime numbers.
+
+\begin{hintbox}[Hint (Euclid's argument)]
+Suppose there are only finitely many primes $p_1, p_2, \ldots, p_n$.
+Consider the number $N = p_1 p_2 \cdots p_n + 1$.
+Is $N$ divisible by any $p_i$?
+\end{hintbox}
+
+\answerspace[2.5in]
+
+\textbf{Problem 6.}\;
+Let $p$ be a prime and let $a, b \in \mathbb{Z}$.  Prove that if
+$p \mid ab$, then $p \mid a$ or $p \mid b$.
+
+\begin{hintbox}
+This is sometimes called \emph{Euclid's Lemma}.  If $p \nmid a$, what
+is $\gcd(p, a)$?  Use B\'ezout's identity.
+\end{hintbox}
+
+\answerspace[2.5in]
+
+% =========================================================================
+\section{Greatest Common Divisor and the Euclidean Algorithm}
+% =========================================================================
+
+\begin{defbox}[Definition -- GCD]
+The \textbf{greatest common divisor} of two integers $a$ and $b$, not both
+zero, denoted $\gcd(a,b)$, is the largest positive integer $d$ such that
+$d \mid a$ and $d \mid b$.
+\end{defbox}
+
+\begin{defbox}[B\'ezout's Identity]
+For any integers $a$ and $b$, not both zero, there exist integers $x$ and
+$y$ such that
+\[
+  \gcd(a,b) = ax + by.
+\]
+\end{defbox}
+
+\bigskip
+
+\textbf{Problem 7.}\;
+Use the Euclidean Algorithm to compute $\gcd(252, 198)$.
+Then find integers $x$ and $y$ such that $252x + 198y = \gcd(252, 198)$.
+
+\begin{hintbox}
+Apply repeated division:
+$252 = 198 \cdot q_1 + r_1$, then $198 = r_1 \cdot q_2 + r_2$, and so on
+until the remainder is $0$.  Back-substitute to find $x$ and $y$.
+\end{hintbox}
+
+\answerspace[2.8in]
+
+\textbf{Problem 8.}\;
+Prove that if $\gcd(a, b) = 1$ and $\gcd(a, c) = 1$, then $\gcd(a, bc) = 1$.
+
+\begin{hintbox}
+By B\'ezout, write $ax_1 + by_1 = 1$ and $ax_2 + cy_2 = 1$.
+Multiply these two equations together.
+\end{hintbox}
+
+\answerspace[2.2in]
+
+% =========================================================================
+\section{Congruences}
+% =========================================================================
+
+\begin{defbox}[Definition -- Congruence]
+Let $m$ be a positive integer.  We say $a$ is \textbf{congruent} to $b$
+\textbf{modulo} $m$, written
+\[
+  a \equiv b \pmod{m},
+\]
+if $m \mid (a - b)$.
+\end{defbox}
+
+\begin{defbox}[Fermat's Little Theorem]
+If $p$ is a prime and $\gcd(a, p) = 1$, then
+\[
+  a^{p-1} \equiv 1 \pmod{p}.
+\]
+\end{defbox}
+
+\bigskip
+
+\textbf{Problem 9.}\;
+Compute each of the following.  Show your reasoning.
+\begin{enumerate}[label=(\alph*), itemsep=4pt]
+  \item $3^{100} \pmod{7}$
+  \item $2^{340} \pmod{11}$
+  \item The last two digits of $7^{999}$.
+\end{enumerate}
+
+\begin{hintbox}
+For (a) and (b), use Fermat's Little Theorem.  For (c), work modulo $100$
+and find the pattern of powers of $7$.
+\end{hintbox}
+
+\answerspace[2.5in]
+
+\textbf{Problem 10.}\;
+Solve the linear congruence $17x \equiv 3 \pmod{29}$.
+
+\begin{hintbox}
+Find the inverse of $17$ modulo $29$ using the Extended Euclidean Algorithm
+or by noting $17 \cdot (\,?\,) \equiv 1 \pmod{29}$.
+\end{hintbox}
+
+\answerspace[2in]
+
+% =========================================================================
+\section*{Bonus Challenge}
+% =========================================================================
+
+\textbf{Problem 11} (Bonus).\;
+Prove \textbf{Wilson's Theorem}: if $p$ is a prime, then
+\[
+  (p-1)! \equiv -1 \pmod{p}.
+\]
+
+\begin{hintbox}[Hint]
+Pair each element $a \in \{1, 2, \ldots, p-1\}$ with its multiplicative
+inverse $a^{-1} \pmod{p}$.  Which elements are their own inverses?
+\end{hintbox}
+
+\answerspace[2.8in]
+
+\vfill
+\begin{center}
+  \textcolor{rulegray}{\rule{0.5\textwidth}{0.4pt}}\\[4pt]
+  \textit{\small End of Homework 3}
+\end{center}
+
+\end{document}
