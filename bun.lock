@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "scribble",
+      "name": "@notmanu/annotate",
       "devDependencies": {
         "@types/bun": "latest",
       },
