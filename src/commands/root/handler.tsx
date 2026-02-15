@@ -3,7 +3,6 @@ import { render } from "ink";
 import { RootPage } from "./page";
 import { Core } from "../../core";
 import { Compiler } from "../../compiler";
-import { SelectFlavorPage } from "./select-flavor-page";
 import { AnnotateError } from "../../error";
 import { Project } from "../../project";
 
@@ -14,7 +13,7 @@ function root(program: Command) {
     .description(Core.DESCRIPTION)
     .argument("[pdf]", "Path to PDF file to annotate")
     .option("-w, --with [latex|typst]", "Annotate with LaTeX or Typst")
-    .action((pdf: string | undefined, options: { with?: string | boolean }) => {
+    .action(async (pdf: string | undefined, options: { with?: string | boolean }) => {
       if (!pdf) {
         render(<RootPage />);
         return;
@@ -28,17 +27,22 @@ function root(program: Command) {
       }
 
       if (!Project.isFolderEmpty(pdf)) {
-        const folder = Project.getFolder(pdf);
         throw new AnnotateError({
-          message: `The annotation folder for this PDF is not empty: ${folder}`,
+          message: `The annotation folder for this PDF is not empty: ${Project.getFolder(pdf)}`,
           hint: "Move or delete the existing files in this folder before annotating.",
         });
       }
 
       if (!Compiler.Flavor.isValid(options.with)) {
-        render(<SelectFlavorPage />);
-        return;
+        throw new AnnotateError({
+          message: "A valid language must be specified.",
+          hint: "Use --with latex or --with typst.",
+        });
       }
+
+      const flavor = options.with as Compiler.Flavor.Type;
+
+      // flavor is now available for the next step
     });
 }
 
