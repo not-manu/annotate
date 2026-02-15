@@ -7,6 +7,10 @@
   "bin": {
     "annotate-dev": "./src/index.ts"
   },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/react": "^19.2.14"

@@ -12,78 +12,48 @@
 
 % ---- Styling ----
 \usepackage{enumitem}
-\usepackage{titlesec}
 \usepackage{fancyhdr}
-\usepackage{xcolor}
-\usepackage{mdframed}
-\usepackage{tcolorbox}
-\tcbuselibrary{skins, breakable}
 
 % ---- Hyperlinks (load last) ----
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
-
-% ---- Colors ----
-\definecolor{defblue}{HTML}{1D3557}
-\definecolor{defbg}{HTML}{EAF0F9}
-\definecolor{hintgreen}{HTML}{2D6A4F}
-\definecolor{hintbg}{HTML}{EAF5EE}
-\definecolor{answertan}{HTML}{F5F0E1}
-\definecolor{rulegray}{HTML}{AAAAAA}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=black}
 
 % ---- Theorem-like environments ----
-\newtheoremstyle{hwdefinition}
-  {10pt}{10pt}{\itshape}{}{\bfseries\color{defblue}}{.}{.5em}{}
-\theoremstyle{hwdefinition}
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
 
-% ---- Custom tcolorbox environments ----
-\newtcolorbox{defbox}[1][]{%
-  colback=defbg, colframe=defblue, coltitle=white,
-  fonttitle=\bfseries, title={#1},
-  boxrule=0.8pt, arc=3pt,
-  left=8pt, right=8pt, top=6pt, bottom=6pt,
-  breakable
+% ---- Simple boxed environment for definitions/theorems ----
+\newenvironment{defbox}[1][]{%
+  \medskip\noindent\textbf{#1.}\itshape\quad
+}{%
+  \medskip
 }
 
-\newtcolorbox{hintbox}[1][Hint]{%
-  colback=hintbg, colframe=hintgreen, coltitle=white,
-  fonttitle=\bfseries\small, title={#1},
-  boxrule=0.6pt, arc=3pt,
-  left=8pt, right=8pt, top=4pt, bottom=4pt,
-  fontupper=\small
+% ---- Hint environment ----
+\newenvironment{hintbox}[1][Hint]{%
+  \smallskip\noindent\textit{#1.}\quad\small
+}{%
+  \smallskip
 }
 
 % ---- Answer space ----
 \newcommand{\answerspace}[1][2in]{%
-  \par\vspace{6pt}%
-  \begin{tcolorbox}[
-    colback=answertan, colframe=rulegray,
-    boxrule=0.4pt, arc=2pt,
-    height=#1, valign=top,
-    left=8pt, right=8pt, top=6pt, bottom=6pt
-  ]
-  \textit{\color{rulegray}Write your answer here.}
-  \end{tcolorbox}
+  \par\vspace{#1}%
 }
 
 % ---- Header / footer ----
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\textsc{Math 321 -- Number Theory}}
-\rhead{\textsc{Homework 3}}
+\lhead{Math 321 -- Number Theory}
+\rhead{Homework 3}
 \cfoot{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-
-% ---- Section formatting ----
-\titleformat{\section}
-  {\large\bfseries\color{defblue}}{\thesection.}{0.5em}{}
-  [\vspace{-4pt}\textcolor{rulegray}{\rule{\textwidth}{0.4pt}}]
 
 % ---- Title info ----
 \title{%
   \vspace{-0.5in}%
-  \textcolor{defblue}{\textsc{Math 321 --- Introduction to Number Theory}}\\[4pt]
+  Math 321 --- Introduction to Number Theory\\[4pt]
   \large Homework 3: Divisibility, Primes, and Congruences%
 }
 \author{Name: \rule{3in}{0.4pt} \qquad Date: \rule{1.5in}{0.4pt}}

@@ -4,7 +4,6 @@
 - [x] Error handling also needs to be more helpful to the user, and should not just print the error message, but also provide a hint on how to fix it.
   - [x] This means include stuff like folder names, paths, and other relevant information in the error message.
 - [x] Should exit on q and ctrl+c gracefully.
-  - [ ] Print a goodbye message on exit.
 - [ ] Add a quote/callout component
 - [ ] Open error.log with e, and open file with o using the user's default editor (when in watch mode).
 - [ ] Add a simple test pdf in examples/
@@ -13,6 +12,7 @@
 
 ### Annotation
 - [ ] Should have a default style.sty file generated at the project root, with some default macros and packages.
+- [ ] the pages size for the overlay pdf should be exactly the same as the corresponding page in the original pdf.
 - [ ] Tectonic
 - [ ] PdfLatex
 - [ ] XeLatex 
