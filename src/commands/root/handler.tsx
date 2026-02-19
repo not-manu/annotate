@@ -41,7 +41,18 @@ function root(program: Command) {
       }
 
       const flavor = options.with as Compiler.Flavor.Type;
+      const compiler = await Compiler.detect({ flavor });
       await Project.create(pdf, flavor);
+      await Compiler.compileAll({
+        compiler,
+        pagesDir: Project.getPagesFolder(pdf),
+        buildDir: Project.getBuildFolder(pdf),
+      });
+      Compiler.watch({
+        compiler,
+        pagesDir: Project.getPagesFolder(pdf),
+        buildDir: Project.getBuildFolder(pdf),
+      });
     });
 }
 

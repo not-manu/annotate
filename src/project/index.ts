@@ -14,6 +14,14 @@ namespace Project {
     return path.join(path.dirname(pdfPath), name);
   }
 
+  export function getPagesFolder(pdfPath: string): string {
+    return path.join(getFolder(pdfPath), "pages");
+  }
+
+  export function getBuildFolder(pdfPath: string): string {
+    return path.join(getFolder(pdfPath), ".annotate", "build");
+  }
+
   export function isFolderEmpty(pdfPath: string): boolean {
     const folder = getFolder(pdfPath);
     if (!fs.existsSync(folder)) {
@@ -27,9 +35,11 @@ namespace Project {
     flavor: Compiler.Flavor.Type
   ): Promise<void> {
     const folder = getFolder(pdfPath);
-    const pagesFolder = path.join(folder, "pages");
+    const pagesFolder = getPagesFolder(pdfPath);
+    const buildFolder = getBuildFolder(pdfPath);
 
     await fs.promises.mkdir(pagesFolder, { recursive: true });
+    await fs.promises.mkdir(buildFolder, { recursive: true });
 
     if (flavor === "latex") {
       const dimensions = await PDF.getAllPageDimensions(pdfPath);
