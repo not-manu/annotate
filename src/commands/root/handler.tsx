@@ -24,7 +24,7 @@ function root(program: Command) {
 
       if (!Project.PDF.isPDF(pdf)) {
         throw new AnnotateError({
-          message: `The provided file is not a PDF: ${pdf}`,
+          message: `'${pdf}' does not exist or is not a PDF.`,
           hint: "Make sure the file exists and has a .pdf extension.",
         });
       }
@@ -34,7 +34,7 @@ function root(program: Command) {
       if (!Project.isFolderEmpty(pdf)) {
         if (!Project.isValidProject(projectDir)) {
           throw new AnnotateError({
-            message: `The annotation folder for this PDF is not empty: ${projectDir}`,
+            message: `The folder '${projectDir}' already exists and is not an annotate project.`,
             hint: "Move or delete the existing files in this folder before annotating.",
           });
         }
@@ -63,7 +63,7 @@ function root(program: Command) {
 
       if (!Compiler.Flavor.isValid(options.with)) {
         throw new AnnotateError({
-          message: "A valid language must be specified.",
+          message: "No language specified. Use --with latex or --with typst.",
           hint: "Use --with latex or --with typst.",
         });
       }

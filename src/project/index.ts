@@ -50,7 +50,7 @@ namespace Project {
 
     if (!fs.existsSync(pagesDir)) {
       throw new AnnotateError({
-        message: `No pages/ folder found in: ${projectDir}`,
+        message: `'${projectDir}' is not a valid annotate project — no pages/ folder found.`,
         hint: "Make sure this is a valid annotate project directory.",
       });
     }
@@ -61,7 +61,7 @@ namespace Project {
     if (files.some((f) => f.endsWith(".typ"))) return "typst";
 
     throw new AnnotateError({
-      message: `Could not detect the project flavor in: ${pagesDir}`,
+      message: `Could not determine project type: no .tex or .typ files found in pages/.`,
       hint: "The pages/ folder must contain .tex or .typ files.",
     });
   }
@@ -107,8 +107,8 @@ namespace Project {
 
         if (!dims) {
           throw new AnnotateError({
-            message: `Missing page dimensions for page ${pageNumber}.`,
-            hint: "Check that the PDF is readable and not corrupted.",
+            message: `Could not read dimensions for page ${pageNumber} of the PDF.`,
+            hint: "Check that the PDF is not corrupted or password-protected.",
           });
         }
 
@@ -140,8 +140,8 @@ namespace Project {
 
         if (!dims) {
           throw new AnnotateError({
-            message: `Missing page dimensions for page ${pageNumber}.`,
-            hint: "Check that the PDF is readable and not corrupted.",
+            message: `Could not read dimensions for page ${pageNumber} of the PDF.`,
+            hint: "Check that the PDF is not corrupted or password-protected.",
           });
         }
 
@@ -158,7 +158,7 @@ namespace Project {
     }
 
     throw new AnnotateError({
-      message: `The ${flavor} template is not implemented yet.`,
+      message: `Unsupported language: '${flavor}'.`,
       hint: "Use --with latex or --with typst.",
     });
   }

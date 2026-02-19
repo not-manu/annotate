@@ -21,7 +21,7 @@ function watch(program: Command) {
 
       if (!Project.isValidProject(resolved)) {
         throw new AnnotateError({
-          message: `Not a valid annotate project: ${resolved}`,
+          message: `'${resolved}' is not a valid annotate project.`,
           hint: "The directory must contain a pages/ folder with .tex or .typ files.",
         });
       }
@@ -29,7 +29,7 @@ function watch(program: Command) {
       const originalPath = Project.getOriginalPdfPath(resolved);
       if (!path.extname(originalPath)) {
         throw new AnnotateError({
-          message: `Could not find the original PDF for project: ${resolved}`,
+          message: `Original PDF not found for project '${resolved}'.`,
           hint: "Make sure .annotate/original.pdf exists inside the project folder.",
         });
       }

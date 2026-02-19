@@ -20,7 +20,7 @@ namespace PDF {
   export function getName(filePath: string): string {
     if (!isPDF(filePath)) {
       throw new AnnotateError({
-        message: `The provided file is not a PDF: ${filePath}`,
+        message: `Cannot read PDF name: '${filePath}' does not exist or is not a PDF.`,
         hint: "Make sure the file exists and has a .pdf extension.",
       });
     }
@@ -29,7 +29,7 @@ namespace PDF {
 
     if (!name) {
       throw new AnnotateError({
-        message: `The provided file does not have a valid name: ${filePath}`,
+        message: `The PDF filename is empty or invalid: '${filePath}'.`,
         hint: "The filename before .pdf must not be empty.",
       });
     }
@@ -51,7 +51,7 @@ namespace PDF {
   export async function getPageCount(filePath: string): Promise<number> {
     if (!isPDF(filePath)) {
       throw new AnnotateError({
-        message: `The provided file is not a PDF: ${filePath}`,
+        message: `Cannot read page count: '${filePath}' does not exist or is not a PDF.`,
         hint: "Make sure the file exists and has a .pdf extension.",
       });
     }
@@ -66,7 +66,7 @@ namespace PDF {
   ): Promise<{ width: number; height: number }> {
     if (!isPDF(filePath)) {
       throw new AnnotateError({
-        message: `The provided file is not a PDF: ${filePath}`,
+        message: `Cannot read page dimensions: '${filePath}' does not exist or is not a PDF.`,
         hint: "Make sure the file exists and has a .pdf extension.",
       });
     }
@@ -76,16 +76,16 @@ namespace PDF {
 
     if (pageIndex < 0 || pageIndex >= pageCount) {
       throw new AnnotateError({
-        message: `The page index is out of bounds: ${pageIndex}`,
-        hint: `This PDF has ${pageCount} pages.`,
+        message: `Page ${pageIndex + 1} does not exist in this PDF.`,
+        hint: `This PDF only has ${pageCount} page(s).`,
       });
     }
 
     const page = pdf.getPages()[pageIndex];
     if (!page) {
       throw new AnnotateError({
-        message: `The page index is out of bounds: ${pageIndex}`,
-        hint: `This PDF has ${pageCount} pages.`,
+        message: `Page ${pageIndex + 1} could not be read from this PDF.`,
+        hint: `This PDF only has ${pageCount} page(s).`,
       });
     }
 
@@ -98,7 +98,7 @@ namespace PDF {
   ): Promise<Array<{ width: number; height: number }>> {
     if (!isPDF(filePath)) {
       throw new AnnotateError({
-        message: `The provided file is not a PDF: ${filePath}`,
+        message: `Cannot read page dimensions: '${filePath}' does not exist or is not a PDF.`,
         hint: "Make sure the file exists and has a .pdf extension.",
       });
     }

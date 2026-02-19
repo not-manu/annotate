@@ -149,7 +149,7 @@ namespace Compiler {
     }
 
     throw new AnnotateError({
-      message: `The ${options.flavor} compiler is not implemented yet.`,
+      message: `Unsupported language: '${options.flavor}'.`,
       hint: "Use --with latex or --with typst.",
     });
   }
