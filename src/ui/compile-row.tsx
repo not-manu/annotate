@@ -14,6 +14,12 @@ type CompileRowProps = {
 };
 
 function CompileRow({ page, selected = false, toast }: CompileRowProps) {
+  // For error rows, the log filename lives outside the background
+  const errorLogName =
+    page.status === "error" && page.errorLogPath
+      ? page.errorLogPath.split("/").pop()
+      : null;
+
   return (
     <Box flexDirection="row">
       <Box gap={1} paddingX={1} backgroundColor={selected ? "#2a2a2a" : undefined}>
@@ -21,6 +27,11 @@ function CompileRow({ page, selected = false, toast }: CompileRowProps) {
         <Text>{page.name}</Text>
         <Detail page={page} />
       </Box>
+      {errorLogName && (
+        <Box paddingLeft={1}>
+          <Text dimColor>see {errorLogName}</Text>
+        </Box>
+      )}
       {selected && toast && (
         <Box paddingLeft={1}>
           <Text color="green">{toast}</Text>
@@ -52,17 +63,8 @@ function Detail({ page }: { page: PageState }) {
     return <Text dimColor>{elapsed}</Text>;
   }
 
-  // error
-  const logName = page.errorLogPath
-    ? page.errorLogPath.split("/").pop()
-    : null;
-
-  return (
-    <Text>
-      {elapsed && <Text dimColor>{elapsed} </Text>}
-      {logName && <Text dimColor>see {logName}</Text>}
-    </Text>
-  );
+  // error — only show elapsed here; log filename is rendered outside the bg box
+  return <Text dimColor>{elapsed}</Text>;
 }
 
 export { CompileRow };
