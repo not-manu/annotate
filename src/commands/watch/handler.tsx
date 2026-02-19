@@ -11,7 +11,11 @@ function watch(program: Command) {
     .command("watch <project>")
     .description("Watch and compile annotation pages in an existing project")
     .action(async (projectDir: string) => {
-      const resolved = path.resolve(projectDir);
+      let resolved = path.resolve(projectDir);
+
+      if (Project.PDF.isPDF(resolved)) {
+        resolved = Project.getFolder(resolved);
+      }
 
       if (!Project.isValidProject(resolved)) {
         throw new AnnotateError({

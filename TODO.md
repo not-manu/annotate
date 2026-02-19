@@ -11,8 +11,9 @@
 - [ ] also improve the error messages themselves, and make them more helpful to the user.
 - [ ] add templates for Typst
 - [ ] display a nice message when the project is created successfully
-- [ ] if we watch a .pdf it should auto redirect to the project folder and watch that.
-- [ ] if we create a project in a folder that already has a pdf, we should automatically start watching that pdf.
+- [x] if we watch a .pdf it should auto redirect to the project folder and watch that.
+- [x] if we create a project in a folder that already has a pdf, we should automatically start watching that pdf.
+- [ ] generate images in img/ for each page.
 
 ### Annotation
 - [x] Should have a default style.sty file generated at the project root, with some default macros and packages.
