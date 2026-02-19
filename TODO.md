@@ -2,6 +2,7 @@
 
 - [ ] write readme
   - [ ] list features, engines supported, and languages supported
+  - [ ] document built in macros in style.sty
   - [ ] include example for working with diagrams/figures
   - [ ] include warnings about not having tested other latex engines yet
   - [ ] basic install instructions for tectonic?
@@ -9,7 +10,6 @@
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-- [ ] there's a slight margin in a \textbox which is good for text but not for figures. maybe add a \figbox which is the same as \textbox but with no margin?
 ## done
 
 - [x] custom `AnnotateError` with `message` and `hint` fields
@@ -39,6 +39,7 @@
 - [x] improve error ui
 - [x] improve error messages
 - [x] improve quickstart
+- [x] there's a slight margin in a \textbox which is good for text but not for figures. maybe add a \figbox which is the same as \textbox but with no margin?
 
 
 ## roadmap

@@ -31,7 +31,8 @@ function generateStyle(): string {
 
 /// Place a text box at exact (x, y) from the top-left corner.
 /// Default text colour is #${Core.BRAND_COLOR}. Toggle border per box with border: true.
-#let textbox(x: 0pt, y: 0pt, w: 2in, h: 0.5in, border: false, body) = {
+/// pad controls inner padding (default 0pt; use pad: 4pt for comfortable text).
+#let textbox(x: 0pt, y: 0pt, w: 2in, h: 0.5in, pad: 0pt, border: false, body) = {
   place(
     top + left,
     dx: x,
@@ -39,7 +40,7 @@ function generateStyle(): string {
     block(
       width: w,
       height: h,
-      inset: 4pt,
+      inset: pad,
       stroke: if border { rgb("#${Core.BRAND_COLOR}") } else { none },
       text(fill: rgb("#${Core.BRAND_COLOR}"), body),
     ),

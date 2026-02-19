@@ -29,9 +29,10 @@ function generateStyle(): string {
 \\newcommand{\\answerspace}[1][1.2in]{\\par\\vspace{#1}}
 
 % ── textbox: positioned text box on the page ─────────────────────────────────
-% Usage: \\textbox[x=.., y=.., w=.., h=.., border]{content}
+% Usage: \\textbox[x=.., y=.., w=.., h=.., pad=.., border]{content}
 %
 % Coordinates are from the top-left corner of the page.
+% pad controls inner padding (default 0pt; use pad=4pt for comfortable text).
 % Default text colour is annotate (#${Core.BRAND_COLOR}).
 %
 \\makeatletter
@@ -42,6 +43,7 @@ function generateStyle(): string {
   y/.store in=\\tb@y,       y=0pt,
   w/.store in=\\tb@w,       w=2in,
   h/.store in=\\tb@h,       h=0.5in,
+  pad/.store in=\\tb@pad,   pad=0pt,
   border/.code={\\tikzset{tb@borderstyle/.style={draw=annotate}}},
 }
 \\newcommand{\\textbox}[2][]{%
@@ -53,7 +55,7 @@ function generateStyle(): string {
       anchor=north west,
       text width=\\tb@w,
       minimum height=\\tb@h,
-      inner sep=4pt,
+      inner sep=\\tb@pad,
       align=left,
       text=annotate,
       tb@borderstyle,
