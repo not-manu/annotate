@@ -3,6 +3,7 @@
 - [ ] custom help page
 - [ ] add a quote/callout component
 - [ ] open error.log with `e` and file with `o` in default editor (watch mode)
+  - [ ] current e to open is kinda broken
 - [ ] improve error ui and messages
 - [ ] display success message when project is created
 - [ ] pdflatex support
