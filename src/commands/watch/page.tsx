@@ -13,10 +13,10 @@ const TOAST_DURATION_MS = 1500;
 
 type WatchPageProps = {
   emitter: CompilerEmitter;
-  watchHandle: WatchHandle;
+  watchRef: { current: WatchHandle | null };
 };
 
-function WatchPage({ emitter, watchHandle }: WatchPageProps) {
+function WatchPage({ emitter, watchRef }: WatchPageProps) {
   const { exit } = useApp();
   const pages = useCompiler(emitter);
   const sorted = [...pages.values()].sort((a, b) =>
@@ -49,7 +49,7 @@ function WatchPage({ emitter, watchHandle }: WatchPageProps) {
   useInput((input, key) => {
     // Quit
     if (input === "q" || (key.ctrl && input === "c")) {
-      watchHandle.stop();
+      watchRef.current?.stop();
       exit();
       return;
     }

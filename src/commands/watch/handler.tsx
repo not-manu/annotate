@@ -2,6 +2,7 @@ import path from "path";
 import type { Command } from "commander";
 import { render } from "ink";
 import { Compiler, CompilerEmitter } from "../../compiler";
+import type { WatchHandle } from "../../compiler";
 import { AnnotateError } from "../../error";
 import { Project } from "../../project";
 import { WatchPage } from "./page";
@@ -46,10 +47,11 @@ function watch(program: Command) {
         ? { outputDir: Project.getImagesFolder(resolved) }
         : undefined;
 
-      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
-      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
+      const watchRef: { current: WatchHandle | null } = { current: null };
+      render(<WatchPage emitter={emitter} watchRef={watchRef} />);
 
-      render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
+      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
+      watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
     });
 }
 

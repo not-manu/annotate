@@ -4,6 +4,7 @@ import { RootPage } from "./page";
 import { WatchPage } from "../watch/page";
 import { Core } from "../../core";
 import { Compiler, CompilerEmitter } from "../../compiler";
+import type { WatchHandle } from "../../compiler";
 import { AnnotateError } from "../../error";
 import { Project } from "../../project";
 
@@ -52,10 +53,11 @@ function root(program: Command) {
           ? { outputDir: Project.getImagesFolder(projectDir) }
           : undefined;
 
-        await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
-        const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
+        const watchRef: { current: WatchHandle | null } = { current: null };
+        render(<WatchPage emitter={emitter} watchRef={watchRef} />);
 
-        render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
+        await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
+        watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
         return;
       }
 
@@ -82,10 +84,11 @@ function root(program: Command) {
         ? { outputDir: Project.getImagesFolder(projectDir) }
         : undefined;
 
-      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
-      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
+      const watchRef: { current: WatchHandle | null } = { current: null };
+      render(<WatchPage emitter={emitter} watchRef={watchRef} />);
 
-      render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
+      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
+      watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
     });
 }
 

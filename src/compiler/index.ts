@@ -76,10 +76,13 @@ namespace Compiler {
 
   async function compileFile(
     file: string,
-    options: CompileAllOptions
+    options: CompileAllOptions,
+    emitStart = true
   ): Promise<void> {
     const compileOptions = buildCompileOptions(file, options);
-    options.emitter.emit("compile:start", { inputPath: compileOptions.inputPath });
+    if (emitStart) {
+      options.emitter.emit("compile:start", { inputPath: compileOptions.inputPath });
+    }
     const result = await options.compiler.compile(compileOptions);
     options.emitter.emit("compile:end", result);
   }
@@ -158,7 +161,14 @@ namespace Compiler {
       .filter((file) => file.startsWith("page-") && file.endsWith(ext))
       .sort();
 
-    await Promise.all(targets.map((file) => compileFile(file, options)));
+    // Emit compile:start for all pages immediately so the UI can show spinners
+    // before any actual compilation begins.
+    for (const file of targets) {
+      const compileOptions = buildCompileOptions(file, options);
+      options.emitter.emit("compile:start", { inputPath: compileOptions.inputPath });
+    }
+
+    await Promise.all(targets.map((file) => compileFile(file, options, false)));
     await runOverlay(options);
   }
 
