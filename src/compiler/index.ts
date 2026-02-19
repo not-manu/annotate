@@ -2,22 +2,24 @@ import fs from "fs";
 import path from "path";
 import { AnnotateError } from "../error";
 import { CompilerBase } from "./base";
-import type { CompileOptions, CompileResult } from "./base";
+import type { CompileOptions } from "./base";
+import { CompilerEmitter } from "./emitter";
 import { Flavor as FlavorNamespace } from "./flavor";
 import { Tectonic } from "./tectonic";
+
+type DetectOptions = {
+  flavor: FlavorNamespace.Type;
+};
 
 type CompileAllOptions = {
   compiler: CompilerBase;
   pagesDir: string;
   buildDir: string;
+  emitter: CompilerEmitter;
 };
 
 type WatchHandle = {
   stop: () => void;
-};
-
-type DetectOptions = {
-  flavor: FlavorNamespace.Type;
 };
 
 namespace Compiler {
@@ -33,22 +35,29 @@ namespace Compiler {
     return `${parts}${separator}`;
   }
 
-  async function compileSingle(
-    compiler: CompilerBase,
-    options: CompileOptions
-  ): Promise<CompileResult> {
-    return compiler.compile(options);
+  function buildCompileOptions(
+    file: string,
+    options: CompileAllOptions
+  ): CompileOptions {
+    return {
+      inputPath: path.join(options.pagesDir, file),
+      outputDir: options.buildDir,
+      errorLogPath: path.join(
+        options.pagesDir,
+        `${path.parse(file).name}.error.log`
+      ),
+      extraEnv: { TEXINPUTS: buildTexInputs(options.pagesDir) },
+    };
   }
 
-  function logResult(result: CompileResult): void {
-    const name = path.basename(result.inputPath);
-    if (result.success) {
-      console.log(`Compiled ${name} ✓`);
-      return;
-    }
-    console.log(
-      `Failed ${name} ✗ (see ${path.basename(result.errorLogPath)})`
-    );
+  async function compileFile(
+    file: string,
+    options: CompileAllOptions
+  ): Promise<void> {
+    const compileOptions = buildCompileOptions(file, options);
+    options.emitter.emit("compile:start", { inputPath: compileOptions.inputPath });
+    const result = await options.compiler.compile(compileOptions);
+    options.emitter.emit("compile:end", result);
   }
 
   export async function detect(options: DetectOptions): Promise<CompilerBase> {
@@ -70,33 +79,13 @@ namespace Compiler {
     });
   }
 
-  export async function compileAll(
-    options: CompileAllOptions
-  ): Promise<CompileResult[]> {
+  export async function compileAll(options: CompileAllOptions): Promise<void> {
     const files = await fs.promises.readdir(options.pagesDir);
     const targets = files
       .filter((file) => file.startsWith("page-") && file.endsWith(".tex"))
       .sort();
 
-    const texInputs = buildTexInputs(options.pagesDir);
-    const compileTasks = targets.map((file) => {
-      const inputPath = path.join(options.pagesDir, file);
-      const errorLogPath = path.join(
-        options.pagesDir,
-        `${path.parse(file).name}.error.log`
-      );
-
-      return compileSingle(options.compiler, {
-        inputPath,
-        outputDir: options.buildDir,
-        errorLogPath,
-        extraEnv: { TEXINPUTS: texInputs },
-      });
-    });
-
-    const results = await Promise.all(compileTasks);
-    results.forEach(logResult);
-    return results;
+    await Promise.all(targets.map((file) => compileFile(file, options)));
   }
 
   export function watch(options: CompileAllOptions): WatchHandle {
@@ -104,59 +93,36 @@ namespace Compiler {
     const pending = new Set<string>();
 
     const watcher = fs.watch(options.pagesDir, (eventType, filename) => {
-      if (!filename) {
-        return;
-      }
+      if (!filename) return;
 
       if (eventType === "rename" || eventType === "change") {
         pending.add(filename.toString());
       }
 
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
-      }
+      if (debounceTimer) clearTimeout(debounceTimer);
 
       debounceTimer = setTimeout(async () => {
         const changed = Array.from(pending);
         pending.clear();
 
-        const hasStyleChange = changed.includes("style.sty");
-        const texInputs = buildTexInputs(options.pagesDir);
+        const hasStyleChange = changed.some((f) => f.endsWith(".sty"));
 
         if (hasStyleChange) {
           await compileAll(options);
           return;
         }
 
-        const texTargets = changed
-          .filter((file) => file.endsWith(".tex"))
-          .filter((file) => file.startsWith("page-"));
+        const texTargets = changed.filter(
+          (f) => f.startsWith("page-") && f.endsWith(".tex")
+        );
 
-        const tasks = texTargets.map((file) => {
-          const inputPath = path.join(options.pagesDir, file);
-          const errorLogPath = path.join(
-            options.pagesDir,
-            `${path.parse(file).name}.error.log`
-          );
-
-          return compileSingle(options.compiler, {
-            inputPath,
-            outputDir: options.buildDir,
-            errorLogPath,
-            extraEnv: { TEXINPUTS: texInputs },
-          });
-        });
-
-        const results = await Promise.all(tasks);
-        results.forEach(logResult);
+        await Promise.all(texTargets.map((file) => compileFile(file, options)));
       }, 200);
     });
 
-    return {
-      stop: () => watcher.close(),
-    };
+    return { stop: () => watcher.close() };
   }
 }
 
-export { Compiler };
-export type { CompileAllOptions, WatchHandle };
+export { Compiler, CompilerEmitter };
+export type { CompileAllOptions, DetectOptions, WatchHandle };

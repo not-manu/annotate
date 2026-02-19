@@ -14,11 +14,11 @@ function generatePage(options: PageTemplateOptions): string {
 
   return `\\documentclass{article}
 \\usepackage{style}
-\\geometry{paperwidth=${width}, paperheight=${height}, margin=0pt}
+\\geometry{paperwidth=${width}, paperheight=${height}, margin=0pt, noheadfoot}
 
 \\begin{document}
 \\thispagestyle{empty}
-
+\\null
 \\end{document}
 `;
 }

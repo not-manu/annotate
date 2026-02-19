@@ -1,12 +1,14 @@
 import { program } from "commander";
 import { render } from "ink";
 import { root } from "./root/handler";
+import { watch } from "./watch/handler";
 import { AnnotateError } from "../error";
 import { ErrorPage } from "../ui/error-page";
 
 namespace Commands {
   export async function parse() {
     root(program);
+    watch(program);
 
     try {
       await program.parseAsync();

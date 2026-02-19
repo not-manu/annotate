@@ -1,8 +1,9 @@
 import type { Command } from "commander";
 import { render } from "ink";
 import { RootPage } from "./page";
+import { WatchPage } from "../watch/page";
 import { Core } from "../../core";
-import { Compiler } from "../../compiler";
+import { Compiler, CompilerEmitter } from "../../compiler";
 import { AnnotateError } from "../../error";
 import { Project } from "../../project";
 
@@ -42,17 +43,17 @@ function root(program: Command) {
 
       const flavor = options.with as Compiler.Flavor.Type;
       const compiler = await Compiler.detect({ flavor });
+
       await Project.create(pdf, flavor);
-      await Compiler.compileAll({
-        compiler,
-        pagesDir: Project.getPagesFolder(pdf),
-        buildDir: Project.getBuildFolder(pdf),
-      });
-      Compiler.watch({
-        compiler,
-        pagesDir: Project.getPagesFolder(pdf),
-        buildDir: Project.getBuildFolder(pdf),
-      });
+
+      const emitter = new CompilerEmitter();
+      const pagesDir = Project.getPagesFolder(pdf);
+      const buildDir = Project.getBuildFolder(pdf);
+
+      render(<WatchPage emitter={emitter} />);
+
+      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter });
+      Compiler.watch({ compiler, pagesDir, buildDir, emitter });
     });
 }
 
