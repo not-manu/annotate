@@ -12,7 +12,6 @@
   - [ ] basic install instructions for tectonic?
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
-- [ ] katex support with .md?
 - [ ] find people to test it with different latex engines and report back any issues
 
 ## done
@@ -34,3 +33,6 @@
 - [x] pdflatex support
 - [x] xelatex support
 - [x] latexmk support
+
+## roadmap
+- [ ] katex support with .md?
