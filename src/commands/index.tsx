@@ -21,7 +21,7 @@ namespace Commands {
           : "An unknown error occurred.";
       const hint = isKnown
         ? err.hint
-        : "This is an unexpected error. Please report it at https://github.com/notmanu/annotate/issues";
+        : "This is an unexpected error. Please report it at https://github.com/not-manu/annotate/issues";
 
       render(<ErrorPage message={message} hint={hint} />);
 
