@@ -2,8 +2,9 @@
 
 - [ ] custom help page
 - [ ] add a quote/callout component
-- [ ] open error.log with `e` and file with `o` in default editor (watch mode)
-  - [ ] current e to open is kinda broken
+- [x] open error.log with `e` and file with `o` in user's default editor (watch mode)
+  - [x] current e to open is kinda broken.
+  - [x] c to copy -> ce copy error and cs -> copy source
 - [ ] improve error ui and messages
 - [ ] display success message when project is created
 - [ ] write readme
@@ -13,6 +14,7 @@
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
+- [ ] q to exit is a little buggy, i sometimes need to press it twice, and sometimes it doesn't work at all. need to investigate and fix this
 
 ## done
 

@@ -10,6 +10,7 @@ type PageState = {
   startedAt: number | null;
   elapsed: number | null;
   errorLogPath: string | null;
+  inputPath: string | null;
 };
 
 function useCompiler(emitter: CompilerEmitter): Map<string, PageState> {
@@ -26,6 +27,7 @@ function useCompiler(emitter: CompilerEmitter): Map<string, PageState> {
           startedAt: Date.now(),
           elapsed: null,
           errorLogPath: null,
+          inputPath,
         });
         return next;
       });
@@ -48,6 +50,7 @@ function useCompiler(emitter: CompilerEmitter): Map<string, PageState> {
           startedAt: existing?.startedAt ?? null,
           elapsed,
           errorLogPath: result.success ? null : result.errorLogPath,
+          inputPath: result.inputPath,
         });
         return next;
       });

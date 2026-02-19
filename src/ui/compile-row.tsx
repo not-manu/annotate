@@ -9,14 +9,23 @@ function formatElapsed(ms: number): string {
 
 type CompileRowProps = {
   page: PageState;
+  selected?: boolean;
+  toast?: string | null;
 };
 
-function CompileRow({ page }: CompileRowProps) {
+function CompileRow({ page, selected = false, toast }: CompileRowProps) {
   return (
-    <Box gap={1}>
-      <Status page={page} />
-      <Text>{page.name}</Text>
-      <Detail page={page} />
+    <Box flexDirection="row">
+      <Box gap={1} paddingX={1} backgroundColor={selected ? "#2a2a2a" : undefined}>
+        <Status page={page} />
+        <Text>{page.name}</Text>
+        <Detail page={page} />
+      </Box>
+      {selected && toast && (
+        <Box paddingLeft={1}>
+          <Text color="green">{toast}</Text>
+        </Box>
+      )}
     </Box>
   );
 }
