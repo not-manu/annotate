@@ -9,10 +9,12 @@
 - [ ] xelatex support
 - [ ] latexmk support
 - [ ] write readme
+  - [ ] list features, engines supported, and languages supported
   - [ ] include warnings about not having tested other latex engines yet
   - [ ] basic install instructions for tectonic?
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
+- [ ] katex support with .md?
 
 ## done
 
