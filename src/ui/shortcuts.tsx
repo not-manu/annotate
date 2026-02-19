@@ -1,4 +1,4 @@
-import { Text } from "ink";
+import { Box, Text } from "ink";
 
 type Shortcut = {
   key: string;
@@ -11,16 +11,14 @@ type ShortcutsProps = {
 
 function Shortcuts({ shortcuts }: ShortcutsProps) {
   return (
-    <Text>
-      {"  "}
-      {shortcuts.map((s, i) => (
-        <Text key={s.key}>
-          {i > 0 && <Text> </Text>}
+    <Box flexDirection="row" gap={2} paddingLeft={2}>
+      {shortcuts.map((s) => (
+        <Box key={s.key} flexDirection="row" gap={1}>
           <Text color="gray">{s.key}</Text>
-          <Text dimColor> {s.label} </Text>
-        </Text>
+          <Text dimColor>{s.label}</Text>
+        </Box>
       ))}
-    </Text>
+    </Box>
   );
 }
 

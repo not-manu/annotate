@@ -37,6 +37,7 @@
   - [x] c to copy -> ce copy error and cs -> copy source
 - [x] copying is not working fix this.
 - [x] copy fails -> show in red
+- [x] fix toolbar wrapping
 
 ## roadmap
 - [ ] katex support with .md?
