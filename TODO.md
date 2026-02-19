@@ -12,6 +12,7 @@
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] when the cli starts there is a loading state where nothing is shown during the first compile. it would be better to show a loading ui instead of nothing.
+- [ ] copying is not working fix this.
 
 ## done
 
