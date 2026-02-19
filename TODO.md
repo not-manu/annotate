@@ -6,6 +6,7 @@
 - [ ] improve error ui and messages
 - [ ] display success message when project is created
 - [ ] generate images in `img/` for each page
+  - [ ] this is disabled by default, but can be enabled with a flag
 - [ ] pdflatex support
 - [ ] xelatex support
 - [ ] latexmk support
