@@ -11,7 +11,6 @@
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
-- [ ] q to exit is a little buggy, i sometimes need to press it twice, and sometimes it doesn't work at all. need to investigate and fix this
 
 ## done
 
