@@ -9,6 +9,8 @@
 - [ ] Add a simple test pdf in examples/
 - [ ] error ui sucks fix it
 - [ ] also improve the error messages themselves, and make them more helpful to the user.
+- [ ] add templates for Typst
+- [ ] display a nice message when the project is created successfully
 
 ### Annotation
 - [ ] Should have a default style.sty file generated at the project root, with some default macros and packages.
@@ -18,3 +20,4 @@
 - [ ] XeLatex 
 - [ ] Latexmk
 - [ ] Typst
+

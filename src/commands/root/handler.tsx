@@ -41,8 +41,7 @@ function root(program: Command) {
       }
 
       const flavor = options.with as Compiler.Flavor.Type;
-
-      // flavor is now available for the next step
+      await Project.create(pdf, flavor);
     });
 }
 
