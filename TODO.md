@@ -1,7 +1,5 @@
 ## todo
 
-- [ ] custom help page
-- [ ] add a quote/callout component- [ ] display success message when project is created
 - [ ] write readme
   - [ ] list features, engines supported, and languages supported
   - [ ] include example for working with diagrams/figures
