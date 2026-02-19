@@ -2,9 +2,6 @@
 
 - [ ] custom help page
 - [ ] add a quote/callout component
-- [x] open error.log with `e` and file with `o` in user's default editor (watch mode)
-  - [x] current e to open is kinda broken.
-  - [x] c to copy -> ce copy error and cs -> copy source
 - [ ] improve error ui and messages
 - [ ] display success message when project is created
 - [ ] write readme
@@ -35,6 +32,9 @@
 - [x] pdflatex support
 - [x] xelatex support
 - [x] latexmk support
+- [x] open error.log with `e` and file with `o` in user's default editor (watch mode)
+  - [x] current e to open is kinda broken.
+  - [x] c to copy -> ce copy error and cs -> copy source
 
 ## roadmap
 - [ ] katex support with .md?
