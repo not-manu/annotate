@@ -9,10 +9,8 @@
 - [ ] pdflatex support
 - [ ] xelatex support
 - [ ] latexmk support
-- [ ] add helper macros in style files (text box, image box positioned at specific location)
-  - [ ] should be able to toggle borders for debugging
 
-### done
+## done
 
 - [x] custom `AnnotateError` with `message` and `hint` fields
 - [x] helpful error output with paths and context
@@ -24,3 +22,5 @@
 - [x] overlay pdf page size matches original pdf page size (latex + typst)
 - [x] tectonic support
 - [x] typst support
+- [x] add helper macros in style files (text box, image box positioned at specific location)
+  - [x] should be able to toggle borders for debugging
