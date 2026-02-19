@@ -4,6 +4,7 @@ import type { CompileResult } from "./base";
 type CompilerEventMap = {
   "compile:start": { inputPath: string };
   "compile:end": CompileResult;
+  "overlay:end": { outputPath: string; success: boolean };
 };
 
 type BufferedEvent = {

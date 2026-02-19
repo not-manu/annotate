@@ -20,14 +20,26 @@ function watch(program: Command) {
         });
       }
 
+      const originalPath = Project.getOriginalPdfPath(resolved);
+      if (!path.extname(originalPath)) {
+        throw new AnnotateError({
+          message: `Could not find the original PDF for project: ${resolved}`,
+          hint: "Make sure .annotate/original.pdf exists inside the project folder.",
+        });
+      }
+
       const flavor = await Project.detectFlavor(resolved);
       const compiler = await Compiler.detect({ flavor });
       const emitter = new CompilerEmitter();
       const pagesDir = path.join(resolved, "pages");
       const buildDir = path.join(resolved, ".annotate", "build");
+      const overlay = {
+        originalPath,
+        outputPath: Project.getAnnotatedPdfPath(resolved),
+      };
 
-      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter });
-      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter });
+      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay });
+      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay });
 
       render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
     });

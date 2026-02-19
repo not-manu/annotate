@@ -46,12 +46,17 @@ function root(program: Command) {
 
       await Project.create(pdf, flavor);
 
+      const projectDir = Project.getFolder(pdf);
       const emitter = new CompilerEmitter();
       const pagesDir = Project.getPagesFolder(pdf);
       const buildDir = Project.getBuildFolder(pdf);
+      const overlay = {
+        originalPath: Project.getOriginalPdfPath(projectDir),
+        outputPath: Project.getAnnotatedPdfPath(projectDir),
+      };
 
-      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter });
-      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter });
+      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay });
+      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay });
 
       render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
     });

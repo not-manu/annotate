@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { AnnotateError } from "../error";
+import { PDF } from "../project/pdf";
 import { CompilerBase } from "./base";
 import type { CompileOptions } from "./base";
 import { CompilerEmitter } from "./emitter";
@@ -11,11 +12,17 @@ type DetectOptions = {
   flavor: FlavorNamespace.Type;
 };
 
+type OverlayOptions = {
+  originalPath: string;
+  outputPath: string;
+};
+
 type CompileAllOptions = {
   compiler: CompilerBase;
   pagesDir: string;
   buildDir: string;
   emitter: CompilerEmitter;
+  overlay: OverlayOptions;
 };
 
 type WatchHandle = {
@@ -60,6 +67,25 @@ namespace Compiler {
     options.emitter.emit("compile:end", result);
   }
 
+  async function runOverlay(options: CompileAllOptions): Promise<void> {
+    try {
+      await PDF.overlay({
+        originalPath: options.overlay.originalPath,
+        buildDir: options.buildDir,
+        outputPath: options.overlay.outputPath,
+      });
+      options.emitter.emit("overlay:end", {
+        outputPath: options.overlay.outputPath,
+        success: true,
+      });
+    } catch {
+      options.emitter.emit("overlay:end", {
+        outputPath: options.overlay.outputPath,
+        success: false,
+      });
+    }
+  }
+
   export async function detect(options: DetectOptions): Promise<CompilerBase> {
     if (options.flavor === "latex") {
       const tectonic = new Tectonic();
@@ -86,6 +112,7 @@ namespace Compiler {
       .sort();
 
     await Promise.all(targets.map((file) => compileFile(file, options)));
+    await runOverlay(options);
   }
 
   export function watch(options: CompileAllOptions): WatchHandle {
@@ -117,6 +144,7 @@ namespace Compiler {
         );
 
         await Promise.all(texTargets.map((file) => compileFile(file, options)));
+        await runOverlay(options);
       }, 200);
     });
 
@@ -125,4 +153,4 @@ namespace Compiler {
 }
 
 export { Compiler, CompilerEmitter };
-export type { CompileAllOptions, DetectOptions, WatchHandle };
+export type { CompileAllOptions, DetectOptions, OverlayOptions, WatchHandle };

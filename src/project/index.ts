@@ -9,6 +9,8 @@ namespace Project {
   export import PDF = PDFNamespace;
   export import Templates = TemplatesNamespace;
 
+  // ---- Path helpers --------------------------------------------------------
+
   export function getFolder(pdfPath: string): string {
     const name = PDF.getName(pdfPath);
     return path.join(path.dirname(pdfPath), name);
@@ -21,6 +23,17 @@ namespace Project {
   export function getBuildFolder(pdfPath: string): string {
     return path.join(getFolder(pdfPath), ".annotate", "build");
   }
+
+  export function getOriginalPdfPath(projectDir: string): string {
+    return path.join(projectDir, ".annotate", "original.pdf");
+  }
+
+  export function getAnnotatedPdfPath(projectDir: string): string {
+    const name = path.basename(projectDir);
+    return path.join(projectDir, `${name}-annotated.pdf`);
+  }
+
+  // ---- Validation & detection ----------------------------------------------
 
   export function isValidProject(projectDir: string): boolean {
     return fs.existsSync(path.join(projectDir, "pages"));
@@ -57,16 +70,22 @@ namespace Project {
     return fs.readdirSync(folder).length === 0;
   }
 
+  // ---- Project creation ----------------------------------------------------
+
   export async function create(
     pdfPath: string,
     flavor: Compiler.Flavor.Type
   ): Promise<void> {
-    const folder = getFolder(pdfPath);
     const pagesFolder = getPagesFolder(pdfPath);
     const buildFolder = getBuildFolder(pdfPath);
 
     await fs.promises.mkdir(pagesFolder, { recursive: true });
     await fs.promises.mkdir(buildFolder, { recursive: true });
+
+    // Keep a copy of the original PDF inside the project so overlay works
+    // even if the original file is moved.
+    const originalDest = getOriginalPdfPath(getFolder(pdfPath));
+    await fs.promises.copyFile(path.resolve(pdfPath), originalDest);
 
     if (flavor === "latex") {
       const dimensions = await PDF.getAllPageDimensions(pdfPath);
