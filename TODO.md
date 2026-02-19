@@ -1,27 +1,25 @@
-## TODO
-- [ ] Custom help page
-- [x] Handle errors gracefully, and customize the default AnnotateError to contain fields like `message`, and `hint`. 
-- [x] Error handling also needs to be more helpful to the user, and should not just print the error message, but also provide a hint on how to fix it.
-  - [x] This means include stuff like folder names, paths, and other relevant information in the error message.
-- [x] Should exit on q and ctrl+c gracefully.
-- [ ] Add a quote/callout component
-- [ ] Open error.log with e, and open file with o using the user's default editor (when in watch mode).
-- [x] Add a simple test pdf in examples/
-- [ ] error ui sucks fix it
-- [ ] also improve the error messages themselves, and make them more helpful to the user.
-- [ ] display a nice message when the project is created successfully
-- [x] if we watch a .pdf it should auto redirect to the project folder and watch that.
-- [x] if we create a project in a folder that already has a pdf, we should automatically start watching that pdf.
-- [ ] generate images in img/ for each page.
+## todo
 
-### Annotation
-- [x] Should have a default style.sty file generated at the project root, with some default macros and packages.
-  - [x] for typst as well
-- [x] the pages size for the overlay pdf should be exactly the same as the corresponding page in the original pdf.
-  - [x] for typst as well
-- [x] Tectonic
-- [ ] PdfLatex
-- [ ] XeLatex 
-- [ ] Latexmk
-- [x] Typst
+- [ ] custom help page
+- [ ] add a quote/callout component
+- [ ] open error.log with `e` and file with `o` in default editor (watch mode)
+- [ ] improve error ui and messages
+- [ ] display success message when project is created
+- [ ] generate images in `img/` for each page
+- [ ] pdflatex support
+- [ ] xelatex support
+- [ ] latexmk support
+- [ ] add helper macros in style files (text box, image box positioned at specific location)
 
+### done
+
+- [x] custom `AnnotateError` with `message` and `hint` fields
+- [x] helpful error output with paths and context
+- [x] graceful exit on `q` and `ctrl+c`
+- [x] add example pdf in `examples/`
+- [x] auto-redirect to project folder when watching a `.pdf`
+- [x] auto-watch pdf when creating project in folder with existing pdf
+- [x] default `style.sty` generated at project root (latex + typst)
+- [x] overlay pdf page size matches original pdf page size (latex + typst)
+- [x] tectonic support
+- [x] typst support
