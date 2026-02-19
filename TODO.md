@@ -6,9 +6,6 @@
   - [ ] current e to open is kinda broken
 - [ ] improve error ui and messages
 - [ ] display success message when project is created
-- [ ] pdflatex support
-- [ ] xelatex support
-- [ ] latexmk support
 - [ ] write readme
   - [ ] list features, engines supported, and languages supported
   - [ ] include warnings about not having tested other latex engines yet
@@ -33,3 +30,6 @@
   - [x] should be able to toggle borders for debugging
 - [x] generate images in `img/` for each page
   - [x] this is disabled by default, but can be enabled with a flag
+- [x] pdflatex support
+- [x] xelatex support
+- [x] latexmk support

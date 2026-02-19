@@ -7,8 +7,11 @@ import { CompilerBase } from "./base";
 import type { CompileOptions } from "./base";
 import { CompilerEmitter } from "./emitter";
 import { Flavor as FlavorNamespace } from "./flavor";
+import { LatexMk } from "./latexmk";
+import { PdfLatex } from "./pdflatex";
 import { Tectonic } from "./tectonic";
 import { TypstCompiler } from "./typst";
+import { XeLatex } from "./xelatex";
 
 type DetectOptions = {
   flavor: FlavorNamespace.Type;
@@ -111,14 +114,22 @@ namespace Compiler {
 
   export async function detect(options: DetectOptions): Promise<CompilerBase> {
     if (options.flavor === "latex") {
-      const tectonic = new Tectonic();
-      if (await tectonic.isAvailable()) {
-        return tectonic;
+      const candidates = [
+        new Tectonic(),
+        new LatexMk(),
+        new PdfLatex(),
+        new XeLatex(),
+      ];
+
+      for (const compiler of candidates) {
+        if (await compiler.isAvailable()) {
+          return compiler;
+        }
       }
 
       throw new AnnotateError({
         message: "No supported LaTeX compiler was found.",
-        hint: "Install tectonic and make sure it is available in your PATH.",
+        hint: "Install tectonic, latexmk, pdflatex, or xelatex and make sure it is available in your PATH.",
       });
     }
 
