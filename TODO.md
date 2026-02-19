@@ -16,12 +16,12 @@
 
 ### Annotation
 - [x] Should have a default style.sty file generated at the project root, with some default macros and packages.
-  - [ ] for typst as well
+  - [x] for typst as well
 - [x] the pages size for the overlay pdf should be exactly the same as the corresponding page in the original pdf.
-  - [ ] for typst as well
+  - [x] for typst as well
 - [x] Tectonic
 - [ ] PdfLatex
 - [ ] XeLatex 
 - [ ] Latexmk
-- [ ] Typst
+- [x] Typst
 
