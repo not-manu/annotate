@@ -6,6 +6,7 @@
 - [ ] display success message when project is created
 - [ ] write readme
   - [ ] list features, engines supported, and languages supported
+  - [ ] include example for working with diagrams/figures
   - [ ] include warnings about not having tested other latex engines yet
   - [ ] basic install instructions for tectonic?
   - [ ] usage instructions with clean sections & screenshots/gifs
