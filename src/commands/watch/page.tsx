@@ -5,12 +5,14 @@ import { Shortcuts } from "../../ui/shortcuts";
 import { CompileRow } from "../../ui/compile-row";
 import { useCompiler } from "../../hooks";
 import type { CompilerEmitter } from "../../compiler/emitter";
+import type { WatchHandle } from "../../compiler";
 
 type WatchPageProps = {
   emitter: CompilerEmitter;
+  watchHandle: WatchHandle;
 };
 
-function WatchPage({ emitter }: WatchPageProps) {
+function WatchPage({ emitter, watchHandle }: WatchPageProps) {
   const pages = useCompiler(emitter);
   const sorted = [...pages.values()].sort((a, b) =>
     a.name.localeCompare(b.name)
@@ -23,7 +25,7 @@ function WatchPage({ emitter }: WatchPageProps) {
   ];
 
   return (
-    <LayoutReactive>
+    <LayoutReactive onExit={() => watchHandle.stop()}>
       <Header />
       <Box flexDirection="column" marginTop={1}>
         {sorted.map((page) => (

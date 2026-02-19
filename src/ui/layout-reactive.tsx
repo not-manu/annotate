@@ -3,13 +3,15 @@ import { Layout } from "./layout";
 
 type LayoutReactiveProps = {
   children: React.ReactNode;
+  onExit?: () => void;
 };
 
-function LayoutReactive({ children }: LayoutReactiveProps) {
+function LayoutReactive({ children, onExit }: LayoutReactiveProps) {
   const { exit } = useApp();
 
   useInput((input, key) => {
     if (input === "q" || (key.ctrl && input === "c")) {
+      onExit?.();
       exit();
     }
   });

@@ -26,10 +26,10 @@ function watch(program: Command) {
       const pagesDir = path.join(resolved, "pages");
       const buildDir = path.join(resolved, ".annotate", "build");
 
-      render(<WatchPage emitter={emitter} />);
-
       await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter });
-      Compiler.watch({ compiler, pagesDir, buildDir, emitter });
+      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter });
+
+      render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
     });
 }
 
