@@ -1,3 +1,5 @@
+import { Core } from "../../../core";
+
 function generateStyle(): string {
   return `\\NeedsTeXFormat{LaTeX2e}
 \\ProvidesPackage{style}[2026/02/19 Annotate defaults]
@@ -19,7 +21,7 @@ function generateStyle(): string {
 
 \\pagestyle{empty}
 
-\\definecolor{annotate}{HTML}{2F968D}
+\\definecolor{annotate}{HTML}{${Core.BRAND_COLOR}}
 
 \\newcommand{\\annotationcolor}[1]{\\color{#1}}
 \\newcommand{\\annotationbox}[2][yellow]{\\begingroup\\setlength{\\fboxsep}{2pt}\\colorbox{#1}{#2}\\endgroup}
@@ -30,7 +32,7 @@ function generateStyle(): string {
 % Usage: \\textbox[x=.., y=.., w=.., h=.., border]{content}
 %
 % Coordinates are from the top-left corner of the page.
-% Default text colour is annotate (#2F968D).
+% Default text colour is annotate (#${Core.BRAND_COLOR}).
 %
 \\makeatletter
 \\tikzset{tb@borderstyle/.style={}}%

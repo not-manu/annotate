@@ -1,3 +1,5 @@
+import { Core } from "../../../core";
+
 function generateStyle(): string {
   return `// Annotate – shared Typst style file
 // Import this from every page file with: #import "style.typ": *
@@ -28,7 +30,7 @@ function generateStyle(): string {
 // ── Textbox: positioned text box on the page ────────────────────────────────
 
 /// Place a text box at exact (x, y) from the top-left corner.
-/// Default text colour is #2F968D. Toggle border per box with border: true.
+/// Default text colour is #${Core.BRAND_COLOR}. Toggle border per box with border: true.
 #let textbox(x: 0pt, y: 0pt, w: 2in, h: 0.5in, border: false, body) = {
   place(
     top + left,
@@ -38,8 +40,8 @@ function generateStyle(): string {
       width: w,
       height: h,
       inset: 4pt,
-      stroke: if border { rgb("#2F968D") } else { none },
-      text(fill: rgb("#2F968D"), body),
+      stroke: if border { rgb("#${Core.BRAND_COLOR}") } else { none },
+      text(fill: rgb("#${Core.BRAND_COLOR}"), body),
     ),
   )
 }
