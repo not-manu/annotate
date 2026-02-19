@@ -33,6 +33,10 @@ namespace Project {
     return path.join(projectDir, `${name}-annotated.pdf`);
   }
 
+  export function getImagesFolder(projectDir: string): string {
+    return path.join(projectDir, "img");
+  }
+
   // ---- Validation & detection ----------------------------------------------
 
   export function isValidProject(projectDir: string): boolean {

@@ -5,11 +5,14 @@
 - [ ] open error.log with `e` and file with `o` in default editor (watch mode)
 - [ ] improve error ui and messages
 - [ ] display success message when project is created
-- [ ] generate images in `img/` for each page
-  - [ ] this is disabled by default, but can be enabled with a flag
 - [ ] pdflatex support
 - [ ] xelatex support
 - [ ] latexmk support
+- [ ] write readme
+  - [ ] include warnings about not having tested other latex engines yet
+  - [ ] basic install instructions for tectonic?
+  - [ ] usage instructions with clean sections & screenshots/gifs
+  - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 
 ## done
 
@@ -25,3 +28,5 @@
 - [x] typst support
 - [x] add helper macros in style files (text box, image box positioned at specific location)
   - [x] should be able to toggle borders for debugging
+- [x] generate images in `img/` for each page
+  - [x] this is disabled by default, but can be enabled with a flag

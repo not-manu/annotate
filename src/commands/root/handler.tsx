@@ -14,7 +14,8 @@ function root(program: Command) {
     .description(Core.DESCRIPTION)
     .argument("[pdf]", "Path to PDF file to annotate")
     .option("-w, --with [latex|typst]", "Annotate with LaTeX or Typst")
-    .action(async (pdf: string | undefined, options: { with?: string | boolean }) => {
+    .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
+    .action(async (pdf: string | undefined, options: { with?: string | boolean; images?: boolean }) => {
       if (!pdf) {
         render(<RootPage />);
         return;
@@ -47,9 +48,12 @@ function root(program: Command) {
           originalPath: Project.getOriginalPdfPath(projectDir),
           outputPath: Project.getAnnotatedPdfPath(projectDir),
         };
+        const images = options.images
+          ? { outputDir: Project.getImagesFolder(projectDir) }
+          : undefined;
 
-        await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay });
-        const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay });
+        await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
+        const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
 
         render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
         return;
@@ -74,9 +78,12 @@ function root(program: Command) {
         originalPath: Project.getOriginalPdfPath(projectDir),
         outputPath: Project.getAnnotatedPdfPath(projectDir),
       };
+      const images = options.images
+        ? { outputDir: Project.getImagesFolder(projectDir) }
+        : undefined;
 
-      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay });
-      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay });
+      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
+      const watchHandle = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
 
       render(<WatchPage emitter={emitter} watchHandle={watchHandle} />);
     });

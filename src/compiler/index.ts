@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { AnnotateError } from "../error";
+import { Images } from "../images";
 import { PDF } from "../project/pdf";
 import { CompilerBase } from "./base";
 import type { CompileOptions } from "./base";
@@ -18,12 +19,21 @@ type OverlayOptions = {
   outputPath: string;
 };
 
+type ImagesOptions = {
+  /** Directory where page-NN.png files will be written (e.g. <project>/img). */
+  outputDir: string;
+  /** Resolution in dots-per-inch (default: 300). */
+  dpi?: number;
+};
+
 type CompileAllOptions = {
   compiler: CompilerBase;
   pagesDir: string;
   buildDir: string;
   emitter: CompilerEmitter;
   overlay: OverlayOptions;
+  /** When provided, PNG images are generated after every successful overlay. */
+  images?: ImagesOptions;
 };
 
 type WatchHandle = {
@@ -86,6 +96,15 @@ namespace Compiler {
       options.emitter.emit("overlay:end", {
         outputPath: options.overlay.outputPath,
         success: false,
+      });
+      return;
+    }
+
+    if (options.images) {
+      await Images.generate({
+        pdfPath: options.overlay.outputPath,
+        outputDir: options.images.outputDir,
+        dpi: options.images.dpi,
       });
     }
   }
@@ -175,4 +194,4 @@ namespace Compiler {
 }
 
 export { Compiler, CompilerEmitter };
-export type { CompileAllOptions, DetectOptions, OverlayOptions, WatchHandle };
+export type { CompileAllOptions, DetectOptions, ImagesOptions, OverlayOptions, WatchHandle };
