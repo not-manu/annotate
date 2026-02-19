@@ -27,16 +27,16 @@ function generateStyle(): string {
 
 // ── Textbox: positioned text box on the page ────────────────────────────────
 
-/// Place a text box at exact (x, y) coordinates from the top-left corner.
+/// Place a text box at exact (x, y) from the top-left corner.
 /// Default text colour is #2F968D. Toggle border per box with border: true.
-#let textbox(x, y, width, height, border: false, body) = {
+#let textbox(x: 0pt, y: 0pt, w: 2in, h: 0.5in, border: false, body) = {
   place(
     top + left,
     dx: x,
     dy: y,
     block(
-      width: width,
-      height: height,
+      width: w,
+      height: h,
       inset: 4pt,
       stroke: if border { rgb("#2F968D") } else { none },
       text(fill: rgb("#2F968D"), body),

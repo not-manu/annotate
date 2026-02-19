@@ -27,35 +27,35 @@ function generateStyle(): string {
 \\newcommand{\\answerspace}[1][1.2in]{\\par\\vspace{#1}}
 
 % ── textbox: positioned text box on the page ─────────────────────────────────
-% Usage: \\textbox[options]{x}{y}{width}{height}{content}
-%
-% Keys:
-%   border = true | false   (default: false)
+% Usage: \\textbox[x=.., y=.., w=.., h=.., border]{content}
 %
 % Coordinates are from the top-left corner of the page.
 % Default text colour is annotate (#2F968D).
 %
 \\makeatletter
-\\newif\\if@tb@border
+\\tikzset{tb@borderstyle/.style={}}%
 \\pgfkeys{
   /textbox/.cd,
-  border/.is if=@tb@border,
-  border/.default=true,
-  border=false,
+  x/.store in=\\tb@x,       x=0pt,
+  y/.store in=\\tb@y,       y=0pt,
+  w/.store in=\\tb@w,       w=2in,
+  h/.store in=\\tb@h,       h=0.5in,
+  border/.code={\\tikzset{tb@borderstyle/.style={draw=annotate}}},
 }
-\\newcommand{\\textbox}[6][]{%
+\\newcommand{\\textbox}[2][]{%
   \\begingroup
+  \\tikzset{tb@borderstyle/.style={}}%
   \\pgfkeys{/textbox/.cd,#1}%
   \\begin{tikzpicture}[remember picture,overlay]
     \\node[
       anchor=north west,
-      text width=#4,
-      minimum height=#5,
+      text width=\\tb@w,
+      minimum height=\\tb@h,
       inner sep=4pt,
       align=left,
       text=annotate,
-      \\if@tb@border draw=annotate,\\fi
-    ] at ([xshift=#2,yshift=-#3]current page.north west) {#6};
+      tb@borderstyle,
+    ] at ([xshift=\\tb@x,yshift=-\\tb@y]current page.north west) {#2};
   \\end{tikzpicture}%
   \\endgroup
 }
