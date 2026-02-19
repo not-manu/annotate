@@ -24,7 +24,7 @@ function WatchPage({ emitter, watchHandle }: WatchPageProps) {
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; error: boolean } | null>(null);
 
   // Keep selectedIndex in bounds as pages appear/disappear
   useEffect(() => {
@@ -42,8 +42,8 @@ function WatchPage({ emitter, watchHandle }: WatchPageProps) {
 
   const selectedPage = sorted[selectedIndex] ?? null;
 
-  const showToast = useCallback((msg: string) => {
-    setToast(msg);
+  const showToast = useCallback((msg: string, error = false) => {
+    setToast({ message: msg, error });
   }, []);
 
   useInput((input, key) => {
@@ -70,7 +70,7 @@ function WatchPage({ emitter, watchHandle }: WatchPageProps) {
     if (input === "c" && selectedPage?.inputPath) {
       Clipboard.copyFile(selectedPage.inputPath)
         .then(() => showToast("Copied!"))
-        .catch(() => showToast("Copy failed"));
+        .catch(() => showToast("Copy failed", true));
       return;
     }
 
@@ -78,7 +78,7 @@ function WatchPage({ emitter, watchHandle }: WatchPageProps) {
     if (input === "e" && selectedPage?.errorLogPath) {
       Clipboard.copyFile(selectedPage.errorLogPath)
         .then(() => showToast("Copied!"))
-        .catch(() => showToast("Copy failed"));
+        .catch(() => showToast("Copy failed", true));
       return;
     }
   });
@@ -101,7 +101,8 @@ function WatchPage({ emitter, watchHandle }: WatchPageProps) {
             key={page.name}
             page={page}
             selected={i === selectedIndex}
-            toast={toast}
+            toast={toast?.message ?? null}
+            toastError={toast?.error ?? false}
           />
         ))}
       </Box>

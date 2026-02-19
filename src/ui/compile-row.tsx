@@ -11,9 +11,10 @@ type CompileRowProps = {
   page: PageState;
   selected?: boolean;
   toast?: string | null;
+  toastError?: boolean;
 };
 
-function CompileRow({ page, selected = false, toast }: CompileRowProps) {
+function CompileRow({ page, selected = false, toast, toastError = false }: CompileRowProps) {
   // For error rows, the log filename lives outside the background
   const errorLogName =
     page.status === "error" && page.errorLogPath
@@ -34,7 +35,7 @@ function CompileRow({ page, selected = false, toast }: CompileRowProps) {
       )}
       {selected && toast && (
         <Box paddingLeft={1}>
-          <Text color="green">{toast}</Text>
+          <Text color={toastError ? "red" : "green"}>{toast}</Text>
         </Box>
       )}
     </Box>
