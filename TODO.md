@@ -2,7 +2,7 @@
 
 - [ ] custom help page
 - [ ] add a quote/callout component
-- [ ] improve error ui and messages
+- [ ] improve error messages
 - [ ] display success message when project is created
 - [ ] write readme
   - [ ] list features, engines supported, and languages supported
@@ -38,6 +38,7 @@
 - [x] copy fails -> show in red
 - [x] fix toolbar wrapping
 - [x] when the cli starts there is a loading state where nothing is shown during the first compile. it would be better to show a loading ui instead of nothing.
+- [x] improve error ui
 
 ## roadmap
 - [ ] katex support with .md?

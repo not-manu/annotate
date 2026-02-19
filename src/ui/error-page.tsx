@@ -1,7 +1,6 @@
 import { Box, Text } from "ink";
 import { Header } from "./header";
 import { Layout } from "./layout";
-import { Marker } from "./marker";
 
 type ErrorPageProps = {
   message: string;
@@ -14,13 +13,19 @@ function ErrorPage({ message, hint }: ErrorPageProps) {
       <Header style="error"></Header>
       <Box flexDirection="column" marginTop={1}>
         <Text>
-          <Marker variant="error" />
-          <Text> {message}</Text>
+          <Text bold color="whiteBright" backgroundColor="red">
+            {" "}
+            ERROR{" "}
+          </Text>
+          <Text bold color="red">
+            {" "}
+            {message}
+          </Text>
         </Text>
         {hint && (
           <Text>
-            <Marker variant="hint" />
-            <Text dimColor> {hint}</Text>
+            <Text>{"        "}</Text>
+            <Text color="red">{hint}</Text>
           </Text>
         )}
       </Box>
