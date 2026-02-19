@@ -24,6 +24,15 @@ abstract class CompilerBase {
   abstract readonly name: string;
   protected abstract readonly command: string;
 
+  /** File extension for source files, including the dot (e.g. ".tex", ".typ") */
+  abstract readonly sourceExtension: string;
+
+  /**
+   * File extensions that, when changed, should trigger a full recompile of all
+   * pages (e.g. shared style/package files). Include the dot.
+   */
+  abstract readonly styleExtensions: string[];
+
   abstract isAvailable(): Promise<boolean>;
   protected abstract buildArgs(options: CompileOptions): string[];
 

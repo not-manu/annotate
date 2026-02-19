@@ -1,12 +1,13 @@
+import path from "path";
 import { spawn } from "child_process";
 import { CompilerBase } from "../base";
 import type { CompileOptions } from "../base";
 
-class Tectonic extends CompilerBase {
-  readonly name = "Tectonic";
-  protected readonly command = "tectonic";
-  readonly sourceExtension = ".tex";
-  readonly styleExtensions = [".sty"];
+class TypstCompiler extends CompilerBase {
+  readonly name = "Typst";
+  protected readonly command = "typst";
+  readonly sourceExtension = ".typ";
+  readonly styleExtensions = [".typ"];
 
   async isAvailable(): Promise<boolean> {
     return new Promise((resolve) => {
@@ -20,8 +21,12 @@ class Tectonic extends CompilerBase {
   }
 
   protected buildArgs(options: CompileOptions): string[] {
-    return [options.inputPath, "-o", options.outputDir];
+    const outputPath = path.join(
+      options.outputDir,
+      `${path.parse(options.inputPath).name}.pdf`
+    );
+    return ["compile", options.inputPath, outputPath];
   }
 }
 
-export { Tectonic };
+export { TypstCompiler };

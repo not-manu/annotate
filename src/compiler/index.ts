@@ -7,6 +7,7 @@ import type { CompileOptions } from "./base";
 import { CompilerEmitter } from "./emitter";
 import { Flavor as FlavorNamespace } from "./flavor";
 import { Tectonic } from "./tectonic";
+import { TypstCompiler } from "./typst";
 
 type DetectOptions = {
   flavor: FlavorNamespace.Type;
@@ -46,6 +47,7 @@ namespace Compiler {
     file: string,
     options: CompileAllOptions
   ): CompileOptions {
+    const isLatex = options.compiler.sourceExtension === ".tex";
     return {
       inputPath: path.join(options.pagesDir, file),
       outputDir: options.buildDir,
@@ -53,7 +55,9 @@ namespace Compiler {
         options.pagesDir,
         `${path.parse(file).name}.error.log`
       ),
-      extraEnv: { TEXINPUTS: buildTexInputs(options.pagesDir) },
+      extraEnv: isLatex
+        ? { TEXINPUTS: buildTexInputs(options.pagesDir) }
+        : undefined,
     };
   }
 
@@ -99,16 +103,29 @@ namespace Compiler {
       });
     }
 
+    if (options.flavor === "typst") {
+      const typst = new TypstCompiler();
+      if (await typst.isAvailable()) {
+        return typst;
+      }
+
+      throw new AnnotateError({
+        message: "No supported Typst compiler was found.",
+        hint: "Install typst and make sure it is available in your PATH.",
+      });
+    }
+
     throw new AnnotateError({
       message: `The ${options.flavor} compiler is not implemented yet.`,
-      hint: "Use --with latex for now.",
+      hint: "Use --with latex or --with typst.",
     });
   }
 
   export async function compileAll(options: CompileAllOptions): Promise<void> {
+    const ext = options.compiler.sourceExtension;
     const files = await fs.promises.readdir(options.pagesDir);
     const targets = files
-      .filter((file) => file.startsWith("page-") && file.endsWith(".tex"))
+      .filter((file) => file.startsWith("page-") && file.endsWith(ext))
       .sort();
 
     await Promise.all(targets.map((file) => compileFile(file, options)));
@@ -132,7 +149,12 @@ namespace Compiler {
         const changed = Array.from(pending);
         pending.clear();
 
-        const hasStyleChange = changed.some((f) => f.endsWith(".sty"));
+        const ext = options.compiler.sourceExtension;
+        const styleExts = options.compiler.styleExtensions;
+
+        const hasStyleChange = changed.some((f) =>
+          styleExts.some((sExt) => f.endsWith(sExt) && !f.startsWith("page-"))
+        );
 
         if (hasStyleChange) {
           await compileAll(options);
@@ -140,7 +162,7 @@ namespace Compiler {
         }
 
         const texTargets = changed.filter(
-          (f) => f.startsWith("page-") && f.endsWith(".tex")
+          (f) => f.startsWith("page-") && f.endsWith(ext)
         );
 
         await Promise.all(texTargets.map((file) => compileFile(file, options)));

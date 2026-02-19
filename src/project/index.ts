@@ -120,9 +120,42 @@ namespace Project {
       return;
     }
 
+    if (flavor === "typst") {
+      const dimensions = await PDF.getAllPageDimensions(pdfPath);
+      const pad = Math.max(2, String(dimensions.length).length);
+
+      await fs.promises.writeFile(
+        path.join(pagesFolder, "style.typ"),
+        Templates.Typst.generateStyleFile()
+      );
+
+      for (let index = 0; index < dimensions.length; index += 1) {
+        const pageNumber = index + 1;
+        const name = `page-${String(pageNumber).padStart(pad, "0")}.typ`;
+        const dims = dimensions[index];
+
+        if (!dims) {
+          throw new AnnotateError({
+            message: `Missing page dimensions for page ${pageNumber}.`,
+            hint: "Check that the PDF is readable and not corrupted.",
+          });
+        }
+
+        const content = Templates.Typst.generatePageFile({
+          pageNumber,
+          width: dims.width,
+          height: dims.height,
+        });
+
+        await fs.promises.writeFile(path.join(pagesFolder, name), content);
+      }
+
+      return;
+    }
+
     throw new AnnotateError({
       message: `The ${flavor} template is not implemented yet.`,
-      hint: "Use --with latex for now.",
+      hint: "Use --with latex or --with typst.",
     });
   }
 }
