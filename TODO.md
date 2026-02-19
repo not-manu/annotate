@@ -10,6 +10,7 @@
 - [ ] xelatex support
 - [ ] latexmk support
 - [ ] add helper macros in style files (text box, image box positioned at specific location)
+  - [ ] should be able to toggle borders for debugging
 
 ### done
 
