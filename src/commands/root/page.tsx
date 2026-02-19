@@ -2,19 +2,65 @@ import { Box, Text } from "ink";
 import { Header } from "../../ui/header";
 import { Layout } from "../../ui/layout";
 
+type ExampleProps = {
+  comment?: string;
+  cmd: string;
+  args?: string;
+  flags?: string;
+};
+
+function Example({ comment, cmd, args, flags }: ExampleProps) {
+  return (
+    <Box flexDirection="column">
+      {comment && (
+        <Text dimColor italic>
+          # {comment}
+        </Text>
+      )}
+      <Text>
+        <Text color="gray">$ </Text>
+        <Text bold color="green">
+          {cmd}
+        </Text>
+        {args && <Text color="white"> {args}</Text>}
+        {flags && <Text color="cyan"> {flags}</Text>}
+      </Text>
+    </Box>
+  );
+}
+
 function RootPage() {
   return (
     <Layout>
-      <Header variant="large"></Header>
-      <Box height={2} />
+      <Header variant="large" />
+      <Box height={1} />
       <Text bold>Quickstart</Text>
       <Box height={1} />
-      <Text>
-        <Text color="gray">$</Text> <Text bold>annotate</Text>{" "}
-        <Text>some.pdf</Text>
-        <Text dimColor> --with </Text>
-        <Text>latex</Text>
-      </Text>
+      <Box flexDirection="column" gap={1}>
+        <Example
+          comment="Annotate a PDF with LaTeX"
+          cmd="annotate"
+          args="paper.pdf"
+          flags="--with latex"
+        />
+        <Example
+          comment="Annotate a PDF with Typst"
+          cmd="annotate"
+          args="paper.pdf"
+          flags="--with typst"
+        />
+        <Example
+          comment="Export 300 DPI images after each compile (great for AI agents)"
+          cmd="annotate"
+          args="paper.pdf"
+          flags="--with typst --images"
+        />
+        <Example
+          comment="Resume watching an existing project"
+          cmd="annotate watch"
+          args="paper/"
+        />
+      </Box>
     </Layout>
   );
 }

@@ -12,7 +12,6 @@
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-- [ ] improve quickstart
 
 ## done
 
@@ -42,6 +41,7 @@
 - [x] when the cli starts there is a loading state where nothing is shown during the first compile. it would be better to show a loading ui instead of nothing.
 - [x] improve error ui
 - [x] improve error messages
+- [x] improve quickstart
 
 
 ## roadmap
