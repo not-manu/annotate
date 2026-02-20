@@ -5,4 +5,33 @@
 \begin{document}
 \thispagestyle{empty}
 \null
+\textbox[x=13em, y=20em, w=36em, h=20em]{
+  \[
+  \begin{tikzpicture}[x=1.1cm,y=0.6cm]
+    \draw[->, line width=0.6pt, color=annotate] (-0.2,0) -- (4.8,0);
+    \draw[->, line width=0.6pt, color=annotate] (0,-0.4) -- (0,6.2);
+    \node[color=annotate] at (4.7,-0.3) {$x$};
+    \node[color=annotate] at (-0.3,6.0) {$y$};
+    \draw[color=annotate, domain=-0.2:2.6, samples=120, line width=0.8pt]
+      plot (\x,{3*\x*\x-4*\x+1});
+    \fill[color=annotate, opacity=0.18, domain=0:2]
+      (0,0) -- plot (\x,{3*\x*\x-4*\x+1}) -- (2,0) -- cycle;
+    \draw[color=annotate, line width=0.6pt] (0,0) -- (0,1);
+    \draw[color=annotate, line width=0.6pt] (2,0) -- (2,5);
+    \node[color=annotate] at (0,-0.3) {$0$};
+    \node[color=annotate] at (2,-0.3) {$2$};
+    \node[color=annotate] at (0.45,0.7) {$1$};
+  \end{tikzpicture}
+  \]
+}
+
+
+\textbox[x=13em, y=44em, w=36em, h=20em]{
+  \[
+  \int_{0}^{2} (3x^{2}-4x+1)\,dx
+  = \left[x^{3}-2x^{2}+x\right]_{0}^{2}
+  = (8-8+2)-0
+  = \boxed{2}
+  \]
+}
 \end{document}
