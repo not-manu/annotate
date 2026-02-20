@@ -1,5 +1,6 @@
 ## todo
 
+- [ ] need to create repo art
 - [ ] write readme
   - [ ] list features, engines supported, and languages supported
   - [ ] document built in macros in style.sty
