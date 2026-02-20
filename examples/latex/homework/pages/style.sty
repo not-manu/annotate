@@ -50,13 +50,12 @@
   \begin{tikzpicture}[remember picture,overlay]
     \node[
       anchor=north west,
-      text width=\tb@w,
-      minimum height=\tb@h,
       inner sep=\tb@pad,
       align=left,
       text=annotate,
       tb@borderstyle,
-    ] at ([xshift=\tb@x,yshift=-\tb@y]current page.north west) {#2};
+    ] at ([xshift=\tb@x,yshift=-\tb@y]current page.north west)
+      {\parbox[t][\tb@h][t]{\tb@w}{\raggedright #2}};
   \end{tikzpicture}%
   \endgroup
 }

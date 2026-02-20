@@ -41,6 +41,7 @@ function generateStyle(): string {
       width: w,
       height: h,
       inset: pad,
+      align: top + left,
       stroke: if border { rgb("#${Core.BRAND_COLOR}") } else { none },
       text(fill: rgb("#${Core.BRAND_COLOR}"), body),
     ),
