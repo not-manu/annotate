@@ -10,6 +10,9 @@
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
+- [ ] complete latex example homework
+- [ ] complete typst example homework
+
 ## done
 
 - [x] custom `AnnotateError` with `message` and `hint` fields
