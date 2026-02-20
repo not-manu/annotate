@@ -11,7 +11,6 @@
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-- [ ] complete typst example homework
 
 ## done
 
@@ -44,6 +43,7 @@
 - [x] improve quickstart
 - [x] there's a slight margin in a \textbox which is good for text but not for figures. maybe add a \figbox which is the same as \textbox but with no margin?
 - [x] complete latex example homework
+- [x] complete typst example homework
 
 ## roadmap
 - [ ] katex support with .md?
