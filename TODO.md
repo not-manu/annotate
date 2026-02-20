@@ -4,13 +4,13 @@
   - [ ] list features, engines supported, and languages supported
   - [ ] document built in macros in style.sty
   - [ ] include example for working with diagrams/figures
+  - [ ] mention the examples folder with example projects for latex and typst
   - [ ] include warnings about not having tested other latex engines yet
   - [ ] basic install instructions for tectonic?
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-- [ ] complete latex example homework
 - [ ] complete typst example homework
 
 ## done
@@ -43,7 +43,7 @@
 - [x] improve error messages
 - [x] improve quickstart
 - [x] there's a slight margin in a \textbox which is good for text but not for figures. maybe add a \figbox which is the same as \textbox but with no margin?
-
+- [x] complete latex example homework
 
 ## roadmap
 - [ ] katex support with .md?
