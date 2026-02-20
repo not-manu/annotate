@@ -38,9 +38,8 @@
       width: w,
       height: h,
       inset: pad,
-      align: top + left,
       stroke: if border { rgb("#24837B") } else { none },
-      text(fill: rgb("#24837B"), body),
+      align(top + left, text(fill: rgb("#24837B"), body)),
     ),
   )
 }
