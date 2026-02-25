@@ -14,6 +14,7 @@
 - [ ] add a debug mode with DEBUG=1
 - [ ] fix bug with `--images` not working sometimes (not generating img/
       folder). it should work with both create project and compile
+- [ ] add some indication in the watch page that we are also generating images.
 
 ## done
 
