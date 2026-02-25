@@ -15,6 +15,7 @@
 - [ ] fix bug with `--images` not working sometimes (not generating img/
       folder). it should work with both create project and compile
 - [ ] add some indication in the watch page that we are also generating images.
+- [ ] make the default annotation color more contrasting from black text.
 
 ## done
 
