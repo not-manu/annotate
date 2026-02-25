@@ -12,6 +12,8 @@
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
+- [ ] fix bug with `--images` not working sometimes (not generating img/
+      folder). it should work with both create project and compile
 
 ## done
 
