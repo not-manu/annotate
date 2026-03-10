@@ -7,6 +7,8 @@
   - [ ] include example for working with diagrams/figures
   - [ ] mention the examples folder with example projects for latex and typst
   - [ ] include warnings about not having tested other latex engines yet
+    - [ ] for this add a nice table comparing engines, langauges supported, if
+          they have been tested. Add a note below/quote.
   - [ ] basic install instructions for tectonic?
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
@@ -18,8 +20,7 @@
 - [ ] add a debug mode with DEBUG=1
 - [ ] fix bug with `--images` not working sometimes (not generating img/
       folder). it should work with both create project and compile
-- [ ] add some indication in the watch page that we are also generating images.
-- [ ] add some indication in the watch page which language we are using (maybe page-n.tex/typ)
+
 
 
 
@@ -62,3 +63,5 @@
 - [x] complete latex example homework
 - [x] complete typst example homework
 - [x] make the default annotation color more contrasting from black text.
+- [x] add some indication in the watch page that we are also generating images.
+- [x] add some indication in the watch page which language we are using (page-*.tex/typ).

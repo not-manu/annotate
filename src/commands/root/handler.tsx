@@ -54,7 +54,15 @@ function root(program: Command) {
           : undefined;
 
         const watchRef: { current: WatchHandle | null } = { current: null };
-        render(<WatchPage emitter={emitter} watchRef={watchRef} />);
+        render(
+          <WatchPage
+            emitter={emitter}
+            watchRef={watchRef}
+            flavor={flavor}
+            compilerName={compiler.name}
+            images={!!options.images}
+          />
+        );
 
         await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
         watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
@@ -85,7 +93,15 @@ function root(program: Command) {
         : undefined;
 
       const watchRef: { current: WatchHandle | null } = { current: null };
-      render(<WatchPage emitter={emitter} watchRef={watchRef} />);
+      render(
+        <WatchPage
+          emitter={emitter}
+          watchRef={watchRef}
+          flavor={flavor}
+          compilerName={compiler.name}
+          images={!!options.images}
+        />
+      );
 
       await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
       watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });

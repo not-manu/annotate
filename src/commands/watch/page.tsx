@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Box, useApp, useInput } from "ink";
+import { Box, Text, useApp, useInput } from "ink";
 import { Header } from "../../ui/header";
 import { Layout } from "../../ui/layout";
 import { Shortcuts } from "../../ui/shortcuts";
@@ -14,9 +14,12 @@ const TOAST_DURATION_MS = 1500;
 type WatchPageProps = {
   emitter: CompilerEmitter;
   watchRef: { current: WatchHandle | null };
+  flavor: string;
+  compilerName: string;
+  images: boolean;
 };
 
-function WatchPage({ emitter, watchRef }: WatchPageProps) {
+function WatchPage({ emitter, watchRef, flavor, compilerName, images }: WatchPageProps) {
   const { exit } = useApp();
   const pages = useCompiler(emitter);
   const sorted = [...pages.values()].sort((a, b) =>
@@ -95,6 +98,17 @@ function WatchPage({ emitter, watchRef }: WatchPageProps) {
   return (
     <Layout>
       <Header />
+      <Box flexDirection="row" gap={1} paddingLeft={1}>
+        <Text dimColor>{compilerName}</Text>
+        <Text dimColor>·</Text>
+        <Text dimColor>page-*.{flavor === "latex" ? "tex" : "typ"}</Text>
+        {images && (
+          <>
+            <Text dimColor>·</Text>
+            <Text dimColor>images</Text>
+          </>
+        )}
+      </Box>
       <Box flexDirection="column" marginTop={1}>
         {sorted.map((page, i) => (
           <CompileRow
