@@ -27,7 +27,7 @@
 // ── Textbox: positioned text box on the page ────────────────────────────────
 
 /// Place a text box at exact (x, y) from the top-left corner.
-/// Default text colour is #24837B. Toggle border per box with border: true.
+/// Default text colour is #0066CC. Toggle border per box with border: true.
 /// pad controls inner padding (default 0pt; use pad: 4pt for comfortable text).
 #let textbox(x: 0pt, y: 0pt, w: 2in, h: 0.5in, pad: 0pt, border: false, body) = {
   place(
@@ -38,8 +38,8 @@
       width: w,
       height: h,
       inset: pad,
-      stroke: if border { rgb("#24837B") } else { none },
-      align(top + left, text(fill: rgb("#24837B"), body)),
+      stroke: if border { rgb("#0066CC") } else { none },
+      align(top + left, text(fill: rgb("#0066CC"), body)),
     ),
   )
 }

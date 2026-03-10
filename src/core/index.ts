@@ -4,7 +4,7 @@ import path from "path";
 namespace Core {
   export const VERSION = packageJson.version;
   export const NAME = "annotate";
-  export const BRAND_COLOR = "24837B";
+  export const BRAND_COLOR = "0066CC";
   export const DESCRIPTION =
     "A disgustingly simple PDF annotation tool. Supports LaTeX and Typst.";
 

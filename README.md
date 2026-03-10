@@ -2,7 +2,7 @@
 
 A disgustingly simple PDF annotation tool. Write LaTeX or Typst overlays on any PDF — homework, papers, forms, whatever.
 
-![Hero — terminal showing annotate in action with a calculus homework PDF being annotated](https://placehold.co/900x500/1a1a2e/24837B?text=annotate+in+action&font=source-sans-pro)
+![Hero — terminal showing annotate in action with a calculus homework PDF being annotated](https://placehold.co/900x500/1a1a2e/0066CC?text=annotate+in+action&font=source-sans-pro)
 <!-- Replace with: a screenshot or screen recording of `annotate watch` running in a terminal, showing the TUI with per-page compile status and the annotated PDF open side-by-side -->
 
 ## How it works
@@ -143,7 +143,7 @@ Place text at an exact position on the page. Coordinates are from the **top-left
 ]
 ```
 
-![Textbox demo — a PDF page with positioned annotation boxes overlaid](https://placehold.co/900x500/1a1a2e/24837B?text=textbox+positioning+demo&font=source-sans-pro)
+![Textbox demo — a PDF page with positioned annotation boxes overlaid](https://placehold.co/900x500/1a1a2e/0066CC?text=textbox+positioning+demo&font=source-sans-pro)
 <!-- Replace with: a screenshot showing textbox annotations positioned on a PDF page, ideally with one box showing border: true for contrast -->
 
 ### Other helpers
@@ -201,8 +201,8 @@ The first available compiler is used automatically. No configuration needed.
 
 <p align="center">
 
-![annotate](https://placehold.co/600x120/1a1a2e/24837B?text=annotate&font=source-sans-pro)
-<!-- Replace with: a minimal banner/logo for annotate — teal (#24837B) text on dark background, clean and simple -->
+![annotate](https://placehold.co/600x120/1a1a2e/0066CC?text=annotate&font=source-sans-pro)
+<!-- Replace with: a minimal banner/logo for annotate — blue (#0066CC) text on dark background, clean and simple -->
 
 made with care by [not-manu](https://github.com/not-manu)
 

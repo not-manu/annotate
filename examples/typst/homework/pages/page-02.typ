@@ -5,10 +5,11 @@
 
 #textbox(x: 13em, y: 20em, w: 36em, h: 20em)[
   #import "@preview/cetz:0.3.4"
+  #align(center)[
   // TikZ used x=1.1cm, y=0.6cm — scale y by 0.6/1.1 ≈ 0.545
   #cetz.canvas(length: 1.1cm, {
     import cetz.draw: *
-    let annotate-color = rgb("#24837B")
+    let annotate-color = rgb("#0066CC")
     let sy = 0.6 / 1.1  // y-scale factor
 
     // axes
@@ -40,7 +41,7 @@
     content((0, -0.3 * sy), text(fill: annotate-color, $0$))
     content((2, -0.3 * sy), text(fill: annotate-color, $2$))
     content((0.45, 0.7 * sy), text(fill: annotate-color, $1$))
-  })
+  })]
 ]
 
 #textbox(x: 13em, y: 44em, w: 36em, h: 20em)[
@@ -48,6 +49,6 @@
   integral_0^2 (3x^2 - 4x + 1) dif x
   = [x^3 - 2x^2 + x]_0^2
   = (8 - 8 + 2) - 0
-  = #box(stroke: 0.5pt + rgb("#24837B"), inset: 3pt, $2$)
+  = #box(stroke: 0.5pt + rgb("#0066CC"), inset: 3pt, $2$)
   $
 ]

@@ -7,7 +7,7 @@
   #import "@preview/cetz:0.3.4"
   #cetz.canvas(length: 2.416em, {
     import cetz.draw: *
-    let annotate-color = rgb("#24837B")
+    let annotate-color = rgb("#0066CC")
 
     // piece 1: y = 2x on [0, 2]
     let pts1 = range(0, 21).map(i => {
@@ -35,6 +35,6 @@
 #textbox(x: 13em, y: 58em, w: 36em, h: 10em)[
   $
   G'(x) = sqrt(1 + x^4) dot frac(dif, dif x)(x)
-  = #box(stroke: 0.5pt + rgb("#24837B"), inset: 3pt, $sqrt(1 + x^4)$)
+  = #box(stroke: 0.5pt + rgb("#0066CC"), inset: 3pt, $sqrt(1 + x^4)$)
   $
 ]
