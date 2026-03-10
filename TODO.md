@@ -17,6 +17,7 @@
 - [ ] add some indication in the watch page that we are also generating images.
 - [ ] add some indication in the wathc page which language we are using (maybe page-n.tex/typ)
 - [ ] make the default annotation color more contrasting from black text.
+- [ ] replace \textbox macro with simply \box and update examples to match
 
 ## done
 
