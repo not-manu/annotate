@@ -21,6 +21,14 @@
 - [ ] add some indication in the watch page that we are also generating images.
 - [ ] add some indication in the watch page which language we are using (maybe page-n.tex/typ)
 
+
+
+## roadmap
+
+- [ ] katex support with .md?
+
+
+
 ## done
 
 - [x] custom `AnnotateError` with `message` and `hint` fields
@@ -54,6 +62,3 @@
 - [x] complete latex example homework
 - [x] complete typst example homework
 - [x] make the default annotation color more contrasting from black text.
-
-## roadmap
-- [ ] katex support with .md?
