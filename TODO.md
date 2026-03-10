@@ -10,6 +10,10 @@
   - [ ] basic install instructions for tectonic?
   - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
+  - [ ] add dev setup as well
+    - [ ] make `annotate-dev` point to the linked binary for dev, and
+          `annotate` to point to the installed version of the binary. this way we can
+          test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
 - [ ] fix bug with `--images` not working sometimes (not generating img/
