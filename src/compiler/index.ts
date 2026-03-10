@@ -107,11 +107,16 @@ namespace Compiler {
     }
 
     if (options.images) {
-      await Images.generate({
-        pdfPath: options.overlay.outputPath,
-        outputDir: options.images.outputDir,
-        dpi: options.images.dpi,
-      });
+      try {
+        await Images.generate({
+          pdfPath: options.overlay.outputPath,
+          outputDir: options.images.outputDir,
+          dpi: options.images.dpi,
+        });
+        options.emitter.emit("images:end", { success: true });
+      } catch {
+        options.emitter.emit("images:end", { success: false });
+      }
     }
   }
 

@@ -12,7 +12,7 @@ function watch(program: Command) {
     .command("watch <project>")
     .description("Watch and compile annotation pages in an existing project")
     .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
-    .action(async (projectDir: string, options: { images?: boolean }) => {
+    .action(async (projectDir: string, options: { images?: boolean }, command: Command) => {
       let resolved = path.resolve(projectDir);
 
       if (Project.PDF.isPDF(resolved)) {
@@ -43,7 +43,8 @@ function watch(program: Command) {
         originalPath,
         outputPath: Project.getAnnotatedPdfPath(resolved),
       };
-      const images = options.images
+      const imagesFlag = options.images || command.parent?.opts()?.images;
+      const images = imagesFlag
         ? { outputDir: Project.getImagesFolder(resolved) }
         : undefined;
 
@@ -54,7 +55,7 @@ function watch(program: Command) {
           watchRef={watchRef}
           flavor={flavor}
           compilerName={compiler.name}
-          images={!!options.images}
+          images={!!imagesFlag}
         />
       );
 

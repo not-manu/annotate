@@ -5,6 +5,7 @@ type CompilerEventMap = {
   "compile:start": { inputPath: string };
   "compile:end": CompileResult;
   "overlay:end": { outputPath: string; success: boolean };
+  "images:end": { success: boolean };
 };
 
 type BufferedEvent = {

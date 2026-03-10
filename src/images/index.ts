@@ -132,6 +132,16 @@ namespace Images {
     }
   }
 
+  /** Check whether a rasterization tool is available without throwing. */
+  export async function isAvailable(): Promise<boolean> {
+    try {
+      await detectTool();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   /**
    * Generate 300 DPI PNG images for every page of `pdfPath` into `outputDir`.
    *
