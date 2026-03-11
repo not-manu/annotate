@@ -18,6 +18,7 @@
           test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
+- [ ] when generating images for the pages it should not generating every image from scratch but rather generating only the image of the page that changed.
 
 
 
