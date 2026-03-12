@@ -33,14 +33,18 @@ abstract class CompilerBase {
    */
   abstract readonly styleExtensions: string[];
 
-  abstract isAvailable(): Promise<boolean>;
   protected abstract buildArgs(options: CompileOptions): string[];
 
+  async isAvailable(): Promise<boolean> {
+    return new Promise((resolve) => {
+      const child = spawn(this.command, ["--version"], { stdio: "ignore" });
+      child.on("error", () => resolve(false));
+      child.on("close", (code) => resolve(code === 0));
+    });
+  }
+
   protected buildEnv(options: CompileOptions): NodeJS.ProcessEnv {
-    return {
-      ...process.env,
-      ...options.extraEnv,
-    };
+    return { ...process.env, ...options.extraEnv };
   }
 
   async compile(options: CompileOptions): Promise<CompileResult> {
@@ -63,17 +67,9 @@ abstract class CompilerBase {
       let stdout = "";
       let stderr = "";
 
-      child.stdout?.on("data", (chunk) => {
-        stdout += chunk.toString();
-      });
-
-      child.stderr?.on("data", (chunk) => {
-        stderr += chunk.toString();
-      });
-
-      child.on("error", (error) => {
-        reject(error);
-      });
+      child.stdout?.on("data", (chunk) => { stdout += chunk.toString(); });
+      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
+      child.on("error", (error) => { reject(error); });
 
       child.on("close", async (code) => {
         const success = code === 0;
@@ -85,15 +81,7 @@ abstract class CompilerBase {
           await fs.promises.unlink(options.errorLogPath);
         }
 
-        resolve({
-          success,
-          code,
-          stdout,
-          stderr,
-          inputPath: options.inputPath,
-          outputPath,
-          errorLogPath: options.errorLogPath,
-        });
+        resolve({ success, code, stdout, stderr, inputPath: options.inputPath, outputPath, errorLogPath: options.errorLogPath });
       });
     });
   }

@@ -1,7 +1,9 @@
 import { Text } from "ink";
+
 type MarkerProps = {
   variant?: "text" | "info" | "question" | "error" | "hint";
 };
+
 function Marker({ variant = "text" }: MarkerProps) {
   const color =
     variant === "error" ? "red" : variant === "hint" ? "yellow" : "gray";
@@ -16,4 +18,5 @@ function Marker({ variant = "text" }: MarkerProps) {
     </Text>
   );
 }
+
 export { Marker };

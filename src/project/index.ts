@@ -68,9 +68,7 @@ namespace Project {
 
   export function isFolderEmpty(pdfPath: string): boolean {
     const folder = getFolder(pdfPath);
-    if (!fs.existsSync(folder)) {
-      return true;
-    }
+    if (!fs.existsSync(folder)) return true;
     return fs.readdirSync(folder).length === 0;
   }
 
@@ -91,76 +89,37 @@ namespace Project {
     const originalDest = getOriginalPdfPath(getFolder(pdfPath));
     await fs.promises.copyFile(path.resolve(pdfPath), originalDest);
 
-    if (flavor === "latex") {
-      const dimensions = await PDF.getAllPageDimensions(pdfPath);
-      const pad = Math.max(2, String(dimensions.length).length);
+    const dimensions = await PDF.getAllPageDimensions(pdfPath);
+    const pad = Math.max(2, String(dimensions.length).length);
+    const isLatex = flavor === "latex";
+    const ext = isLatex ? ".tex" : ".typ";
+    const styleFile = isLatex ? "style.sty" : "style.typ";
+    const generateStyle = isLatex
+      ? Templates.LaTeX.generateStyleFile
+      : Templates.Typst.generateStyleFile;
+    const generatePage = isLatex
+      ? Templates.LaTeX.generatePageFile
+      : Templates.Typst.generatePageFile;
 
-      await fs.promises.writeFile(
-        path.join(pagesFolder, "style.sty"),
-        Templates.LaTeX.generateStyleFile()
-      );
+    await fs.promises.writeFile(path.join(pagesFolder, styleFile), generateStyle());
 
-      for (let index = 0; index < dimensions.length; index += 1) {
-        const pageNumber = index + 1;
-        const name = `page-${String(pageNumber).padStart(pad, "0")}.tex`;
-        const dims = dimensions[index];
+    for (let index = 0; index < dimensions.length; index += 1) {
+      const pageNumber = index + 1;
+      const name = `page-${String(pageNumber).padStart(pad, "0")}${ext}`;
+      const dims = dimensions[index];
 
-        if (!dims) {
-          throw new AnnotateError({
-            message: `Could not read dimensions for page ${pageNumber} of the PDF.`,
-            hint: "Check that the PDF is not corrupted or password-protected.",
-          });
-        }
-
-        const content = Templates.LaTeX.generatePageFile({
-          pageNumber,
-          width: dims.width,
-          height: dims.height,
+      if (!dims) {
+        throw new AnnotateError({
+          message: `Could not read dimensions for page ${pageNumber} of the PDF.`,
+          hint: "Check that the PDF is not corrupted or password-protected.",
         });
-
-        await fs.promises.writeFile(path.join(pagesFolder, name), content);
       }
 
-      return;
-    }
-
-    if (flavor === "typst") {
-      const dimensions = await PDF.getAllPageDimensions(pdfPath);
-      const pad = Math.max(2, String(dimensions.length).length);
-
       await fs.promises.writeFile(
-        path.join(pagesFolder, "style.typ"),
-        Templates.Typst.generateStyleFile()
+        path.join(pagesFolder, name),
+        generatePage({ pageNumber, width: dims.width, height: dims.height })
       );
-
-      for (let index = 0; index < dimensions.length; index += 1) {
-        const pageNumber = index + 1;
-        const name = `page-${String(pageNumber).padStart(pad, "0")}.typ`;
-        const dims = dimensions[index];
-
-        if (!dims) {
-          throw new AnnotateError({
-            message: `Could not read dimensions for page ${pageNumber} of the PDF.`,
-            hint: "Check that the PDF is not corrupted or password-protected.",
-          });
-        }
-
-        const content = Templates.Typst.generatePageFile({
-          pageNumber,
-          width: dims.width,
-          height: dims.height,
-        });
-
-        await fs.promises.writeFile(path.join(pagesFolder, name), content);
-      }
-
-      return;
     }
-
-    throw new AnnotateError({
-      message: `Unsupported language: '${flavor}'.`,
-      hint: "Use --with latex or --with typst.",
-    });
   }
 }
 

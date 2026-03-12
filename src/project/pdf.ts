@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { PDFDocument } from "pdf-lib";
-import { Core } from "../../core";
-import { AnnotateError } from "../../error";
+import { Core } from "../core";
+import { AnnotateError } from "../error";
 
 type OverlayOptions = {
   originalPath: string;

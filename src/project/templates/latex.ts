@@ -1,7 +1,33 @@
-import { Core } from "../../../core";
+import { Core } from "../../core";
 
-function generateStyle(): string {
-  return `\\NeedsTeXFormat{LaTeX2e}
+type PageTemplateOptions = {
+  pageNumber: number;
+  width: number;
+  height: number;
+};
+
+function formatDimension(value: number): string {
+  return `${value.toFixed(2)}bp`;
+}
+
+namespace LaTeX {
+  export function generatePageFile(options: PageTemplateOptions): string {
+    const width = formatDimension(options.width);
+    const height = formatDimension(options.height);
+
+    return `\\documentclass{article}
+\\usepackage{style}
+\\geometry{paperwidth=${width}, paperheight=${height}, margin=0pt, noheadfoot}
+
+\\begin{document}
+\\thispagestyle{empty}
+\\null
+\\end{document}
+`;
+  }
+
+  export function generateStyleFile(): string {
+    return `\\NeedsTeXFormat{LaTeX2e}
 \\ProvidesPackage{style}[2026/02/19 Annotate defaults]
 
 \\usepackage[T1]{fontenc}
@@ -73,6 +99,7 @@ function generateStyle(): string {
 \\newenvironment{defbox}[1][]{\\medskip\\noindent\\textbf{#1.}\\itshape\\quad}{\\medskip}
 \\newenvironment{hintbox}[1][Hint]{\\smallskip\\noindent\\textit{#1.}\\quad\\small}{\\smallskip}
 `;
+  }
 }
 
-export { generateStyle };
+export { LaTeX };
