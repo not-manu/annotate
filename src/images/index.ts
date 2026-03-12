@@ -34,6 +34,22 @@ namespace Images {
     });
   }
 
+  function spawnToPromise(command: string, args: string[]): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const child = spawn(command, args);
+      let stderr = "";
+      child.stderr?.on("data", (chunk: Buffer) => { stderr += chunk.toString(); });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`${command} exited with code ${code}: ${stderr.trim()}`));
+        }
+      });
+    });
+  }
+
   async function getPageCount(pdfPath: string): Promise<number> {
     const bytes = await fs.promises.readFile(pdfPath);
     const pdf = await PDFDocument.load(bytes);
@@ -88,19 +104,7 @@ namespace Images {
     const prefix = path.join(outputDir, "page");
     const args = ["-png", "-r", String(dpi), pdfPath, prefix];
 
-    return new Promise((resolve, reject) => {
-      const child = spawn("pdftoppm", args);
-      let stderr = "";
-      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
-      child.on("error", reject);
-      child.on("close", (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`pdftoppm exited with code ${code}: ${stderr.trim()}`));
-        }
-      });
-    });
+    return spawnToPromise("pdftoppm", args);
   }
 
   async function runPdftoppmPage(
@@ -124,19 +128,7 @@ namespace Images {
       prefix,
     ];
 
-    return new Promise((resolve, reject) => {
-      const child = spawn("pdftoppm", args);
-      let stderr = "";
-      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
-      child.on("error", reject);
-      child.on("close", (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`pdftoppm exited with code ${code}: ${stderr.trim()}`));
-        }
-      });
-    });
+    return spawnToPromise("pdftoppm", args);
   }
 
   /**
@@ -154,19 +146,7 @@ namespace Images {
     const outputPattern = path.join(outputDir, `page-%0${pad}d.png`);
     const args = ["convert", "-o", outputPattern, "-r", String(dpi), pdfPath];
 
-    return new Promise((resolve, reject) => {
-      const child = spawn("mutool", args);
-      let stderr = "";
-      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
-      child.on("error", reject);
-      child.on("close", (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`mutool exited with code ${code}: ${stderr.trim()}`));
-        }
-      });
-    });
+    return spawnToPromise("mutool", args);
   }
 
   async function runMutoolPage(
@@ -187,19 +167,7 @@ namespace Images {
       String(pageNumber),
     ];
 
-    return new Promise((resolve, reject) => {
-      const child = spawn("mutool", args);
-      let stderr = "";
-      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
-      child.on("error", reject);
-      child.on("close", (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`mutool exited with code ${code}: ${stderr.trim()}`));
-        }
-      });
-    });
+    return spawnToPromise("mutool", args);
   }
 
   /**
@@ -253,8 +221,7 @@ namespace Images {
 
     await fs.promises.mkdir(outputDir, { recursive: true });
 
-    const tool = await detectTool();
-    const pageCount = await getPageCount(pdfPath);
+    const [tool, pageCount] = await Promise.all([detectTool(), getPageCount(pdfPath)]);
     const pad = Math.max(2, String(pageCount).length);
     const pageNumbers = normalisePageNumbers(options.pageNumbers, pageCount);
 
