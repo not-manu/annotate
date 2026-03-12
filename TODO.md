@@ -18,7 +18,6 @@
           test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-- [ ] when generating images for the pages it should not generating every image from scratch but rather generating only the image of the page that changed.
 
 
 
@@ -66,3 +65,4 @@
 - [x] add some indication in the watch page which language we are using (page-*.tex/typ).
 - [x] fix bug with `--images` not working with `annotate watch` (not generating img/
       folder). it now works with both create project and watch.
+- [x] when generating images for the pages it should not generating every image from scratch but rather generating only the image of the page that changed.

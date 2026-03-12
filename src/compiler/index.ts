@@ -87,7 +87,20 @@ namespace Compiler {
     options.emitter.emit("compile:end", result);
   }
 
-  async function runOverlay(options: CompileAllOptions): Promise<void> {
+  function getPageNumberFromFile(file: string): number | null {
+    const match = file.match(/^page-(\d+)\.[^.]+$/);
+    if (!match) {
+      return null;
+    }
+
+    const pageNumber = Number.parseInt(match[1] ?? "", 10);
+    return Number.isInteger(pageNumber) ? pageNumber : null;
+  }
+
+  async function runOverlay(
+    options: CompileAllOptions,
+    pageNumbers?: number[]
+  ): Promise<void> {
     try {
       await PDF.overlay({
         originalPath: options.overlay.originalPath,
@@ -112,6 +125,7 @@ namespace Compiler {
           pdfPath: options.overlay.outputPath,
           outputDir: options.images.outputDir,
           dpi: options.images.dpi,
+          pageNumbers,
         });
         options.emitter.emit("images:end", { success: true });
       } catch {
@@ -210,8 +224,16 @@ namespace Compiler {
           (f) => f.startsWith("page-") && f.endsWith(ext)
         );
 
+        if (texTargets.length === 0) {
+          return;
+        }
+
+        const pageNumbers = texTargets
+          .map((file) => getPageNumberFromFile(file))
+          .filter((pageNumber): pageNumber is number => pageNumber !== null);
+
         await Promise.all(texTargets.map((file) => compileFile(file, options)));
-        await runOverlay(options);
+        await runOverlay(options, pageNumbers);
       }, 200);
     });
 

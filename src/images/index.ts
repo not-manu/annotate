@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { spawn } from "child_process";
+import { PDFDocument } from "pdf-lib";
 import { AnnotateError } from "../error";
 
 // ---------------------------------------------------------------------------
@@ -14,6 +15,8 @@ type GenerateOptions = {
   outputDir: string;
   /** Resolution in dots-per-inch (default: 300). */
   dpi?: number;
+  /** Specific 1-based page numbers to rasterize. When omitted, all pages are generated. */
+  pageNumbers?: number[];
 };
 
 type Tool = "pdftoppm" | "mutool";
@@ -29,6 +32,35 @@ namespace Images {
       child.on("error", () => resolve(false));
       child.on("close", (code) => resolve(code === 0 || code === 1));
     });
+  }
+
+  async function getPageCount(pdfPath: string): Promise<number> {
+    const bytes = await fs.promises.readFile(pdfPath);
+    const pdf = await PDFDocument.load(bytes);
+    return pdf.getPageCount();
+  }
+
+  function normalisePageNumbers(
+    pageNumbers: number[] | undefined,
+    pageCount: number
+  ): number[] | null {
+    if (!pageNumbers) {
+      return null;
+    }
+
+    const unique = Array.from(
+      new Set(
+        pageNumbers.filter(
+          (pageNumber) => Number.isInteger(pageNumber) && pageNumber >= 1 && pageNumber <= pageCount
+        )
+      )
+    ).sort((a, b) => a - b);
+
+    return unique;
+  }
+
+  function getPageBaseName(pageNumber: number, pad: number): string {
+    return `page-${String(pageNumber).padStart(pad, "0")}`;
   }
 
   /** Detect the first available rasterization tool, preferring pdftoppm. */
@@ -71,6 +103,42 @@ namespace Images {
     });
   }
 
+  async function runPdftoppmPage(
+    pdfPath: string,
+    outputDir: string,
+    dpi: number,
+    pageNumber: number,
+    pad: number
+  ): Promise<void> {
+    const prefix = path.join(outputDir, getPageBaseName(pageNumber, pad));
+    const args = [
+      "-png",
+      "-r",
+      String(dpi),
+      "-f",
+      String(pageNumber),
+      "-l",
+      String(pageNumber),
+      "-singlefile",
+      pdfPath,
+      prefix,
+    ];
+
+    return new Promise((resolve, reject) => {
+      const child = spawn("pdftoppm", args);
+      let stderr = "";
+      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`pdftoppm exited with code ${code}: ${stderr.trim()}`));
+        }
+      });
+    });
+  }
+
   /**
    * Run mutool to rasterize all pages to PNG files.
    *
@@ -80,10 +148,44 @@ namespace Images {
   async function runMutool(
     pdfPath: string,
     outputDir: string,
-    dpi: number
+    dpi: number,
+    pad: number
   ): Promise<void> {
-    const outputPattern = path.join(outputDir, "page-%d.png");
+    const outputPattern = path.join(outputDir, `page-%0${pad}d.png`);
     const args = ["convert", "-o", outputPattern, "-r", String(dpi), pdfPath];
+
+    return new Promise((resolve, reject) => {
+      const child = spawn("mutool", args);
+      let stderr = "";
+      child.stderr?.on("data", (chunk) => { stderr += chunk.toString(); });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`mutool exited with code ${code}: ${stderr.trim()}`));
+        }
+      });
+    });
+  }
+
+  async function runMutoolPage(
+    pdfPath: string,
+    outputDir: string,
+    dpi: number,
+    pageNumber: number,
+    pad: number
+  ): Promise<void> {
+    const outputPath = path.join(outputDir, `${getPageBaseName(pageNumber, pad)}.png`);
+    const args = [
+      "convert",
+      "-o",
+      outputPath,
+      "-r",
+      String(dpi),
+      pdfPath,
+      String(pageNumber),
+    ];
 
     return new Promise((resolve, reject) => {
       const child = spawn("mutool", args);
@@ -108,15 +210,13 @@ namespace Images {
    *
    * Target format: page-01.png, page-02.png, ... (padding width = digits in count)
    */
-  async function normaliseNames(outputDir: string): Promise<void> {
+  async function normaliseNames(outputDir: string, pad: number): Promise<void> {
     const entries = await fs.promises.readdir(outputDir);
     const pageFiles = entries
       .filter((f) => /^page-?\d+\.png$/i.test(f))
       .sort();
 
     if (pageFiles.length === 0) return;
-
-    const pad = Math.max(2, String(pageFiles.length).length);
 
     for (const file of pageFiles) {
       const match = file.match(/(\d+)\.png$/i);
@@ -154,14 +254,39 @@ namespace Images {
     await fs.promises.mkdir(outputDir, { recursive: true });
 
     const tool = await detectTool();
+    const pageCount = await getPageCount(pdfPath);
+    const pad = Math.max(2, String(pageCount).length);
+    const pageNumbers = normalisePageNumbers(options.pageNumbers, pageCount);
+
+    if (pageNumbers) {
+      if (pageNumbers.length === 0) {
+        return;
+      }
+
+      if (tool === "pdftoppm") {
+        await Promise.all(
+          pageNumbers.map((pageNumber) =>
+            runPdftoppmPage(pdfPath, outputDir, dpi, pageNumber, pad)
+          )
+        );
+      } else {
+        await Promise.all(
+          pageNumbers.map((pageNumber) =>
+            runMutoolPage(pdfPath, outputDir, dpi, pageNumber, pad)
+          )
+        );
+      }
+
+      return;
+    }
 
     if (tool === "pdftoppm") {
       await runPdftoppm(pdfPath, outputDir, dpi);
-    } else {
-      await runMutool(pdfPath, outputDir, dpi);
+      await normaliseNames(outputDir, pad);
+      return;
     }
 
-    await normaliseNames(outputDir);
+    await runMutool(pdfPath, outputDir, dpi, pad);
   }
 }
 
