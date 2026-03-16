@@ -19,7 +19,6 @@
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
 
-- [ ] add experimental mode to autosetup a page using python, opencv 
 
 
 
@@ -27,6 +26,9 @@
 ## roadmap
 
 - [ ] katex support with .md?
+
+### webapp ?
+- [ ] add experimental mode to autosetup a page using python, opencv 
 
 
 
