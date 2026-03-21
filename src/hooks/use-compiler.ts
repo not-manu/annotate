@@ -9,6 +9,7 @@ type PageState = {
   status: PageStatus;
   startedAt: number | null;
   elapsed: number | null;
+  completedAt: number | null;
   errorLogPath: string | null;
   inputPath: string | null;
 };
@@ -26,6 +27,7 @@ function useCompiler(emitter: CompilerEmitter): Map<string, PageState> {
           status: "compiling",
           startedAt: Date.now(),
           elapsed: null,
+          completedAt: null,
           errorLogPath: null,
           inputPath,
         });
@@ -49,6 +51,7 @@ function useCompiler(emitter: CompilerEmitter): Map<string, PageState> {
           status: result.success ? "success" : "error",
           startedAt: existing?.startedAt ?? null,
           elapsed,
+          completedAt: Date.now(),
           errorLogPath: result.success ? null : result.errorLogPath,
           inputPath: result.inputPath,
         });

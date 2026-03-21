@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Box, Text, useApp, useInput } from "ink";
 import { Header } from "../../ui/header";
 import { Layout } from "../../ui/layout";
@@ -86,6 +86,16 @@ function WatchPage({ emitter, watchRef, flavor, compilerName, images }: WatchPag
     }
   });
 
+  const lastCompiledAt = useMemo(() => {
+    let latest: number | null = null;
+    for (const page of sorted) {
+      if (page.completedAt != null && (latest == null || page.completedAt > latest)) {
+        latest = page.completedAt;
+      }
+    }
+    return latest;
+  }, [sorted]);
+
   const hasError = selectedPage?.status === "error";
 
   const shortcuts = [
@@ -109,7 +119,12 @@ function WatchPage({ emitter, watchRef, flavor, compilerName, images }: WatchPag
           </>
         )}
       </Box>
-      <Box flexDirection="column" marginTop={1}>
+      {lastCompiledAt != null && (
+        <Box paddingLeft={1} marginTop={1}>
+          <Text dimColor>◷ {new Date(lastCompiledAt).toLocaleTimeString()}</Text>
+        </Box>
+      )}
+      <Box flexDirection="column" marginTop={lastCompiledAt != null ? 0 : 1}>
         {sorted.map((page, i) => (
           <CompileRow
             key={page.name}
