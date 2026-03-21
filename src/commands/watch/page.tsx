@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Box, Text, useApp, useInput } from "ink";
 import { Header } from "../../ui/header";
 import { Layout } from "../../ui/layout";
@@ -86,15 +86,16 @@ function WatchPage({ emitter, watchRef, flavor, compilerName, images }: WatchPag
     }
   });
 
-  const lastCompiledAt = useMemo(() => {
-    let latest: number | null = null;
+  // Find the most recently compiled page
+  const lastCompiledName = (() => {
+    let latest: { name: string; at: number } | null = null;
     for (const page of sorted) {
-      if (page.completedAt != null && (latest == null || page.completedAt > latest)) {
-        latest = page.completedAt;
+      if (page.completedAt != null && (latest == null || page.completedAt > latest.at)) {
+        latest = { name: page.name, at: page.completedAt };
       }
     }
-    return latest;
-  }, [sorted]);
+    return latest?.name ?? null;
+  })();
 
   const hasError = selectedPage?.status === "error";
 
@@ -119,17 +120,13 @@ function WatchPage({ emitter, watchRef, flavor, compilerName, images }: WatchPag
           </>
         )}
       </Box>
-      {lastCompiledAt != null && (
-        <Box paddingLeft={1} marginTop={1}>
-          <Text dimColor>◷ {new Date(lastCompiledAt).toLocaleTimeString()}</Text>
-        </Box>
-      )}
-      <Box flexDirection="column" marginTop={lastCompiledAt != null ? 0 : 1}>
+      <Box flexDirection="column" marginTop={1}>
         {sorted.map((page, i) => (
           <CompileRow
             key={page.name}
             page={page}
             selected={i === selectedIndex}
+            lastCompiled={page.name === lastCompiledName}
             toast={toast?.message ?? null}
             toastError={toast?.error ?? false}
           />

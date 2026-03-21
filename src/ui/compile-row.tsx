@@ -10,11 +10,12 @@ function formatElapsed(ms: number): string {
 type CompileRowProps = {
   page: PageState;
   selected?: boolean;
+  lastCompiled?: boolean;
   toast?: string | null;
   toastError?: boolean;
 };
 
-function CompileRow({ page, selected = false, toast, toastError = false }: CompileRowProps) {
+function CompileRow({ page, selected = false, lastCompiled = false, toast, toastError = false }: CompileRowProps) {
   // For error rows, the log filename lives outside the background
   const errorLogName =
     page.status === "error" && page.errorLogPath
@@ -27,6 +28,9 @@ function CompileRow({ page, selected = false, toast, toastError = false }: Compi
         <Status page={page} />
         <Text>{page.name}</Text>
         <Detail page={page} />
+        {lastCompiled && page.status !== "compiling" && page.status !== "idle" && (
+          <Text dimColor>◷</Text>
+        )}
       </Box>
       {errorLogName && (
         <Box paddingLeft={1}>
