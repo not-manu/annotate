@@ -18,7 +18,7 @@
           test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-
+- [ ] add an indication to show the last compiled page with a small time icon
 - [ ] add a sample SKILLS.md (include in readme)
 
 
