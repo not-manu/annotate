@@ -71,3 +71,4 @@
 - [x] fix bug with `--images` not working with `annotate watch` (not generating img/
       folder). it now works with both create project and watch.
 - [x] when generating images for the pages it should not generating every image from scratch but rather generating only the image of the page that changed.
+- [x] add an indication to show the last compiled page with a small time icon
