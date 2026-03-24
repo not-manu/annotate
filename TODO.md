@@ -19,7 +19,7 @@
           test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
-- [ ] add a sample SKILLS.md (include in readme)
+- [ ] add my sample AGENTS.md, and SKILLS.md (include in readme)
 
 
 
