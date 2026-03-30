@@ -1,4 +1,5 @@
 - Prefer `displaystyle` when possible; use `textstyle` only when space is tight.
+- Remove the border from a question once it is completed.
 - Do not include the question number (e.g. "3e.") when writing answers — provide the answer directly.
 - Respect the user's choice of font size unless explicitly asked to change it.
 - Do not attempt to compile the document; it will be compiled automatically.
