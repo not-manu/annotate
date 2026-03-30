@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{style}
+\geometry{paperwidth=612.00bp, paperheight=792.00bp, margin=0pt, noheadfoot}
+
+\begin{document}
+\thispagestyle{empty}
+\null
+
+\textbox[x=20.4em, y=26.67em, w=21.75em, h=16.92em]{
+  \begin{tikzpicture}[x=2.416em,y=2.416em]
+    \begin{scope}[shift={(1,1)}]
+      \draw[color=annotate, line width=0.8pt, domain=0:2, samples=60]
+        plot (\x,{2*\x});
+      \draw[color=annotate, line width=0.8pt, domain=2:4, samples=90]
+        plot (\x,{-0.5*\x*\x+2*\x+2});
+      \draw[color=annotate, line width=0.8pt, domain=4:6, samples=90]
+        plot (\x,{0.5*\x*\x-4*\x+10});
+    \end{scope}
+  \end{tikzpicture}
+}
+\end{document}
