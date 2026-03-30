@@ -1,7 +1,5 @@
 # annotate
 
-A disgustingly simple PDF annotation tool. Write LaTeX or Typst overlays on any PDF — homework, papers, forms, whatever.
-
 ![Hero — terminal showing annotate in action with a calculus homework PDF being annotated](https://placehold.co/900x500/1a1a2e/0066CC?text=annotate+in+action&font=source-sans-pro)
 <!-- Replace with: a screenshot or screen recording of `annotate watch` running in a terminal, showing the TUI with per-page compile status and the annotated PDF open side-by-side -->
 
