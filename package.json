@@ -1,6 +1,6 @@
 {
   "name": "@notmanu/annotate",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "module": "index.ts",
   "type": "module",
   "main": "./dist/index.js",
@@ -14,7 +14,7 @@
   "scripts": {
     "build": "bun build ./src/index.ts --outdir dist --target node --format esm --packages external",
     "publish": "bash scripts/publish.sh",
-    "patch": "npm version patch && bun run publish",
+    "patch": "npm version patch",
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "test:watch": "bun test --watch",
