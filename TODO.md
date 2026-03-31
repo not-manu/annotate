@@ -21,6 +21,7 @@
 - [ ] add a debug mode with DEBUG=1
 - [ ] add my sample AGENTS.md, and SKILLS.md (include in readme)
 - [ ] add a MIT license
+- [ ] make all images/gifs permalinks so it works on github and npm
 
 
 

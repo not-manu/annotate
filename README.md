@@ -13,43 +13,58 @@
 
 [Quick Start](#quick-start) 
 &nbsp;&bull;&nbsp;
+[How I use it](#how-i-use-it)
+&nbsp;&bull;&nbsp;
+[Annotating with AI Agents](#annotating-with-ai-agents)
+&nbsp;&bull;&nbsp;
 [How it works](#how-it-works)
-
+&nbsp;&bull;&nbsp;
+[Contributing](#contributing)
 
 </div>
+
+<br/>
+<br/>
 
 
 ### Quick start
 
+<br/>
 
-<div style="display:flex; gap:8px; align-items:stretch;">
-<div style="flex:1; display:flex; flex-direction:column;">
 
-```bash
+**1. Install Annotate**
+
+```sh
 # Install globally
 npm i -g @notmanu/annotate
 
-```
-
-</div>
-<div style="flex:1; display:flex; flex-direction:column;">
-
-```bash
 # Or with pnpm / bun
 pnpm add -g @notmanu/annotate
 bun add -g @notmanu/annotate
 ```
 
-</div>
-</div>
+<br />
+<br />
+
+
+<img align="right" src="./art/file-tree.png" alt="file tree showing the generated project structure" width="300">
+
+**2. Start Watching a PDF**
 
 Start annotating a PDF with the following command:
 
-```bash
+```sh
 annotate homework.pdf -w latex 
 ```
 
-Edit `./homework/pages/page-01.tex` and add a textbox inside the document:
+This will create a new folder called `homework` with the structure shown on the right.
+
+<br />
+<br />
+
+**3. Add some annotations!**
+
+Edit `page-01.tex` and add a textbox inside the document:
 
 ```tex
 \textbox[x=10em, y=40em, w=30em, h=10em, border]{
@@ -58,5 +73,5 @@ Edit `./homework/pages/page-01.tex` and add a textbox inside the document:
 }
 ```
 
-This annotate the first page with some text. You can view the annotated PDF at `./homework/homework-annotate.pdf`! 
+This annotate the first page with some text. The final document `homework-annotated.pdf` will automatically update with changes.
 
