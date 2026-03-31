@@ -5,15 +5,34 @@
 
 <br/>
 
-![a demo of annotate in action](./art/demo-video.gif)
+**Demo**
 
+<img src="./art/demo-video.gif" alt="a demo of annotate in action" width="100%">
+
+<br/>
+
+<img align="right" src="https://placehold.co/1280x720" alt="file tree showing the generated project structure" width="50%">
+
+<br/>
+
+**How I use it**:
+
+I use Annotate for 90% of my homework at university! In this video I explain how I use it everyday, and how I speed up my workflow with AI agents. 
+
+**Why?** 
+- All my professors are strict with how I format my work. (I cannot modify the original PDF and must write over it!)
+- I don't want to pay to print out my homework.
+- I can easily resubmit changes without needing to print out a new copy.
+
+
+<br/>
 <br/>
 
 <div align="center">
 
 [Quick Start](#quick-start) 
 &nbsp;&bull;&nbsp;
-[How I use it](#how-i-use-it)
+[Features](#features)
 &nbsp;&bull;&nbsp;
 [Annotating with AI Agents](#annotating-with-ai-agents)
 &nbsp;&bull;&nbsp;
@@ -76,3 +95,5 @@ This annotate the first page with some text. The final document `homework-annota
 <br/>
 
 ### How I use it
+
+
