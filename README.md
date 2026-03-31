@@ -80,7 +80,7 @@ This will create a new folder called `homework` with the structure shown on the 
 
 Edit `page-01.tex` and add a textbox inside the document:
 
-```tex
+```latex
 \textbox[x=10em, y=40em, w=30em, h=10em, border]{
   \large
   Hello Annotate!
