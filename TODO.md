@@ -20,6 +20,7 @@
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] add a debug mode with DEBUG=1
 - [ ] add my sample AGENTS.md, and SKILLS.md (include in readme)
+- [ ] add a MIT license
 
 
 
