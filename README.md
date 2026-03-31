@@ -1,4 +1,12 @@
-# Annotate (CLI)
-Annotate your PDFs with LaTeX or Typst. Watch a directory for changes and re-annotate on the fly.
+<center>
 
-![a demo of annotate in action](./art/demovideo.gif)
+### Annotate (CLI)
+Annotate your PDFs with LaTeX or Typst, right from the command line.
+
+</center>
+
+#### Demo
+
+![a demo of annotate in action](./art/demo-video.gif)
+
+
