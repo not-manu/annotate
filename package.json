@@ -12,8 +12,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir dist --target node --format esm",
+    "build": "bun build ./src/index.ts --outdir dist --target node --format esm --packages external",
     "publish": "bash scripts/publish.sh",
+    "patch": "npm version patch && bun run publish",
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "test:watch": "bun test --watch",

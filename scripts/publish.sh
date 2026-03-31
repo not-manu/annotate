@@ -13,7 +13,7 @@ fi
 
 # Build
 echo "Building..."
-bun build ./src/index.ts --outdir dist --target node --format esm
+bun build ./src/index.ts --outdir dist --target node --format esm --packages external
 
 # Add shebang to the entry point
 echo '#!/usr/bin/env node' | cat - dist/index.js > dist/index.tmp && mv dist/index.tmp dist/index.js
