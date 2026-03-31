@@ -11,6 +11,10 @@ if [ -z "${NPM_ACCESS_TOKEN:-}" ]; then
   exit 1
 fi
 
+# Bump version
+echo "Bumping patch version..."
+npm version patch --no-git-tag-version
+
 # Build
 echo "Building..."
 bun build ./src/index.ts --outdir dist --target node --format esm --packages external
@@ -21,3 +25,5 @@ echo '#!/usr/bin/env node' | cat - dist/index.js > dist/index.tmp && mv dist/ind
 # Publish
 echo "Publishing..."
 npm publish --access public --registry https://registry.npmjs.org/ --//registry.npmjs.org/:_authToken="$NPM_ACCESS_TOKEN"
+
+echo "Published $(node -p "require('./package.json').version") successfully!"
