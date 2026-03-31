@@ -1,8 +1,6 @@
 <center>
-
-### Annotate
-Annotate your PDFs with LaTeX & Typst!
-
+<h3>Annotate</h3>
+<p>Annotate your PDFs with LaTeX & Typst!</p>
 </center>
 
 #### Demo
