@@ -1,5 +1,5 @@
 <div align="center">
-<h3>Annotate</h3>
+<h2>Annotate</h2>
 <p>Annotate your PDFs with LaTeX & Typst!</p>
 </div>
 
@@ -92,6 +92,21 @@ This annotate the first page with some text. The final document `homework-annota
 <br/>
 <br/>
 
-### How I use it
+### Features
 
+Annotate should work out of the box with your TeX distribution (pdflatex, xelatex, latexmk, tectonic) or with Typst.
 
+<br/>
+
+| Engine | Language | Supported | Tested | Notes |
+|--------|----------|-----------|--------|-------|
+| **tectonic** | **LaTeX** | **✓** | **✓** | **Recommended, auto-downloads packages** |
+| **typst** | **Typst** | **✓** | **✓** | The future of typesetting! |
+| latexmk | LaTeX | ✓ | ✓ | Common in TeX distributions |
+| pdflatex | LaTeX | ✓ | ✓ | Basic LaTeX engine |
+| xelatex | LaTeX | ✓ | ✓ | Unicode/font support |
+| lualatex | LaTeX | ✗ | ✗ | Not yet implemented |
+
+<br/>
+
+> **Note:** Engines that are not tested should work but haven't been verified yet. If you try one, please [open an issue](https://github.com/not-manu/annotate/issues) and let me know how it goes! Thank you!

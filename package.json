@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "annotate": "./dist/index.js"
+    "annotate": "./src/index.ts"
   },
   "files": [
     "dist"

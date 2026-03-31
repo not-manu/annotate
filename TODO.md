@@ -18,6 +18,7 @@
           `annotate` to point to the installed version of the binary. this way we can
           test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
+- [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
 - [ ] add my sample AGENTS.md, and SKILLS.md (include in readme)
 - [ ] add a MIT license
