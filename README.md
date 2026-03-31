@@ -7,15 +7,26 @@
 
 ![a demo of annotate in action](./art/demo-video.gif)
 
-#### Installation
+### Quick start
+
 
 ```bash
+# Install globally
 npm i -g @notmanu/annotate
+
+# Start watching homework.pdf for changes (using LaTeX for annotations)
+annotate watch homework.pdf --with latex
 ```
 
-#### Usage
+Edit `./homework/pages/page-01.tex` and add a textbox inside the document:
 
-```bash
-annotate --help
+```tex
+
+\textbox[x=10em, y=40em, w=30em, h=10em, border]{
+  \large
+  Hello Annotate!
+}
 ```
+
+This annotate the first page with some text. You can view the annotated PDF at `./homework/homework-annotate.pdf`! 
 
