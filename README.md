@@ -29,9 +29,6 @@
 
 ### Quick start
 
-<br/>
-
-
 **1. Install Annotate**
 
 ```sh
@@ -73,5 +70,9 @@ Edit `page-01.tex` and add a textbox inside the document:
 }
 ```
 
-This annotate the first page with some text. The final document `homework-annotated.pdf` will automatically update with changes.
+This annotate the first page with some text. The final document `homework-annotated.pdf` will automatically compile as you add annotations.
 
+<br/>
+<br/>
+
+### How I use it
