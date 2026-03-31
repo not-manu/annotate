@@ -94,9 +94,28 @@ This annotate the first page with some text. The final document `homework-annota
 
 ### Features
 
-Annotate should work out of the box with your TeX distribution (pdflatex, xelatex, latexmk, tectonic) or with Typst.
+Annotate lets you write annotations in LaTeX or Typst and overlay them directly onto existing PDFs. It watches your files, recompiles on every save, and produces a final annotated PDF in real time -- no manual build steps, no fiddling with coordinates in a GUI.
+
+
+<!-- <img src="./art/live-reload.png" alt="live reload demo" width="50%" align="right"> -->
+
+- **Live reload** -- edit a `.tex` or `.typ` file, save, and see the result instantly.
+- **Works with your existing tools** -- use any text editor, any LaTeX packages, any Typst modules. Annotate stays out of your way.
+- **Per-page annotations** -- each page gets its own file (`page-01.tex`, `page-02.tex`, ...) so you only touch what you need.
+- **Automatic page sizing** -- overlay pages match the original PDF's dimensions, no configuration required.
+- **Image generation** -- optionally export each page as a PNG with the `--images` flag (requires `pdftoppm` or `mutool`).
+- **Built-in macros** -- a generated `style.sty` / `style.typ` gives you positioning primitives out of the box.
 
 <br/>
+
+<!-- TODO: screenshot of live reload in action -->
+
+<br/>
+<br/>
+
+**Supported engines**
+
+Annotate should work out of the box with your TeX distribution or with Typst.
 
 | Engine | Language | Supported | Tested | Notes |
 |--------|----------|-----------|--------|-------|
@@ -107,6 +126,58 @@ Annotate should work out of the box with your TeX distribution (pdflatex, xelate
 | xelatex | LaTeX | ✓ | ✓ | Unicode/font support |
 | lualatex | LaTeX | ✗ | ✗ | Not yet implemented |
 
+> **Note:** Engines that are not tested should work but haven't been verified yet. If you try one, please [open an issue](https://github.com/not-manu/annotate/issues) and let me know how it goes!
+
 <br/>
 
-> **Note:** Engines that are not tested should work but haven't been verified yet. If you try one, please [open an issue](https://github.com/not-manu/annotate/issues) and let me know how it goes! Thank you!
+**Built-in macros**
+
+Every new project comes with a `style.sty` (LaTeX) or `style.typ` (Typst) that includes helpful macros so you can start annotating right away.
+
+<br/>
+
+<!-- TODO: screenshot showing textbox with border on a PDF page -->
+<img src="https://placehold.co/1280x400" alt="textbox macro example" width="100%">
+
+<br/>
+<br/>
+
+`\textbox` (LaTeX) / `#textbox` (Typst) -- the main annotation command. Place a box at any position on the page:
+
+```latex
+\textbox[x=10em, y=40em, w=30em, h=10em, border]{
+  Your annotation here!
+}
+```
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `x` | `0pt` | Horizontal offset from top-left |
+| `y` | `0pt` | Vertical offset from top-left |
+| `w` | `2in` | Box width |
+| `h` | `0.5in` | Box height |
+| `pad` | `0pt` | Inner padding |
+| `border` | off | Show a border (useful for debugging placement) |
+
+<br/>
+
+Other macros included in the default style:
+
+| Macro | Description |
+|-------|-------------|
+| `\annotationcolor{color}` | Change the annotation text color |
+| `\annotationbox[fill]{content}` | Highlighted box (default fill: yellow) |
+| `\annotationlayer{...}` | TikZ overlay layer for absolute positioning |
+| `\answerspace[height]` | Insert blank space for handwriting (default: 1.2in) |
+| `\begin{defbox}[title]` | Definition box environment |
+| `\begin{hintbox}[title]` | Hint/note box environment (default title: "Hint") |
+| `definition`, `theorem`, `lemma`, `corollary` | Auto-numbered math environments |
+
+<br/>
+
+<!-- TODO: screenshot showing multiple macros in use (annotationbox, defbox, hintbox) -->
+<img src="https://placehold.co/1280x400" alt="macro examples" width="100%">
+
+<br/>
+
+> Typst equivalents use function syntax: `#textbox(x: 10em, y: 40em)[content]`, `#annotation-box(content)`, `#annotation-text("text")`, `#answer-space()`. See `style.typ` for the full API.
