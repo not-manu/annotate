@@ -1,7 +1,7 @@
 <center>
 
-### Annotate (CLI)
-Annotate your PDFs with LaTeX or Typst, right from the command line.
+### Annotate
+Annotate your PDFs with LaTeX & Typst!
 
 </center>
 
@@ -9,4 +9,15 @@ Annotate your PDFs with LaTeX or Typst, right from the command line.
 
 ![a demo of annotate in action](./art/demo-video.gif)
 
+#### Installation
+
+```bash
+npm i -g @notmanu/annotate
+```
+
+#### Usage
+
+```bash
+annotate --help
+```
 
