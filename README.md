@@ -13,8 +13,6 @@
 
 <img align="right" src="https://placehold.co/1280x720" alt="file tree showing the generated project structure" width="50%">
 
-<br/>
-
 **How I use it**:
 
 I use Annotate for 90% of my homework at university! In this video I explain how I use it everyday, and how I speed up my workflow with AI agents. 
