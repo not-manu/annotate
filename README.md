@@ -1,7 +1,7 @@
-<center>
+<div align="center">
 <h3>Annotate</h3>
 <p>Annotate your PDFs with LaTeX & Typst!</p>
-</center>
+</div>
 
 #### Demo
 
