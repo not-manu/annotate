@@ -11,7 +11,7 @@
 
 <br/>
 
-<img align="right" src="https://placehold.co/1280x720" alt="file tree showing the generated project structure" width="50%">
+<a href="https://youtube.com"><img align="right" src="./art/yt-thumbnail-with-icon.png" alt="youtube video!" width="50%"></a>
 
 **How I use it**:
 
