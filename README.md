@@ -15,7 +15,7 @@
 <a href="https://youtube.com"><img align="right" src="./art/yt-thumbnail-with-icon.png" alt="youtube video!" width="50%"></a>
 **How I use it**:
 
-I use Annotate for 90% of my homework at university! In this video I explain how I use it everyday, and how I speed up my workflow with AI agents. 
+I use Annotate for ~90% of my homework at university! In the video on the right,  I explain how I use it everyday, and how I speed up my workflow with AI agents. 
 
 **Why?** 
 - All my professors are strict with how I format my work. (I cannot modify the original PDF and must write over it!)

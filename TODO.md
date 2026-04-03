@@ -10,6 +10,7 @@
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
 - [ ] latex: empty \textbox should not have zero width
 - [ ] update opengraph image for the repo
+- [ ] make repo public
 
 
 ## roadmap
