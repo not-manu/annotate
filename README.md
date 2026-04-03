@@ -74,14 +74,6 @@ annotate homework.pdf --with latex
 
 This creates a `homework/` folder, compiles the initial pages, and immediately enters watch mode:
 
-```
-homework/
-├── pages/
-│   ├── page-01.tex
-│   └── style.sty
-└── homework-annotated.pdf
-```
-
 <br />
 
 **3. Add some annotations!**
