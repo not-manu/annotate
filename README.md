@@ -120,9 +120,9 @@ Annotate should work out of the box with your TeX distribution or with Typst.
 |--------|----------|-----------|--------|-------|
 | **tectonic** | **LaTeX** | **✓** | **✓** | **Recommended, auto-downloads packages** |
 | **typst** | **Typst** | **✓** | **✓** | The future of typesetting! |
-| latexmk | LaTeX | ✓ | ✓ | Common in TeX distributions |
-| pdflatex | LaTeX | ✓ | ✓ | Basic LaTeX engine |
-| xelatex | LaTeX | ✓ | ✓ | Unicode/font support |
+| latexmk | LaTeX | ✓ | ✗ | Common in TeX distributions |
+| pdflatex | LaTeX | ✓ | ✗ | Basic LaTeX engine |
+| xelatex | LaTeX | ✓ | ✗ | Unicode/font support |
 | lualatex | LaTeX | ✗ | ✗ | Not yet implemented |
 
 > **Note:** Engines that are not tested should work but haven't been verified yet. If you try one, please [open an issue](https://github.com/not-manu/annotate/issues) and let me know how it goes!
