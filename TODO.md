@@ -9,6 +9,7 @@
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
 - [ ] latex: empty \textbox should not have zero width
+- [ ] update opengraph image for the repo
 
 
 ## roadmap
