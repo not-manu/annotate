@@ -35,6 +35,8 @@ I use Annotate for 90% of my homework at university! In this video I explain how
 &nbsp;&bull;&nbsp;
 [How it works](#how-it-works)
 &nbsp;&bull;&nbsp;
+[Examples](#examples)
+&nbsp;&bull;&nbsp;
 [Contributing](#contributing)
 
 </div>
@@ -105,7 +107,7 @@ Write annotations in LaTeX or Typst and overlay them directly onto existing PDFs
 
 **Works with your existing tools** &mdash; Any text editor, any LaTeX packages, any Typst modules. Annotate stays out of your way.
 
-**Image generation** &mdash; Export each page as a PNG with the `--images` flag (requires `pdftoppm` or `mutool`).
+**Image generation** &mdash; Export each page as a PNG with the `--images` flag. Requires `pdftoppm` (poppler) or `mutool` (mupdf) to be installed.
 
 **Built-in macros** &mdash; A generated `style.sty` / `style.typ` gives you positioning primitives out of the box.
 
@@ -280,6 +282,33 @@ Annotate watches your `pages/` directory. When you save a `.tex` or `.typ` file,
 
 <img src="./art/page-01-comparison.png" alt="Annotation layer alongside the final annotated PDF page" width="100%">
 
+### Examples
+
+The [`examples/`](./examples) folder has ready-to-run projects you can use as a reference:
+
+| Folder | Description |
+|--------|-------------|
+| [`examples/latex`](./examples/latex) | LaTeX homework annotation |
+| [`examples/typst`](./examples/typst) | Typst homework annotation |
+| [`examples/agents`](./examples/agents) | Agent-ready project with `AGENTS.md` and a full transcript |
+
+<br/>
+<br/>
+
 ### Contributing
 
 Found a bug or want to add an engine? [Open an issue](https://github.com/not-manu/annotate/issues) or send a PR — contributions are welcome.
+
+**Dev setup:**
+
+```sh
+bun install
+
+# Link annotate-dev → src/index.ts (runs with Bun, no build step needed)
+bun run dev:link
+
+annotate-dev homework.pdf -w latex
+
+# Unlink when done
+bun run dev:unlink
+```

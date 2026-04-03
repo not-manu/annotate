@@ -2,13 +2,11 @@
 
 - [ ] publish on npm!!
 - [ ] write readme
-  - [ ] mention the examples folder with example projects for latex and typst
   - [ ] basic install instructions for tectonic?
-  - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
-  - [ ] add my sample AGENTS.md (include in readme)
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
+- [ ] add my sample AGENTS.md (include in readme)
 - [ ] add a MIT license
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
@@ -33,6 +31,9 @@
 - [x] write readme: add engine table comparing engines, languages, tested status, with note
 - [x] write readme: usage instructions with clean sections & screenshots/gifs
 - [x] write readme: improve image alt text
+- [x] write readme: mention the examples folder with example projects for latex and typst
+- [x] write readme: note how to work with images, and requiring pdftoppm/mutool for it to work
+- [x] write readme: add dev setup
 - [x] remove slop readme
 - [x] custom `AnnotateError` with `message` and `hint` fields
 - [x] helpful error output with paths and context
