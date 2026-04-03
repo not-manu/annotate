@@ -26,6 +26,7 @@
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
 - [ ] readme: improve image alt text
 - [ ] latex: empty \textbox should not have zero width
+- [ ] remove slop readme
 
 
 ## roadmap
