@@ -8,7 +8,7 @@
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
-- [ ] add my sample AGENTS.md, and SKILLS.md (include in readme)
+- [ ] add my sample AGENTS.md (include in readme)
 - [ ] add a MIT license
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
