@@ -79,3 +79,4 @@
 - [x] when generating images for the pages it should not generating every image from scratch but rather generating only the image of the page that changed.
 - [x] add an indication to show the last compiled page with a small time icon
 - [x] create an --agents flag which auto creates a AGENTS.md, CLAUDE.md and auto enables the --images flag
+- [x] update homepage to to show usage with the --agents flag

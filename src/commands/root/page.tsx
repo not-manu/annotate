@@ -50,7 +50,13 @@ function RootPage() {
           flags="--with typst"
         />
         <Example
-          comment="Export 300 DPI images after each compile (great for AI agents)"
+          comment="Set up a project for AI agents (generates AGENTS.md, CLAUDE.md, and page images)"
+          cmd="annotate"
+          args="paper.pdf"
+          flags="--with latex --agents"
+        />
+        <Example
+          comment="Export 300 DPI images after each compile"
           cmd="annotate"
           args="paper.pdf"
           flags="--with typst --images"
