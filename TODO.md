@@ -1,8 +1,6 @@
 ## todo
 
 - [ ] publish on npm!!
-- [ ] write readme
-  - [ ] basic install instructions for tectonic?
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
@@ -20,6 +18,7 @@
 
 ## done
 
+- [x] write readme
 - [x] add dev setup as well
 - [x] make `annotate-dev` point to the linked binary for dev, and
       `annotate` to point to the installed version of the binary. this way we can
