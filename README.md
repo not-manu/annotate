@@ -214,9 +214,6 @@ annotate watch homework/ --agents
 <br/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
 
 **2. Place your boxes**
 
@@ -225,16 +222,15 @@ annotate watch homework/ --agents
 Add empty `\textbox` elements with `border` enabled where you want the agent to write. The border helps you visually confirm the placement before handing it off:
 
 ```latex
-\textbox[x=13em, y=39em, w=36em, h=10em, border]{
-  Question 1a
+\textbox[x=150bp, y=350bp, w=330bp, h=120bp, pad=4pt, border]{
+  Question 1.
 }
 
-\textbox[x=13em, y=57em, w=36em, h=10em, border]{
-  Question 1b
+\textbox[x=150bp, y=548bp, w=330bp, h=110bp, pad=4pt, border]{
+  Question 2.
 }
 ```
 
-<br/>
 <br/>
 <br/>
 <br/>
@@ -255,8 +251,15 @@ The generated `AGENTS.md` includes sensible defaults for annotation work. Custom
 The agent reads the page images in `img/`, understands the layout, and fills in the LaTeX — all while Annotate recompiles in the background. See [`examples/AGENTS.md`](./examples/AGENTS.md) for a full example.
 
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<img src="./art/agent-opencv.png" alt="Claude agent using OpenCV to detect answer regions and generate textbox coordinates" width="50%" align="right">
 
 **Automating box placement with OpenCV**
+
 
 For assignments with many printed answer regions, you can skip manual box placement entirely. Let the agent write a quick Python script that detects the boxes from the page image and generates the `\textbox` coordinates automatically:
 
@@ -267,7 +270,6 @@ uv run --with opencv-python python detect_boxes.py
 
 The script reads a page image from `img/`, finds the answer regions using contour detection, and converts the pixel coordinates into `\textbox` positions using the page dimensions. This is especially useful for worksheets with dozens of small answer boxes or checkbox grids.
 
-<img src="./art/agent-opencv.png" alt="Claude agent using OpenCV to detect answer regions and generate textbox coordinates" width="100%">
 
 <br/>
 <br/>
