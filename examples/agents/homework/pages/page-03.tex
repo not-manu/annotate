@@ -5,4 +5,36 @@
 \begin{document}
 \thispagestyle{empty}
 \null
+
+\textbox[x=418bp, y=278bp, w=170bp, h=132bp, pad=2pt]{%
+\[
+\textstyle
+F(x)=
+\begin{cases}
+2x, & 0 \le x < 2,\\
+2+2x-\frac{x^2}{2}, & 2 \le x < 4,\\
+\frac{x^2}{2}-4x+10, & 4 \le x \le 6.
+\end{cases}
+\]
+}
+
+\annotationlayer{
+  \begin{scope}[shift={([xshift=227.28bp,yshift=-410.40bp]current page.north west)}, x=24.12bp, y=24.12bp]
+    \draw[annotate, line width=1pt] (0,0) -- (2,4);
+    \draw[annotate, line width=1pt] plot[smooth] coordinates {
+      (2,4) (2.5,3.875) (3,3.5) (3.5,2.875) (4,2)
+    };
+    \draw[annotate, line width=1pt] plot[smooth] coordinates {
+      (4,2) (4.5,2.125) (5,2.5) (5.5,3.125) (6,4)
+    };
+  \end{scope}
+}
+
+\textbox[x=145bp, y=548bp, w=330bp, h=90bp, pad=4pt]{%
+\vfill
+\[
+G'(x)=\sqrt{1+x^4}
+\]
+\vfill
+}
 \end{document}
