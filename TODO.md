@@ -1,17 +1,10 @@
 ## todo
 
-- [ ] need to create repo art
 - [ ] publish on npm!!
 - [ ] write readme
-  - [ ] list features, engines supported, and languages supported
-  - [ ] document built in macros in style.sty
   - [ ] include example for working with diagrams/figures
   - [ ] mention the examples folder with example projects for latex and typst
-  - [ ] include warnings about not having tested other latex engines yet
-    - [ ] for this add a nice table comparing engines, langauges supported, if
-          they have been tested. Add a note below/quote.
   - [ ] basic install instructions for tectonic?
-  - [ ] usage instructions with clean sections & screenshots/gifs
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
   - [ ] add dev setup as well
     - [ ] make `annotate-dev` point to the linked binary for dev, and
@@ -24,9 +17,7 @@
 - [ ] add a MIT license
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
-- [ ] readme: improve image alt text
 - [ ] latex: empty \textbox should not have zero width
-- [ ] remove slop readme
 
 
 ## roadmap
@@ -36,6 +27,14 @@
 
 ## done
 
+- [x] need to create repo art
+- [x] write readme: list features, engines supported, and languages supported
+- [x] write readme: document built-in macros in style.sty
+- [x] write readme: include warnings about not having tested other latex engines yet
+- [x] write readme: add engine table comparing engines, languages, tested status, with note
+- [x] write readme: usage instructions with clean sections & screenshots/gifs
+- [x] write readme: improve image alt text
+- [x] remove slop readme
 - [x] custom `AnnotateError` with `message` and `hint` fields
 - [x] helpful error output with paths and context
 - [x] graceful exit on `q` and `ctrl+c`
