@@ -19,6 +19,7 @@
 
 ## done
 
+- [x] fix readme spacing a bit
 - [x] add a footer
 - [x] add a MIT license
 - [x] write readme

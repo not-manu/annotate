@@ -10,6 +10,7 @@
 <img src="./art/demo-video.gif" alt="a demo of annotate in action" width="100%">
 
 <br/>
+<br/>
 
 <a href="https://youtube.com"><img align="right" src="./art/yt-thumbnail-with-icon.png" alt="youtube video!" width="50%"></a>
 **How I use it**:
@@ -58,9 +59,8 @@ pnpm add -g @notmanu/annotate
 bun add -g @notmanu/annotate
 ```
 
-<br />
-<br />
-
+<br/>
+<br/>
 
 <img align="right" src="./art/file-tree.png" alt="file tree showing the generated project structure" width="300">
 
@@ -74,7 +74,8 @@ annotate homework.pdf --with latex
 
 This creates a `homework/` folder, compiles the initial pages, and immediately enters watch mode:
 
-<br />
+<br/>
+<br/>
 
 **3. Add some annotations!**
 
@@ -89,8 +90,8 @@ Edit `pages/page-01.tex` and add a textbox:
 
 Save the file — Annotate recompiles automatically and updates `homework-annotated.pdf`.
 
-<br />
-<br />
+<br/>
+<br/>
 
 **4. Resume watching**
 
@@ -146,6 +147,7 @@ Annotate works out of the box with your TeX distribution or with Typst.
 
 Every new project includes a `style.sty` (LaTeX) or `style.typ` (Typst) with helpful macros so you can start annotating right away.
 
+<br/>
 <br/>
 
 <!-- TODO: screenshot showing textbox with border on a PDF page -->
@@ -291,6 +293,9 @@ The script reads a page image from `img/`, finds the answer regions using contou
 Annotate watches your `pages/` directory. When you save a `.tex` or `.typ` file, it recompiles only the affected page into a transparent annotation PDF. After compilation, **[pdf-lib](https://github.com/Hopding/pdf-lib)** overlays each annotation page onto the corresponding page of the original and writes out the final `*-annotated.pdf`. The original PDF is never touched.
 
 <img src="./art/page-01-comparison.png" alt="Annotation layer alongside the final annotated PDF page" width="100%">
+
+<br/>
+<br/>
 
 ### Examples
 
