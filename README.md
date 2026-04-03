@@ -93,28 +93,28 @@ This annotate the first page with some text. The final document `homework-annota
 
 ### Features
 
-Annotate lets you write annotations in LaTeX or Typst and overlay them directly onto existing PDFs. It watches your files, recompiles on every save, and produces a final annotated PDF in real time -- no manual build steps, no fiddling with coordinates in a GUI.
-
-
-<!-- <img src="./art/live-reload.png" alt="live reload demo" width="50%" align="right"> -->
-
-- **Live reload** -- edit a `.tex` or `.typ` file, save, and see the result instantly.
-- **Works with your existing tools** -- use any text editor, any LaTeX packages, any Typst modules. Annotate stays out of your way.
-- **Per-page annotations** -- each page gets its own file (`page-01.tex`, `page-02.tex`, ...) so you only touch what you need.
-- **Automatic page sizing** -- overlay pages match the original PDF's dimensions, no configuration required.
-- **Image generation** -- optionally export each page as a PNG with the `--images` flag (requires `pdftoppm` or `mutool`).
-- **Built-in macros** -- a generated `style.sty` / `style.typ` gives you positioning primitives out of the box.
+Write annotations in LaTeX or Typst and overlay them directly onto existing PDFs. Annotate watches your files, recompiles on every save, and produces a final annotated PDF in real time.
 
 <br/>
 
-<!-- TODO: screenshot of live reload in action -->
+**Live reload** &mdash; Edit a `.tex` or `.typ` file, save, and see the result instantly. No manual build steps.
+
+**Per-page annotations** &mdash; Each page gets its own file (`page-01.tex`, `page-02.tex`, ...) so you only touch what you need.
+
+**Automatic page sizing** &mdash; Overlay pages match the original PDF's dimensions. No configuration required.
+
+**Works with your existing tools** &mdash; Any text editor, any LaTeX packages, any Typst modules. Annotate stays out of your way.
+
+**Image generation** &mdash; Export each page as a PNG with the `--images` flag (requires `pdftoppm` or `mutool`).
+
+**Built-in macros** &mdash; A generated `style.sty` / `style.typ` gives you positioning primitives out of the box.
 
 <br/>
 <br/>
 
 **Supported engines**
 
-Annotate should work out of the box with your TeX distribution or with Typst.
+Annotate works out of the box with your TeX distribution or with Typst.
 
 | Engine | Language | Supported | Tested | Notes |
 |--------|----------|-----------|--------|-------|
@@ -128,10 +128,11 @@ Annotate should work out of the box with your TeX distribution or with Typst.
 > **Note:** Engines that are not tested should work but haven't been verified yet. If you try one, please [open an issue](https://github.com/not-manu/annotate/issues) and let me know how it goes!
 
 <br/>
+<br/>
 
 **Built-in macros**
 
-Every new project comes with a `style.sty` (LaTeX) or `style.typ` (Typst) that includes helpful macros so you can start annotating right away.
+Every new project includes a `style.sty` (LaTeX) or `style.typ` (Typst) with helpful macros so you can start annotating right away.
 
 <br/>
 
@@ -140,6 +141,8 @@ Every new project comes with a `style.sty` (LaTeX) or `style.typ` (Typst) that i
 
 <br/>
 <br/>
+
+`\textbox` (LaTeX) / `#textbox` (Typst) is the main positioning command. Place a box at any position on the page:
 
 ```latex
 \textbox[x=10em, y=40em, w=30em, h=10em, border]{
@@ -151,9 +154,6 @@ Every new project comes with a `style.sty` (LaTeX) or `style.typ` (Typst) that i
   Your annotation here!
 }
 ```
-
-`\textbox` (LaTeX) / `#textbox` (Typst) -- the main annotation command. Place a box at any position on the page:
-
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -181,3 +181,90 @@ Other macros included in the default style:
 <br/>
 
 > Typst equivalents use function syntax: `#textbox(x: 10em, y: 40em)[content]`, `#annotation-box(content)`, `#annotation-text("text")`, `#answer-space()`. See `style.typ` for the full API.
+
+<br/>
+<br/>
+
+### Annotating with AI Agents
+
+Annotate is designed to work well with AI coding agents like Claude Code, Cursor, and Copilot. The workflow is simple: you set up the boxes, the agent fills them in.
+
+<br/>
+
+**1. Enable image generation**
+
+Start your project with the `--images` flag so the agent can *see* each page:
+
+```sh
+annotate homework.pdf -w latex --images
+```
+
+This generates a PNG for each page inside `img/`, updated automatically on every compile:
+
+```
+homework/
+  pages/
+    style.sty
+    page-01.tex
+    page-02.tex
+    ...
+  img/
+    page-01.png      ← agent reads these
+    page-02.png
+    ...
+  homework-annotated.pdf
+```
+
+![Image generation — terminal showing annotate with --images flag and the img/ folder](https://placehold.co/900x300/0d1117/c9d1d9?text=annotate+--images+generating+page+PNGs&font=source-sans-pro)
+<!-- Replace with: a screenshot of the annotate TUI with --images enabled, showing the img/ folder being populated alongside the pages/ folder -->
+
+<br/>
+
+**2. Place your boxes**
+
+Add empty `\textbox` elements with `border` enabled where you want the agent to write. The border helps you visually confirm the placement before handing it off:
+
+```latex
+\textbox[x=13em, y=39em, w=36em, h=10em, border]{
+  Question 1a
+}
+
+\textbox[x=13em, y=57em, w=36em, h=10em, border]{
+  Question 1b
+}
+```
+
+![Box placement — PDF page with bordered empty boxes positioned over questions](https://placehold.co/900x500/1a1a2e/0066CC?text=bordered+boxes+placed+over+questions&font=source-sans-pro)
+<!-- Replace with: a screenshot of a PDF page showing empty bordered textboxes positioned over homework questions, before the agent fills them in -->
+
+<br/>
+
+**3. Add an `AGENTS.md`**
+
+Drop an `AGENTS.md` in your project folder to give the agent context about how to annotate. This file is automatically picked up by Claude Code and similar tools:
+
+```markdown
+<!-- AGENTS.md -->
+- Prefer `displaystyle` when possible; use `textstyle` only when space is tight.
+- Remove the border from a question once it is completed.
+- Do not include the question number when writing answers — provide the answer directly.
+- Do not attempt to compile the document; it will be compiled automatically.
+```
+
+The agent reads the page images in `img/`, understands the layout, and fills in the LaTeX — all while Annotate recompiles in the background. See [`examples/AGENTS.md`](./examples/AGENTS.md) for a full example.
+
+<br/>
+
+**Automating box placement with OpenCV**
+
+For assignments with many printed answer regions, you can skip manual box placement entirely. Let the agent write a quick Python script that detects the boxes from the page image and generates the `\textbox` coordinates automatically:
+
+```sh
+# the agent can run this without modifying your project deps
+uv run --with opencv-python python detect_boxes.py
+```
+
+The script reads a page image from `img/`, finds the answer regions using contour detection, and converts the pixel coordinates into `\textbox` positions using the page dimensions. This is especially useful for worksheets with dozens of small answer boxes or checkbox grids.
+
+![OpenCV detection — page image with detected answer regions highlighted](https://placehold.co/900x500/0d1117/c9d1d9?text=OpenCV+detecting+answer+boxes+from+page+image&font=source-sans-pro)
+<!-- Replace with: a side-by-side showing a page image on the left with OpenCV bounding boxes drawn over detected answer regions, and the generated \textbox code on the right -->

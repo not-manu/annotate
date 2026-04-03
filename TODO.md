@@ -24,6 +24,8 @@
 - [ ] add a MIT license
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
+- [ ] readme: improve image alt text
+- [ ] crate an --agents flag which auto creates a AGENTS.md, CLAUDE.md and auto enables the --images flag
 
 
 
