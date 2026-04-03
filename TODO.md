@@ -27,17 +27,10 @@
 - [ ] readme: improve image alt text
 
 
-
-
-
 ## roadmap
 
 - [ ] katex support with .md?
-
-### webapp ?
 - [ ] add experimental mode to autosetup a page using python, opencv 
-
-
 
 ## done
 
