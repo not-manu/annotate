@@ -199,26 +199,9 @@ The `--agents` flag generates an `AGENTS.md`, `CLAUDE.md`, and automatically ena
 annotate homework.pdf -w latex --agents
 ```
 
-This creates the full agent-ready project structure:
+<img align="right" src="./art/file-tree-agents.png" alt="file tree showing the agent-ready project structure with img/, AGENTS.md, and CLAUDE.md" width="260">
 
-```
-homework/
-  pages/
-    style.sty
-    page-01.tex
-    page-02.tex
-    ...
-  img/
-    page-01.png        ← agent reads these to see the PDF
-    page-02.png
-    ...
-  AGENTS.md            ← instructions for the agent
-  CLAUDE.md            ← project context for Claude Code
-  homework-annotated.pdf
-```
-
-![Agent project setup — terminal showing annotate --agents and the generated folder structure](https://placehold.co/900x300/0d1117/c9d1d9?text=annotate+--agents+project+structure&font=source-sans-pro)
-<!-- Replace with: a screenshot of the annotate TUI with --agents enabled, showing the full folder structure including AGENTS.md, CLAUDE.md, and the img/ folder -->
+This creates the full agent-ready project structure — `img/` holds a PNG per page so the agent can see the layout, and `AGENTS.md` / `CLAUDE.md` give it the context it needs.
 
 You can also add `--agents` to an existing project — it will generate the missing files without overwriting anything:
 
@@ -227,8 +210,17 @@ annotate watch homework/ --agents
 ```
 
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 **2. Place your boxes**
+
+<img align="right" src="./art/question-borders.png" alt="PDF page with empty bordered textboxes placed over homework questions" width="45%">
 
 Add empty `\textbox` elements with `border` enabled where you want the agent to write. The border helps you visually confirm the placement before handing it off:
 
@@ -242,9 +234,11 @@ Add empty `\textbox` elements with `border` enabled where you want the agent to 
 }
 ```
 
-![Box placement — PDF page with bordered empty boxes positioned over questions](https://placehold.co/900x500/1a1a2e/0066CC?text=bordered+boxes+placed+over+questions&font=source-sans-pro)
-<!-- Replace with: a screenshot of a PDF page showing empty bordered textboxes positioned over homework questions, before the agent fills them in -->
-
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <br/>
 
 **3. Customize the `AGENTS.md`**
@@ -273,5 +267,4 @@ uv run --with opencv-python python detect_boxes.py
 
 The script reads a page image from `img/`, finds the answer regions using contour detection, and converts the pixel coordinates into `\textbox` positions using the page dimensions. This is especially useful for worksheets with dozens of small answer boxes or checkbox grids.
 
-![OpenCV detection — page image with detected answer regions highlighted](https://placehold.co/900x500/0d1117/c9d1d9?text=OpenCV+detecting+answer+boxes+from+page+image&font=source-sans-pro)
-<!-- Replace with: a side-by-side showing a page image on the left with OpenCV bounding boxes drawn over detected answer regions, and the generated \textbox code on the right -->
+<img src="./art/agent-opencv.png" alt="Claude agent using OpenCV to detect answer regions and generate textbox coordinates" width="100%">
