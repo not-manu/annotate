@@ -6,10 +6,6 @@
   - [ ] mention the examples folder with example projects for latex and typst
   - [ ] basic install instructions for tectonic?
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
-  - [ ] add dev setup as well
-    - [ ] make `annotate-dev` point to the linked binary for dev, and
-          `annotate` to point to the installed version of the binary. this way we can
-          test the installed version more easily.
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
@@ -27,6 +23,10 @@
 
 ## done
 
+- [x] add dev setup as well
+- [x] make `annotate-dev` point to the linked binary for dev, and
+      `annotate` to point to the installed version of the binary. this way we can
+      test the installed version more easily.
 - [x] need to create repo art
 - [x] write readme: list features, engines supported, and languages supported
 - [x] write readme: document built-in macros in style.sty
