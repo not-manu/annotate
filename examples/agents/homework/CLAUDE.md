@@ -20,6 +20,24 @@ This is an annotate project. Annotations are written in LaTeX or Typst files ins
 - Respect the user's choice of font size unless explicitly asked to change it.
 - Prefer `bp` units when matching exact positions from the PDF.
 
+## Textbox Macro
+
+Place annotations with `textbox`. Coordinates are from the top-left corner of the page. Check whether `pages/` contains `.tex` or `.typ` files to determine which syntax to use.
+
+**LaTeX:** `\textbox[x=.., y=.., w=.., h=.., pad=.., border]{content}`
+
+```latex
+\textbox[x=72bp, y=200bp, w=300bp, h=80bp, border]{$\displaystyle \frac{1}{3}$}
+\textbox[x=72bp, y=200bp, w=300bp, h=80bp, pad=4pt]{Finished answer, no border.}
+```
+
+**Typst:** `#textbox(x: .., y: .., w: .., h: .., pad: .., border: true/false)[content]`
+
+```typst
+#textbox(x: 72pt, y: 200pt, w: 300pt, h: 80pt, border: true)[$1/3$]
+#textbox(x: 72pt, y: 200pt, w: 300pt, h: 80pt, pad: 4pt)[Finished answer, no border.]
+```
+
 ## Reviewing Assignments
 
 When reviewing work, go through it page by page. For each page:
