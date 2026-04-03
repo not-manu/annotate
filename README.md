@@ -136,18 +136,24 @@ Every new project comes with a `style.sty` (LaTeX) or `style.typ` (Typst) that i
 <br/>
 
 <!-- TODO: screenshot showing textbox with border on a PDF page -->
-<img src="https://placehold.co/1280x400" alt="textbox macro example" width="100%">
+<img src="./art/your-annotation-here.png" alt="textbox macro example" width="100%">
 
 <br/>
 <br/>
-
-`\textbox` (LaTeX) / `#textbox` (Typst) -- the main annotation command. Place a box at any position on the page:
 
 ```latex
 \textbox[x=10em, y=40em, w=30em, h=10em, border]{
   Your annotation here!
 }
 ```
+```typst
+#textbox(x: 10em, y: 40em, w: 30em, h: 10em, border: true) {
+  Your annotation here!
+}
+```
+
+`\textbox` (LaTeX) / `#textbox` (Typst) -- the main annotation command. Place a box at any position on the page:
+
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -171,11 +177,6 @@ Other macros included in the default style:
 | `\begin{defbox}[title]` | Definition box environment |
 | `\begin{hintbox}[title]` | Hint/note box environment (default title: "Hint") |
 | `definition`, `theorem`, `lemma`, `corollary` | Auto-numbered math environments |
-
-<br/>
-
-<!-- TODO: screenshot showing multiple macros in use (annotationbox, defbox, hintbox) -->
-<img src="https://placehold.co/1280x400" alt="macro examples" width="100%">
 
 <br/>
 
