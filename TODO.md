@@ -25,7 +25,6 @@
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
 - [ ] readme: improve image alt text
-- [ ] crate an --agents flag which auto creates a AGENTS.md, CLAUDE.md and auto enables the --images flag
 
 
 
@@ -79,3 +78,4 @@
       folder). it now works with both create project and watch.
 - [x] when generating images for the pages it should not generating every image from scratch but rather generating only the image of the page that changed.
 - [x] add an indication to show the last compiled page with a small time icon
+- [x] create an --agents flag which auto creates a AGENTS.md, CLAUDE.md and auto enables the --images flag

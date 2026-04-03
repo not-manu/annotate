@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import type { Command } from "commander";
 import { render } from "ink";
@@ -12,7 +13,10 @@ function watch(program: Command) {
     .command("watch <project>")
     .description("Watch and compile annotation pages in an existing project")
     .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
-    .action(async (projectDir: string, options: { images?: boolean }, command: Command) => {
+    .option("--agents", "Generate AGENTS.md and CLAUDE.md, and enable --images for AI agent workflows")
+    .action(async (projectDir: string, options: { images?: boolean; agents?: boolean }, command: Command) => {
+      // --agents implies --images
+      if (options.agents) options.images = true;
       let resolved = path.resolve(projectDir);
 
       if (Project.PDF.isPDF(resolved)) {
@@ -43,6 +47,21 @@ function watch(program: Command) {
         originalPath,
         outputPath: Project.getAnnotatedPdfPath(resolved),
       };
+      const agentsFlag = options.agents || command.parent?.opts()?.agents;
+      if (agentsFlag) options.images = true;
+
+      // Generate agent files for existing projects if --agents is passed
+      if (agentsFlag) {
+        const agentsMdPath = path.join(resolved, "AGENTS.md");
+        const claudeMdPath = path.join(resolved, "CLAUDE.md");
+        if (!fs.existsSync(agentsMdPath)) {
+          await fs.promises.writeFile(agentsMdPath, Project.Templates.Agents.generateAgentsMd());
+        }
+        if (!fs.existsSync(claudeMdPath)) {
+          await fs.promises.writeFile(claudeMdPath, Project.Templates.Agents.generateClaudeMd());
+        }
+      }
+
       const imagesFlag = options.images || command.parent?.opts()?.images;
       const images = imagesFlag
         ? { outputDir: Project.getImagesFolder(resolved) }

@@ -76,7 +76,8 @@ namespace Project {
 
   export async function create(
     pdfPath: string,
-    flavor: Compiler.Flavor.Type
+    flavor: Compiler.Flavor.Type,
+    options?: { agents?: boolean }
   ): Promise<void> {
     const pagesFolder = getPagesFolder(pdfPath);
     const buildFolder = getBuildFolder(pdfPath);
@@ -118,6 +119,18 @@ namespace Project {
       await fs.promises.writeFile(
         path.join(pagesFolder, name),
         generatePage({ pageNumber, width: dims.width, height: dims.height })
+      );
+    }
+
+    if (options?.agents) {
+      const projectDir = getFolder(pdfPath);
+      await fs.promises.writeFile(
+        path.join(projectDir, "AGENTS.md"),
+        Templates.Agents.generateAgentsMd()
+      );
+      await fs.promises.writeFile(
+        path.join(projectDir, "CLAUDE.md"),
+        Templates.Agents.generateClaudeMd()
       );
     }
   }

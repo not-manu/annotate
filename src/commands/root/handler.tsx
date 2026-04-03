@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import type { Command } from "commander";
 import { render } from "ink";
 import { RootPage } from "./page";
@@ -16,7 +18,10 @@ function root(program: Command) {
     .argument("[pdf]", "Path to PDF file to annotate")
     .option("-w, --with [latex|typst]", "Annotate with LaTeX or Typst")
     .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
-    .action(async (pdf: string | undefined, options: { with?: string | boolean; images?: boolean }) => {
+    .option("--agents", "Generate AGENTS.md and CLAUDE.md, and enable --images for AI agent workflows")
+    .action(async (pdf: string | undefined, options: { with?: string | boolean; images?: boolean; agents?: boolean }) => {
+      // --agents implies --images
+      if (options.agents) options.images = true;
       if (!pdf) {
         render(<RootPage />);
         return;
@@ -40,6 +45,18 @@ function root(program: Command) {
         }
 
         // Valid existing project — skip creation and go straight to watch mode.
+        // Generate agent files for existing projects if --agents is passed
+        if (options.agents) {
+          const agentsMdPath = path.join(projectDir, "AGENTS.md");
+          const claudeMdPath = path.join(projectDir, "CLAUDE.md");
+          if (!fs.existsSync(agentsMdPath)) {
+            await fs.promises.writeFile(agentsMdPath, Project.Templates.Agents.generateAgentsMd());
+          }
+          if (!fs.existsSync(claudeMdPath)) {
+            await fs.promises.writeFile(claudeMdPath, Project.Templates.Agents.generateClaudeMd());
+          }
+        }
+
         const flavor = await Project.detectFlavor(projectDir);
         const compiler = await Compiler.detect({ flavor });
         const emitter = new CompilerEmitter();
@@ -79,7 +96,7 @@ function root(program: Command) {
       const flavor = options.with as Compiler.Flavor.Type;
       const compiler = await Compiler.detect({ flavor });
 
-      await Project.create(pdf, flavor);
+      await Project.create(pdf, flavor, { agents: options.agents });
 
       const emitter = new CompilerEmitter();
       const pagesDir = Project.getPagesFolder(pdf);

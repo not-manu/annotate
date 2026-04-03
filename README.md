@@ -191,15 +191,15 @@ Annotate is designed to work well with AI coding agents like Claude Code, Cursor
 
 <br/>
 
-**1. Enable image generation**
+**1. Set up your project with `--agents`**
 
-Start your project with the `--images` flag so the agent can *see* each page:
+The `--agents` flag generates an `AGENTS.md`, `CLAUDE.md`, and automatically enables `--images` so the agent can *see* each page:
 
 ```sh
-annotate homework.pdf -w latex --images
+annotate homework.pdf -w latex --agents
 ```
 
-This generates a PNG for each page inside `img/`, updated automatically on every compile:
+This creates the full agent-ready project structure:
 
 ```
 homework/
@@ -209,14 +209,22 @@ homework/
     page-02.tex
     ...
   img/
-    page-01.png      ← agent reads these
+    page-01.png        ← agent reads these to see the PDF
     page-02.png
     ...
+  AGENTS.md            ← instructions for the agent
+  CLAUDE.md            ← project context for Claude Code
   homework-annotated.pdf
 ```
 
-![Image generation — terminal showing annotate with --images flag and the img/ folder](https://placehold.co/900x300/0d1117/c9d1d9?text=annotate+--images+generating+page+PNGs&font=source-sans-pro)
-<!-- Replace with: a screenshot of the annotate TUI with --images enabled, showing the img/ folder being populated alongside the pages/ folder -->
+![Agent project setup — terminal showing annotate --agents and the generated folder structure](https://placehold.co/900x300/0d1117/c9d1d9?text=annotate+--agents+project+structure&font=source-sans-pro)
+<!-- Replace with: a screenshot of the annotate TUI with --agents enabled, showing the full folder structure including AGENTS.md, CLAUDE.md, and the img/ folder -->
+
+You can also add `--agents` to an existing project — it will generate the missing files without overwriting anything:
+
+```sh
+annotate watch homework/ --agents
+```
 
 <br/>
 
@@ -239,12 +247,11 @@ Add empty `\textbox` elements with `border` enabled where you want the agent to 
 
 <br/>
 
-**3. Add an `AGENTS.md`**
+**3. Customize the `AGENTS.md`**
 
-Drop an `AGENTS.md` in your project folder to give the agent context about how to annotate. This file is automatically picked up by Claude Code and similar tools:
+The generated `AGENTS.md` includes sensible defaults for annotation work. Customize it to fit your workflow — this file is automatically picked up by Claude Code and similar tools:
 
 ```markdown
-<!-- AGENTS.md -->
 - Prefer `displaystyle` when possible; use `textstyle` only when space is tight.
 - Remove the border from a question once it is completed.
 - Do not include the question number when writing answers — provide the answer directly.
