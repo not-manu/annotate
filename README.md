@@ -268,3 +268,25 @@ uv run --with opencv-python python detect_boxes.py
 The script reads a page image from `img/`, finds the answer regions using contour detection, and converts the pixel coordinates into `\textbox` positions using the page dimensions. This is especially useful for worksheets with dozens of small answer boxes or checkbox grids.
 
 <img src="./art/agent-opencv.png" alt="Claude agent using OpenCV to detect answer regions and generate textbox coordinates" width="100%">
+
+<br/>
+<br/>
+
+### How it works
+
+![Annotate pipeline — watch, compile, overlay, output](https://placehold.co/900x120/0d1117/c9d1d9?text=watch+→+compile+per-page+PDF+→+overlay+with+pdf-lib+→+annotated+PDF&font=source-sans-pro)
+
+Annotate watches your `pages/` directory with a file watcher. When you save a `.tex` or `.typ` file, it recompiles only the affected page into a small annotation PDF. Changing `style.sty` / `style.typ` triggers a full rebuild.
+
+Each per-page PDF is a transparent overlay the same size as the original page. After compilation, Annotate uses **[pdf-lib](https://github.com/Hopding/pdf-lib)** to embed each overlay onto the corresponding page of the original PDF and write out the final `*-annotated.pdf`.
+
+![Per-page overlay diagram — original PDF page with annotation PDF drawn on top](https://placehold.co/900x300/0d1117/c9d1d9?text=page-01.pdf+overlaid+on+original+page+1&font=source-sans-pro)
+
+Nothing is ever written to the original PDF — the source files stay untouched.
+
+<br/>
+<br/>
+
+### Contributing
+
+Found a bug or want to add an engine? [Open an issue](https://github.com/not-manu/annotate/issues) or send a PR — contributions are welcome.
