@@ -1,5 +1,5 @@
 <div align="center">
-<h2>Annotate</h2>
+<h1>Annotate</h1>
 <p>Annotate your PDFs with LaTeX & Typst!</p>
 </div>
 
@@ -322,3 +322,10 @@ annotate-dev homework.pdf -w latex
 # Unlink when done
 bun run dev:unlink
 ```
+
+<br/>
+<br/>
+
+<div align="right">
+<i>...yet another one of manu's creations</i> &nbsp;&bull;&nbsp; <a href="./LICENSE">MIT License</a>
+</div>

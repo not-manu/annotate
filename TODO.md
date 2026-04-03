@@ -1,6 +1,8 @@
 ## todo
 
 - [ ] publish on npm!!
+- [ ] need to add badges to readme
+- [ ] 
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
