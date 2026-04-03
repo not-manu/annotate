@@ -64,22 +64,29 @@ bun add -g @notmanu/annotate
 
 <img align="right" src="./art/file-tree.png" alt="file tree showing the generated project structure" width="300">
 
-**2. Start Watching a PDF**
+**2. Create a project**
 
-Start annotating a PDF with the following command:
+Run this command to create a new annotation project and start watching:
 
 ```sh
-annotate homework.pdf -w latex 
+annotate homework.pdf --with latex
 ```
 
-This will create a new folder called `homework` with the structure shown on the right.
+This creates a `homework/` folder, compiles the initial pages, and immediately enters watch mode:
 
-<br />
+```
+homework/
+├── pages/
+│   ├── page-01.tex
+│   └── style.sty
+└── homework-annotated.pdf
+```
+
 <br />
 
 **3. Add some annotations!**
 
-Edit `page-01.tex` and add a textbox inside the document:
+Edit `pages/page-01.tex` and add a textbox:
 
 ```latex
 \textbox[x=10em, y=40em, w=30em, h=10em, border]{
@@ -88,7 +95,18 @@ Edit `page-01.tex` and add a textbox inside the document:
 }
 ```
 
-This annotate the first page with some text. The final document `homework-annotated.pdf` will automatically compile as you add annotations.
+Save the file — Annotate recompiles automatically and updates `homework-annotated.pdf`.
+
+<br />
+<br />
+
+**4. Resume watching**
+
+If you close the terminal and come back later:
+
+```sh
+annotate watch homework/
+```
 
 <br/>
 <br/>
