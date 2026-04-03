@@ -2,7 +2,6 @@
 
 - [ ] publish on npm!!
 - [ ] write readme
-  - [ ] include example for working with diagrams/figures
   - [ ] mention the examples folder with example projects for latex and typst
   - [ ] basic install instructions for tectonic?
   - [ ] note how to work with images, and requiring pdftoppm/mutool for it to work.
