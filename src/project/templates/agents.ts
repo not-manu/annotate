@@ -1,10 +1,26 @@
 namespace Agents {
-  export function generateAgentsMd(): string {
-    return `- Prefer \`displaystyle\` when possible; use \`textstyle\` only when space is tight.
-- Remove the border from a question once it is completed.
+  export function generate(): string {
+    return `# Annotate Project
+
+This is an annotate project. Annotations are written in LaTeX or Typst files inside \`pages/\` and compiled automatically.
+
+## Structure
+
+- \`pages/\` — one file per PDF page (\`page-01.tex\`, \`page-02.tex\`, ...)
+- \`pages/style.sty\` or \`pages/style.typ\` — shared macros (e.g. \`\\textbox\`)
+- \`img/\` — PNG renders of each annotated page (auto-generated)
+- \`.annotate/\` — internal build files (do not edit)
+
+## Rules
+
+- Do not attempt to compile the document. It recompiles automatically on save.
+- Read the page image from \`img/page-XX.png\` to understand the layout before writing annotations.
+- Use \`\\textbox[x=..., y=..., w=..., h=..., border]{content}\` to place annotations.
+- Remove the \`border\` option once an answer is complete.
+- Prefer \`displaystyle\` when possible; use \`textstyle\` only when space is tight.
 - Do not include the question number (e.g. "3e.") when writing answers — provide the answer directly.
 - Respect the user's choice of font size unless explicitly asked to change it.
-- Do not attempt to compile the document; it will be compiled automatically.
+- Prefer \`bp\` units when matching exact positions from the PDF.
 
 ## Reviewing Assignments
 
@@ -25,30 +41,7 @@ Being incremental ensures the notes are detailed and accurate.
 - For checkbox-style questions, detect the long answer row first, then either detect circles with \`cv2.HoughCircles\` or place small boxes at the measured checkbox centers.
 - Convert image coordinates to page coordinates by scaling with the image size and the LaTeX page size. Use the same proportional conversion for \`x\`, \`y\`, \`w\`, and \`h\`.
 - When there is no printed box, use the page image to choose a logical open writing area and place a \`\\textbox[..., border]{<question label>}\` there manually.
-- Prefer \`bp\` instead of \`em\` when matching scanned geometry exactly, since \`bp\` maps directly to the page dimensions and avoids font-size drift.
 - Keep the question label inside the box while the problem is unfinished; remove the border after the answer is done.
-`;
-  }
-
-  export function generateClaudeMd(): string {
-    return `# Annotate Project
-
-This is an annotate project. Annotations are written in LaTeX or Typst files inside \`pages/\` and compiled automatically.
-
-## Structure
-
-- \`pages/\` — one file per PDF page (\`page-01.tex\`, \`page-02.tex\`, ...)
-- \`pages/style.sty\` or \`pages/style.typ\` — shared macros (e.g. \`\\textbox\`)
-- \`img/\` — PNG renders of each annotated page (auto-generated)
-- \`.annotate/\` — internal build files (do not edit)
-
-## Rules
-
-- Do not attempt to compile the document. It recompiles automatically on save.
-- Read the page image from \`img/page-XX.png\` to understand the layout before writing annotations.
-- Use \`\\textbox[x=..., y=..., w=..., h=..., border]{content}\` to place annotations.
-- Remove the \`border\` option once an answer is complete.
-- Prefer \`bp\` units when matching exact positions from the PDF.
 `;
   }
 }

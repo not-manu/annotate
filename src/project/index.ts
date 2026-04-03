@@ -124,13 +124,14 @@ namespace Project {
 
     if (options?.agents) {
       const projectDir = getFolder(pdfPath);
+      const agentInstructions = Templates.Agents.generate();
       await fs.promises.writeFile(
         path.join(projectDir, "AGENTS.md"),
-        Templates.Agents.generateAgentsMd()
+        agentInstructions
       );
       await fs.promises.writeFile(
         path.join(projectDir, "CLAUDE.md"),
-        Templates.Agents.generateClaudeMd()
+        agentInstructions
       );
     }
   }
