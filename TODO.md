@@ -1,6 +1,5 @@
 ## todo
 
-- [ ] publish on npm!!
 - [ ] need to add badges to readme
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
@@ -18,6 +17,7 @@
 
 ## done
 
+- [x] publish on npm!!
 - [x] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
 - [x] latex: empty \textbox should not have zero width
 - [x] fix readme spacing a bit
