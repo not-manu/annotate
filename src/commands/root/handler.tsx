@@ -50,10 +50,10 @@ function root(program: Command) {
           const agentsMdPath = path.join(projectDir, "AGENTS.md");
           const claudeMdPath = path.join(projectDir, "CLAUDE.md");
           if (!fs.existsSync(agentsMdPath)) {
-            await fs.promises.writeFile(agentsMdPath, Project.Templates.Agents.generateAgentsMd());
+            await fs.promises.writeFile(agentsMdPath, Project.Templates.Agents.generate());
           }
           if (!fs.existsSync(claudeMdPath)) {
-            await fs.promises.writeFile(claudeMdPath, Project.Templates.Agents.generateClaudeMd());
+            await fs.promises.writeFile(claudeMdPath, Project.Templates.Agents.generate());
           }
         }
 
