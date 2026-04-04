@@ -1,6 +1,5 @@
 ## todo
 
-- [ ] need to add badges to readme
 - [ ] find people to test it with different latex engines and report back any issues
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
@@ -18,6 +17,7 @@
 
 ## done
 
+- [x] need to add badges to readme
 - [x] update opengraph image for the repo
 - [x] make repo public
 - [x] publish on npm!!
