@@ -4,7 +4,6 @@
 - [ ] lualatex support (untested, needs verification)
 - [ ] add a debug mode with DEBUG=1
 - [ ] add my sample AGENTS.md (include in readme)
-- [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] youtube: re-record demo video
 - [ ] youtube: edit and upload video
 - [ ] youtube: update readme to uncomment and link to the video
@@ -17,6 +16,7 @@
 
 ## done
 
+- [x] make all images/gifs permalinks so it works on github and npm
 - [x] need to add badges to readme
 - [x] update opengraph image for the repo
 - [x] make repo public

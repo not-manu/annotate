@@ -3,7 +3,7 @@
 <p>Annotate your PDFs with LaTeX & Typst!</p>
 
 [![npm version](https://img.shields.io/npm/v/@notmanu/annotate)](https://www.npmjs.com/package/@notmanu/annotate)
-[![license](https://img.shields.io/npm/l/@notmanu/annotate)](./LICENSE)
+[![license](https://img.shields.io/npm/l/@notmanu/annotate)](https://github.com/not-manu/annotate/blob/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dt/@notmanu/annotate)](https://www.npmjs.com/package/@notmanu/annotate)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/not-manu/annotate/pulls)
 [![works on my machine](https://img.shields.io/badge/works%20on-my%20machine-orange)](https://github.com/not-manu/annotate)
@@ -14,12 +14,12 @@
 
 **Demo**
 
-<img src="./art/demo-video.gif" alt="a demo of annotate in action" width="100%">
+<img src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/demo-video.gif" alt="a demo of annotate in action" width="100%">
 
 <br/>
 <br/>
 
-<!-- <a href="https://youtube.com"><img align="right" src="./art/yt-thumbnail-with-icon.png" alt="youtube video!" width="50%"></a> -->
+<!-- <a href="https://youtube.com"><img align="right" src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/yt-thumbnail-with-icon.png" alt="youtube video!" width="50%"></a> -->
 <!-- **How I use it**: -->
 <!---->
 <!-- I use Annotate for ~90% of my homework at university! In the video on the right,  I explain how I use it everyday, and how I speed up my workflow with AI agents.  -->
@@ -69,7 +69,7 @@ bun add -g @notmanu/annotate
 <br/>
 <br/>
 
-<img align="right" src="./art/file-tree.png" alt="file tree showing the generated project structure" width="300">
+<img align="right" src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/file-tree.png" alt="file tree showing the generated project structure" width="300">
 
 **2. Create a project**
 
@@ -158,7 +158,7 @@ Every new project includes a `style.sty` (LaTeX) or `style.typ` (Typst) with hel
 <br/>
 
 <!-- TODO: screenshot showing textbox with border on a PDF page -->
-<img src="./art/your-annotation-here.png" alt="textbox macro example" width="100%">
+<img src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/your-annotation-here.png" alt="textbox macro example" width="100%">
 
 <br/>
 <br/>
@@ -220,7 +220,7 @@ The `--agents` flag generates an `AGENTS.md`, `CLAUDE.md`, and automatically ena
 annotate homework.pdf -w latex --agents
 ```
 
-<img align="right" src="./art/file-tree-agents.png" alt="file tree showing the agent-ready project structure with img/, AGENTS.md, and CLAUDE.md" width="260">
+<img align="right" src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/file-tree-agents.png" alt="file tree showing the agent-ready project structure with img/, AGENTS.md, and CLAUDE.md" width="260">
 
 This creates the full agent-ready project structure — `img/` holds a PNG per page so the agent can see the layout, and `AGENTS.md` / `CLAUDE.md` give it the context it needs.
 
@@ -238,7 +238,7 @@ annotate watch homework/ --agents
 
 **2. Place your boxes**
 
-<img align="right" src="./art/question-borders.png" alt="PDF page with empty bordered textboxes placed over homework questions" width="45%">
+<img align="right" src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/question-borders.png" alt="PDF page with empty bordered textboxes placed over homework questions" width="45%">
 
 Add empty `\textbox` elements with `border` enabled where you want the agent to write. The border helps you visually confirm the placement before handing it off:
 
@@ -269,7 +269,7 @@ The generated `AGENTS.md` includes sensible defaults for annotation work. Custom
 - Do not attempt to compile the document; it will be compiled automatically.
 ```
 
-The agent reads the page images in `img/`, understands the layout, and fills in the LaTeX — all while Annotate recompiles in the background. See [`examples/AGENTS.md`](./examples/AGENTS.md) for a full example.
+The agent reads the page images in `img/`, understands the layout, and fills in the LaTeX — all while Annotate recompiles in the background. See [`examples/AGENTS.md`](https://github.com/not-manu/annotate/blob/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/examples/AGENTS.md) for a full example.
 
 <br/>
 <br/>
@@ -277,7 +277,7 @@ The agent reads the page images in `img/`, understands the layout, and fills in 
 <br/>
 <br/>
 
-<img src="./art/agent-opencv.png" alt="Claude agent using OpenCV to detect answer regions and generate textbox coordinates" width="50%" align="right">
+<img src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/agent-opencv.png" alt="Claude agent using OpenCV to detect answer regions and generate textbox coordinates" width="50%" align="right">
 
 **Automating box placement with OpenCV**
 
@@ -299,7 +299,7 @@ The script reads a page image from `img/`, finds the answer regions using contou
 
 Annotate watches your `pages/` directory. When you save a `.tex` or `.typ` file, it recompiles only the affected page into a transparent annotation PDF. After compilation, **[pdf-lib](https://github.com/Hopding/pdf-lib)** overlays each annotation page onto the corresponding page of the original and writes out the final `*-annotated.pdf`. The original PDF is never touched.
 
-<img src="./art/page-01-comparison.png" alt="Annotation layer alongside the final annotated PDF page" width="100%">
+<img src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/page-01-comparison.png" alt="Annotation layer alongside the final annotated PDF page" width="100%">
 
 <br/>
 <br/>
@@ -310,9 +310,9 @@ The [`examples/`](./examples) folder has ready-to-run projects you can use as a 
 
 | Folder | Description |
 |--------|-------------|
-| [`examples/latex`](./examples/latex) | LaTeX homework annotation |
-| [`examples/typst`](./examples/typst) | Typst homework annotation |
-| [`examples/agents`](./examples/agents) | Agent-ready project with `AGENTS.md` and a full transcript |
+| [`examples/latex`](https://github.com/not-manu/annotate/tree/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/examples/latex) | LaTeX homework annotation |
+| [`examples/typst`](https://github.com/not-manu/annotate/tree/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/examples/typst) | Typst homework annotation |
+| [`examples/agents`](https://github.com/not-manu/annotate/tree/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/examples/agents) | Agent-ready project with `AGENTS.md` and a full transcript |
 
 <br/>
 <br/>
