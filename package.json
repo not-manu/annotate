@@ -1,6 +1,6 @@
 {
   "name": "@notmanu/annotate",
-  "version": "0.5.21",
+  "version": "0.5.22",
   "module": "index.ts",
   "type": "module",
   "main": "./dist/index.js",
