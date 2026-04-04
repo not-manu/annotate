@@ -8,6 +8,9 @@
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] update opengraph image for the repo
 - [ ] make repo public
+- [ ] youtube: re-record demo video
+- [ ] youtube: edit and upload video
+- [ ] youtube: update readme to uncomment and link to the video
 
 
 ## roadmap
