@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@notmanu/annotate)](https://www.npmjs.com/package/@notmanu/annotate)
 [![license](https://img.shields.io/npm/l/@notmanu/annotate)](./LICENSE)
-[![npm downloads](https://img.shields.io/npm/dm/@notmanu/annotate)](https://www.npmjs.com/package/@notmanu/annotate)
+[![npm downloads](https://img.shields.io/npm/dt/@notmanu/annotate)](https://www.npmjs.com/package/@notmanu/annotate)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/not-manu/annotate/pulls)
 [![works on my machine](https://img.shields.io/badge/works%20on-my%20machine-orange)](https://github.com/not-manu/annotate)
 
