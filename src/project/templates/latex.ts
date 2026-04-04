@@ -80,11 +80,12 @@ namespace LaTeX {
     \\node[
       anchor=north west,
       inner sep=\\tb@pad,
+      outer sep=0pt,
       align=left,
       text=annotate,
       tb@borderstyle,
     ] at ([xshift=\\tb@x,yshift=-\\tb@y]current page.north west)
-      {\\parbox[t][\\tb@h][t]{\\tb@w}{\\raggedright #2}};
+      {\\parbox[t][\\dimexpr\\tb@h-\\tb@pad-\\tb@pad\\relax][t]{\\dimexpr\\tb@w-\\tb@pad-\\tb@pad\\relax}{\\raggedright\\mbox{}#2}};
   \\end{tikzpicture}%
   \\endgroup
 }

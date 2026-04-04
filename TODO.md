@@ -7,8 +7,8 @@
 - [ ] add a debug mode with DEBUG=1
 - [ ] add my sample AGENTS.md (include in readme)
 - [ ] make all images/gifs permalinks so it works on github and npm
-- [ ] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
-- [ ] latex: empty \textbox should not have zero width
+- [x] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
+- [x] latex: empty \textbox should not have zero width
 - [ ] update opengraph image for the repo
 - [ ] make repo public
 
