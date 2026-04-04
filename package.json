@@ -30,6 +30,24 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "cli",
+    "pdf",
+    "annotation",
+    "annotation-tool",
+    "ai",
+    "latex",
+    "typst",
+    "workflow",
+    "pdf-generation",
+    "pdf-processing",
+    "math",
+    "grading",
+    "typesetting",
+    "document",
+    "markup",
+    "typescript"
+  ],
   "license": "MIT",
   "dependencies": {
     "commander": "^14.0.3",
