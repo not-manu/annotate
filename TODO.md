@@ -7,7 +7,6 @@
 - [ ] add my sample AGENTS.md (include in readme)
 - [ ] make all images/gifs permalinks so it works on github and npm
 - [ ] update opengraph image for the repo
-- [ ] make repo public
 - [ ] youtube: re-record demo video
 - [ ] youtube: edit and upload video
 - [ ] youtube: update readme to uncomment and link to the video
@@ -20,6 +19,7 @@
 
 ## done
 
+- [x] make repo public
 - [x] publish on npm!!
 - [x] latex: pad=0 property for \textbox should not mess with the size of the box, just add inner padding 
 - [x] latex: empty \textbox should not have zero width
