@@ -16,6 +16,7 @@
 
 ## done
 
+- [x] fix bug with unicode characters not working in production
 - [x] update keywords
 - [x] make all images/gifs permalinks so it works on github and npm
 - [x] need to add badges to readme
