@@ -13,6 +13,7 @@
 
 ## roadmap
 
+- [ ] look into PyMuPDF (fitz).
 - [ ] katex support with .md?
 - [ ] add experimental mode to autosetup a page using python, opencv 
 
