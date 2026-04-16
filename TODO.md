@@ -7,6 +7,8 @@
 - [ ] youtube: re-record demo video
 - [ ] youtube: edit and upload video
 - [ ] youtube: update readme to uncomment and link to the video
+- [ ] better demo with zooming in for hero animation
+- [ ] include commment in pages
 
 
 ## roadmap
