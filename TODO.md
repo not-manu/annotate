@@ -9,6 +9,7 @@
 - [ ] youtube: update readme to uncomment and link to the video
 - [ ] better demo with zooming in for hero animation
 - [ ] include commment in pages
+- [ ] handle large pdf documents (30+ pages) better using virtualized lists and ctrl u/d and j/k scrolling.
 
 
 ## roadmap
