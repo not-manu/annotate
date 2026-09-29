@@ -73,6 +73,29 @@ describe("CLI headless mode", () => {
     expect(stdout).toContain("✓ page-02");
   }, 90_000);
 
+  it("watch --once regenerates img/ when the project already has one", async () => {
+    if (!availableFlavor) {
+      console.log("Skipping: no compiler installed");
+      return;
+    }
+    const pdftoppm = Bun.spawn(["pdftoppm", "-v"], { stdout: "ignore", stderr: "ignore" });
+    if ((await pdftoppm.exited) > 1) {
+      console.log("Skipping: pdftoppm not installed");
+      return;
+    }
+
+    await runCli([pdfPath, "--with", availableFlavor, "--agents", "--once"]);
+    const image = path.join(projectDir, "img", "page-01.png");
+    expect(fs.existsSync(image)).toBe(true);
+    const before = fs.statSync(image).mtimeMs;
+    await Bun.sleep(20);
+
+    const { exitCode } = await runCli(["watch", projectDir, "--once"]);
+
+    expect(exitCode).toBe(0);
+    expect(fs.statSync(image).mtimeMs).toBeGreaterThan(before);
+  }, 90_000);
+
   it("watches without a TTY and exits cleanly on SIGTERM", async () => {
     if (!availableFlavor) {
       console.log("Skipping: no compiler installed");
