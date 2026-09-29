@@ -1,14 +1,18 @@
-import fs from "fs";
-import path from "path";
 import type { Command } from "commander";
 import { render } from "ink";
 import { RootPage } from "./page";
-import { WatchPage } from "../watch/page";
 import { Core } from "../../core";
-import { Compiler, CompilerEmitter } from "../../compiler";
-import type { WatchHandle } from "../../compiler";
+import { Compiler } from "../../compiler";
 import { AnnotateError } from "../../error";
 import { Project } from "../../project";
+import { Session } from "../session";
+
+type RootOptions = {
+  with?: string | boolean;
+  images?: boolean;
+  agents?: boolean;
+  once?: boolean;
+};
 
 function root(program: Command) {
   program
@@ -19,9 +23,10 @@ function root(program: Command) {
     .option("-w, --with [latex|typst]", "Annotate with LaTeX or Typst")
     .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
     .option("--agents", "Generate AGENTS.md and CLAUDE.md, and enable --images for AI agent workflows")
-    .action(async (pdf: string | undefined, options: { with?: string | boolean; images?: boolean; agents?: boolean }) => {
-      // --agents implies --images
+    .option("--once", "Compile every page once, print the results, and exit (no watch, no UI)")
+    .action(async (pdf: string | undefined, options: RootOptions) => {
       if (options.agents) options.images = true;
+
       if (!pdf) {
         render(<RootPage />);
         return;
@@ -35,93 +40,37 @@ function root(program: Command) {
       }
 
       const projectDir = Project.getFolder(pdf);
+      let flavor: Compiler.Flavor.Type;
 
-      if (!Project.isFolderEmpty(pdf)) {
+      if (Project.isFolderEmpty(pdf)) {
+        if (!Compiler.Flavor.isValid(options.with)) {
+          throw new AnnotateError({
+            message: "No language specified. Use --with latex or --with typst.",
+            hint: "Use --with latex or --with typst.",
+          });
+        }
+        flavor = options.with as Compiler.Flavor.Type;
+        await Compiler.detect({ flavor });
+        await Project.create(pdf, flavor, { agents: options.agents });
+      } else {
         if (!Project.isValidProject(projectDir)) {
           throw new AnnotateError({
             message: `The folder '${projectDir}' already exists and is not an annotate project.`,
             hint: "Move or delete the existing files in this folder before annotating.",
           });
         }
-
-        // Valid existing project — skip creation and go straight to watch mode.
-        // Generate agent files for existing projects if --agents is passed
-        if (options.agents) {
-          const agentsMdPath = path.join(projectDir, "AGENTS.md");
-          const claudeMdPath = path.join(projectDir, "CLAUDE.md");
-          if (!fs.existsSync(agentsMdPath)) {
-            await fs.promises.writeFile(agentsMdPath, Project.Templates.Agents.generate());
-          }
-          if (!fs.existsSync(claudeMdPath)) {
-            await fs.promises.writeFile(claudeMdPath, Project.Templates.Agents.generate());
-          }
-        }
-
-        const flavor = await Project.detectFlavor(projectDir);
-        const compiler = await Compiler.detect({ flavor });
-        const emitter = new CompilerEmitter();
-        const pagesDir = Project.getPagesFolder(pdf);
-        const buildDir = Project.getBuildFolder(pdf);
-        const overlay = {
-          originalPath: Project.getOriginalPdfPath(projectDir),
-          outputPath: Project.getAnnotatedPdfPath(projectDir),
-        };
-        const images = options.images
-          ? { outputDir: Project.getImagesFolder(projectDir) }
-          : undefined;
-
-        const watchRef: { current: WatchHandle | null } = { current: null };
-        render(
-          <WatchPage
-            emitter={emitter}
-            watchRef={watchRef}
-            flavor={flavor}
-            compilerName={compiler.name}
-            images={!!options.images}
-          />
-        );
-
-        await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
-        watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
-        return;
+        if (options.agents) await Project.writeAgentFiles(projectDir);
+        flavor = await Project.detectFlavor(projectDir);
       }
 
-      if (!Compiler.Flavor.isValid(options.with)) {
-        throw new AnnotateError({
-          message: "No language specified. Use --with latex or --with typst.",
-          hint: "Use --with latex or --with typst.",
-        });
-      }
-
-      const flavor = options.with as Compiler.Flavor.Type;
       const compiler = await Compiler.detect({ flavor });
-
-      await Project.create(pdf, flavor, { agents: options.agents });
-
-      const emitter = new CompilerEmitter();
-      const pagesDir = Project.getPagesFolder(pdf);
-      const buildDir = Project.getBuildFolder(pdf);
-      const overlay = {
-        originalPath: Project.getOriginalPdfPath(projectDir),
-        outputPath: Project.getAnnotatedPdfPath(projectDir),
-      };
-      const images = options.images
-        ? { outputDir: Project.getImagesFolder(projectDir) }
-        : undefined;
-
-      const watchRef: { current: WatchHandle | null } = { current: null };
-      render(
-        <WatchPage
-          emitter={emitter}
-          watchRef={watchRef}
-          flavor={flavor}
-          compilerName={compiler.name}
-          images={!!options.images}
-        />
-      );
-
-      await Compiler.compileAll({ compiler, pagesDir, buildDir, emitter, overlay, images });
-      watchRef.current = Compiler.watch({ compiler, pagesDir, buildDir, emitter, overlay, images });
+      await Session.start({
+        projectDir,
+        compiler,
+        flavor,
+        images: options.images,
+        once: options.once,
+      });
     });
 }
 

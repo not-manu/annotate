@@ -11,7 +11,7 @@ This is an annotate project. Annotations are written in LaTeX or Typst files ins
 
 ## Rules
 
-- Do not attempt to compile the document. It recompiles automatically on save.
+- Do not start a watcher. If one is already running it recompiles on save; otherwise run `annotate watch <project> --once` to compile every page, print `✓`/`✗` per page, and exit non-zero on failure.
 - Read the page image from `img/page-XX.png` to understand the layout before writing annotations.
 - Use `\textbox[x=..., y=..., w=..., h=..., border]{content}` to place annotations.
 - Remove the `border` option once an answer is complete.
