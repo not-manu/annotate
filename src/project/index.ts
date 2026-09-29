@@ -74,6 +74,14 @@ namespace Project {
 
   // ---- Project creation ----------------------------------------------------
 
+  export async function writeAgentFiles(projectDir: string): Promise<void> {
+    for (const name of ["AGENTS.md", "CLAUDE.md"]) {
+      const target = path.join(projectDir, name);
+      if (fs.existsSync(target)) continue;
+      await fs.promises.writeFile(target, Templates.Agents.generate());
+    }
+  }
+
   export async function create(
     pdfPath: string,
     flavor: Compiler.Flavor.Type,
@@ -123,16 +131,7 @@ namespace Project {
     }
 
     if (options?.agents) {
-      const projectDir = getFolder(pdfPath);
-      const agentInstructions = Templates.Agents.generate();
-      await fs.promises.writeFile(
-        path.join(projectDir, "AGENTS.md"),
-        agentInstructions
-      );
-      await fs.promises.writeFile(
-        path.join(projectDir, "CLAUDE.md"),
-        agentInstructions
-      );
+      await writeAgentFiles(getFolder(pdfPath));
     }
   }
 }

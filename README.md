@@ -231,6 +231,18 @@ annotate watch homework/ --agents
 ```
 
 <br/>
+
+**Headless and one-shot builds**
+
+When stdin or stdout is not a terminal (an agent, a script, CI), annotate skips the interactive UI and prints one line per page instead; `SIGINT`/`SIGTERM` stop the watcher cleanly. To compile everything once and exit — the right tool for an agent that wants to check its work — pass `--once`:
+
+```sh
+annotate watch homework/ --once
+```
+
+It prints `✓ page-01 812ms` or `✗ page-02 1.1s  see …/page-02.error.log` for each page and exits `1` if any page failed.
+
+<br/>
 <br/>
 <br/>
 <br/>
