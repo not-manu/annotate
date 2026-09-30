@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import type { Command } from "commander";
 import { Compiler } from "../../compiler";
@@ -15,13 +16,12 @@ function watch(program: Command) {
   program
     .command("watch <project>")
     .description("Watch and compile annotation pages in an existing project")
-    .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
+    .option("--images", "Generate 300 DPI PNG images in img/ after each compile (implied when img/ already exists)")
     .option("--agents", "Generate AGENTS.md and CLAUDE.md, and enable --images for AI agent workflows")
     .option("--once", "Compile every page once, print the results, and exit (no watch, no UI)")
     .action(async (projectDir: string, options: WatchOptions, command: Command) => {
       const parent: WatchOptions = command.parent?.opts() ?? {};
       const agents = options.agents || parent.agents;
-      const images = options.images || parent.images || agents;
       const once = options.once || parent.once;
 
       let resolved = path.resolve(projectDir);
@@ -46,6 +46,12 @@ function watch(program: Command) {
       }
 
       if (agents) await Project.writeAgentFiles(resolved);
+
+      const images =
+        options.images ||
+        parent.images ||
+        agents ||
+        fs.existsSync(Project.getImagesFolder(resolved));
 
       const flavor = await Project.detectFlavor(resolved);
       const compiler = await Compiler.detect({ flavor });

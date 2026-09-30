@@ -240,7 +240,7 @@ When stdin or stdout is not a terminal (an agent, a script, CI), annotate skips 
 annotate watch homework/ --once
 ```
 
-It prints `✓ page-01 812ms` or `✗ page-02 1.1s  see …/page-02.error.log` for each page and exits `1` if any page failed.
+It prints `✓ page-01 812ms` or `✗ page-02 1.1s  see …/page-02.error.log` for each page and exits `1` if any page failed. `watch` regenerates `img/` whenever the project already has that folder, so `--images` only needs to be passed the first time.
 
 <br/>
 <br/>
