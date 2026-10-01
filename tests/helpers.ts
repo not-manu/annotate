@@ -45,15 +45,20 @@ export async function waitForFile(filePath: string, timeoutMs = 10_000): Promise
   throw new Error(`Timed out waiting for: ${filePath}`);
 }
 
-export async function waitForFileChange(
+export async function editUntilFileChanges(
+  edit: () => void,
   filePath: string,
   since: Date,
   timeoutMs = 30_000
 ): Promise<void> {
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
-    if (fs.existsSync(filePath) && fs.statSync(filePath).mtime > since) return;
-    await Bun.sleep(300);
+    edit();
+    const retryAt = Math.min(Date.now() + 1_000, deadline);
+    while (Date.now() < retryAt) {
+      if (fs.existsSync(filePath) && fs.statSync(filePath).mtime > since) return;
+      await Bun.sleep(100);
+    }
   }
   throw new Error(`File not updated within ${timeoutMs}ms: ${filePath}`);
 }
