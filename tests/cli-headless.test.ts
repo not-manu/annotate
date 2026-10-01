@@ -96,6 +96,45 @@ describe("CLI headless mode", () => {
     expect(fs.statSync(image).mtimeMs).toBeGreaterThan(before);
   }, 90_000);
 
+  it("watch --once builds several projects and exits 1 if any page fails", async () => {
+    if (!availableFlavor) {
+      console.log("Skipping: no compiler installed");
+      return;
+    }
+
+    const otherPdf = path.join(tmpDir, "notes.pdf");
+    const otherDir = path.join(tmpDir, "notes");
+    await createTestPdf(otherPdf, 1);
+    await runCli([pdfPath, "--with", availableFlavor, "--once"]);
+    await runCli([otherPdf, "--with", availableFlavor, "--once"]);
+
+    const ok = await runCli(["watch", projectDir, otherDir, "--once"]);
+
+    expect(ok.exitCode).toBe(0);
+    expect(ok.stdout).toContain(`▸ ${projectDir}`);
+    expect(ok.stdout).toContain(`▸ ${otherDir}`);
+    expect(ok.stdout).toContain(path.join(otherDir, "notes-annotated.pdf"));
+
+    const ext = availableFlavor === "typst" ? ".typ" : ".tex";
+    const broken = availableFlavor === "typst"
+      ? '#panic("broken page")'
+      : "\\documentclass{article}\\begin{document}\\undefinedmacro\\end{document}";
+    fs.writeFileSync(path.join(projectDir, "pages", `page-01${ext}`), broken);
+
+    const failed = await runCli(["watch", projectDir, otherDir, "--once"]);
+
+    expect(failed.exitCode).toBe(1);
+    expect(failed.stdout).toContain("✗ page-01");
+    expect(failed.stdout).toContain(path.join(otherDir, "notes-annotated.pdf"));
+  }, 120_000);
+
+  it("watch rejects several projects without --once", async () => {
+    const { stdout, exitCode } = await runCli(["watch", tmpDir, tmpDir]);
+
+    expect(exitCode).toBe(1);
+    expect(stdout).toContain("Watching several projects at once is not supported.");
+  });
+
   it("watches without a TTY and exits cleanly on SIGTERM", async () => {
     if (!availableFlavor) {
       console.log("Skipping: no compiler installed");

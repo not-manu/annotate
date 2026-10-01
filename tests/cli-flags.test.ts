@@ -27,6 +27,6 @@ describe("CLI flags", () => {
     const { stdout, exitCode } = await runCli(["watch", "--help"]);
     expect(exitCode).toBe(0);
     expect(stdout).toContain("watch");
-    expect(stdout).toContain("<project>");
+    expect(stdout).toContain("<projects...>");
   });
 });
