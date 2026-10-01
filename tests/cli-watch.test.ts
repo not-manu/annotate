@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, beforeEach, afterEach } from "bun:test
 import fs from "fs";
 import path from "path";
 import os from "os";
-import { spawnCli, createTestPdf, waitForFile, waitForFileChange } from "./helpers";
+import { spawnCli, createTestPdf, waitForFile, editUntilFileChanges } from "./helpers";
 
 let compilerAvailable = false;
 let availableFlavor: "latex" | "typst" | null = null;
@@ -52,16 +52,10 @@ describe("CLI watch mode recompile", () => {
     const ext = availableFlavor === "typst" ? ".typ" : ".tex";
     const pageFile = path.join(projectDir, "pages", `page-01${ext}`);
 
-    // Wait for initial compilation (annotated PDF appears)
     await waitForFile(outputPdf, 30_000);
     const initialMtime = fs.statSync(outputPdf).mtime;
 
-    // Touch the page file to trigger recompile
-    const originalContent = fs.readFileSync(pageFile, "utf8");
-    fs.writeFileSync(pageFile, originalContent + "\n");
-
-    // Wait for the output PDF to be updated
-    await waitForFileChange(outputPdf, initialMtime, 30_000);
+    await editUntilFileChanges(() => fs.appendFileSync(pageFile, "\n"), outputPdf, initialMtime);
 
     proc.kill("SIGTERM");
     await proc.exited;
@@ -84,9 +78,7 @@ describe("CLI watch mode recompile", () => {
     await waitForFile(outputPdf, 30_000);
     const mtime = fs.statSync(outputPdf).mtime;
 
-    fs.appendFileSync(styleFile, "\n");
-
-    await waitForFileChange(outputPdf, mtime, 30_000);
+    await editUntilFileChanges(() => fs.appendFileSync(styleFile, "\n"), outputPdf, mtime);
 
     proc.kill("SIGTERM");
     await proc.exited;
