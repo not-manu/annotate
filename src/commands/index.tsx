@@ -4,6 +4,7 @@ import { root } from "./root/handler";
 import { watch } from "./watch/handler";
 import { AnnotateError } from "../error";
 import { ErrorPage } from "../ui/error-page";
+import { Session } from "./session";
 
 namespace Commands {
   export async function parse() {
@@ -23,7 +24,12 @@ namespace Commands {
         ? err.hint
         : "This is an unexpected error. Run with DEBUG=1 for details, or report it at https://github.com/not-manu/annotate/issues";
 
-      render(<ErrorPage message={message} hint={hint} />);
+      if (Session.isInteractive()) {
+        render(<ErrorPage message={message} hint={hint} />);
+      } else {
+        console.log(`ERROR ${message}`);
+        if (hint) console.log(hint);
+      }
 
       if (process.env.DEBUG) console.error(err);
 

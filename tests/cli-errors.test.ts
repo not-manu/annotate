@@ -51,6 +51,14 @@ describe("CLI error handling", () => {
     expect(stdout).toContain("valid annotate project");
   });
 
+  it("without a TTY, errors print on unwrapped lines whatever the terminal width", async () => {
+    const fakePath = path.join(tmpDir, "nonexistent-project");
+    const { exitCode, stdout } = await runCli(["watch", fakePath], { env: { COLUMNS: "20" } });
+    expect(exitCode).toBe(1);
+    expect(stdout).toContain(`ERROR '${fakePath}' is not a valid annotate project.`);
+    expect(stdout).toContain("The directory must contain a pages/ folder with .tex or .typ files.");
+  });
+
   it("watch with dir missing pages/: exits 1 with project error", async () => {
     const { exitCode, stdout } = await runCli(["watch", tmpDir]);
     expect(exitCode).toBe(1);

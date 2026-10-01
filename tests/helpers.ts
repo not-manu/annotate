@@ -5,10 +5,11 @@ export const PROJECT_ROOT = path.resolve(import.meta.dir, "..");
 
 export async function runCli(
   args: string[],
-  opts?: { cwd?: string }
+  opts?: { cwd?: string; env?: Record<string, string> }
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
   const proc = Bun.spawn(["bun", "src/index.ts", ...args], {
     cwd: opts?.cwd ?? PROJECT_ROOT,
+    env: { ...process.env, ...opts?.env },
     stdout: "pipe",
     stderr: "pipe",
   });
