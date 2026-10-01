@@ -53,20 +53,23 @@ namespace Session {
     }
 
     const failed = Headless.attach(emitter);
-    await Compiler.compileAll(compile);
 
     if (options.once) {
+      await Compiler.compileAll(compile);
       if (failed.size > 0) process.exitCode = 1;
       return;
     }
 
-    const watcher = Compiler.watch(compile);
+    let watcher: WatchHandle | null = null;
     const stop = () => {
-      watcher.stop();
+      watcher?.stop();
       process.exit(0);
     };
     process.once("SIGINT", stop);
     process.once("SIGTERM", stop);
+
+    await Compiler.compileAll(compile);
+    watcher = Compiler.watch(compile);
   }
 }
 
