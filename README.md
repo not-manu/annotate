@@ -242,6 +242,12 @@ annotate watch homework/ --once
 
 It prints `✓ page-01 812ms` or `✗ page-02 1.1s  see …/page-02.error.log` for each page and exits `1` if any page failed. `watch` regenerates `img/` whenever the project already has that folder, so `--images` only needs to be passed the first time.
 
+With `--once`, `watch` also takes several projects and builds them one after another, printing `▸ <project>` before each. It exits `1` if any page in any project failed:
+
+```sh
+annotate watch worksheet_05/ worksheet_06/ problem_set_01/ --once
+```
+
 <br/>
 <br/>
 <br/>

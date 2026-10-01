@@ -56,7 +56,7 @@ namespace Session {
     await Compiler.compileAll(compile);
 
     if (options.once) {
-      process.exitCode = failed.size > 0 ? 1 : 0;
+      if (failed.size > 0) process.exitCode = 1;
       return;
     }
 
