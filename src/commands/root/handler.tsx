@@ -22,7 +22,7 @@ function root(program: Command) {
     .argument("[pdf]", "Path to PDF file to annotate")
     .option("-w, --with [latex|typst]", "Annotate with LaTeX or Typst")
     .option("--images", "Generate 300 DPI PNG images in img/ after each compile")
-    .option("--agents", "Generate AGENTS.md and CLAUDE.md, and enable --images for AI agent workflows")
+    .option("--agents", "Generate AGENTS.md and enable --images for AI agent workflows")
     .option("--once", "Compile every page once, print the results, and exit (no watch, no UI)")
     .action(async (pdf: string | undefined, options: RootOptions) => {
       if (options.agents) options.images = true;

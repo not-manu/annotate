@@ -50,7 +50,7 @@ function RootPage() {
           flags="--with typst"
         />
         <Example
-          comment="Set up a project for AI agents (generates AGENTS.md, CLAUDE.md, and page images)"
+          comment="Set up a project for AI agents (generates AGENTS.md and page images)"
           cmd="annotate"
           args="paper.pdf"
           flags="--with latex --agents"

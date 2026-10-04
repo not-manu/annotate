@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, beforeEach, afterEach } from "bun:test
 import fs from "fs";
 import path from "path";
 import os from "os";
-import { spawnCli, createTestPdf, waitForFile } from "./helpers";
+import { spawnCli, runCli, createTestPdf, waitForFile } from "./helpers";
 
 // Note: Compiler.detect() runs before Project.create() in the root handler,
 // so a real compiler must be available to exercise the creation path.
@@ -92,6 +92,26 @@ describe("CLI project creation", () => {
     expect(page1).toContain("792.00pt");
     expect(page1).toContain('#import "style.typ": *');
   }, 30_000);
+
+  it("--agents generates AGENTS.md and not CLAUDE.md", async () => {
+    const flavor = typstAvailable ? "typst" : latexAvailable ? "latex" : null;
+    if (!flavor) {
+      console.log("Skipping: no compiler available");
+      return;
+    }
+    const pdftoppm = Bun.spawn(["pdftoppm", "-v"], { stdout: "ignore", stderr: "ignore" });
+    if ((await pdftoppm.exited) > 1) {
+      console.log("Skipping: pdftoppm not installed");
+      return;
+    }
+
+    const { exitCode } = await runCli([pdfPath, "--with", flavor, "--agents", "--once"]);
+
+    expect(exitCode).toBe(0);
+    const projectDir = path.join(tmpDir, "lecture");
+    expect(fs.existsSync(path.join(projectDir, "AGENTS.md"))).toBe(true);
+    expect(fs.existsSync(path.join(projectDir, "CLAUDE.md"))).toBe(false);
+  }, 90_000);
 
   it("re-running on existing project resumes without --with", async () => {
     const flavor = typstAvailable ? "typst" : latexAvailable ? "latex" : null;

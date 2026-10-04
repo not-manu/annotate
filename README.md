@@ -214,15 +214,15 @@ Annotate is designed to work well with AI coding agents like Claude Code, Cursor
 
 **1. Set up your project with `--agents`**
 
-The `--agents` flag generates an `AGENTS.md`, `CLAUDE.md`, and automatically enables `--images` so the agent can *see* each page:
+The `--agents` flag generates an `AGENTS.md` and automatically enables `--images` so the agent can *see* each page:
 
 ```sh
 annotate homework.pdf -w latex --agents
 ```
 
-<img align="right" src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/file-tree-agents.png" alt="file tree showing the agent-ready project structure with img/, AGENTS.md, and CLAUDE.md" width="260">
+<img align="right" src="https://raw.githubusercontent.com/not-manu/annotate/4b8a519a8579792dd3a9ceddcdd24ccaabe394db/art/file-tree-agents.png" alt="file tree showing the agent-ready project structure with img/ and AGENTS.md" width="260">
 
-This creates the full agent-ready project structure — `img/` holds a PNG per page so the agent can see the layout, and `AGENTS.md` / `CLAUDE.md` give it the context it needs.
+This creates the full agent-ready project structure — `img/` holds a PNG per page so the agent can see the layout, and `AGENTS.md` gives it the context it needs.
 
 You can also add `--agents` to an existing project — it will generate the missing files without overwriting anything:
 

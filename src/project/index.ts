@@ -75,11 +75,9 @@ namespace Project {
   // ---- Project creation ----------------------------------------------------
 
   export async function writeAgentFiles(projectDir: string): Promise<void> {
-    for (const name of ["AGENTS.md", "CLAUDE.md"]) {
-      const target = path.join(projectDir, name);
-      if (fs.existsSync(target)) continue;
-      await fs.promises.writeFile(target, Templates.Agents.generate());
-    }
+    const target = path.join(projectDir, "AGENTS.md");
+    if (fs.existsSync(target)) return;
+    await fs.promises.writeFile(target, Templates.Agents.generate());
   }
 
   export async function create(
