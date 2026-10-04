@@ -42,7 +42,7 @@ function watch(program: Command) {
     .command("watch <projects...>")
     .description("Watch and compile annotation pages in an existing project (several with --once)")
     .option("--images", "Generate 300 DPI PNG images in img/ after each compile (implied when img/ already exists)")
-    .option("--agents", "Generate AGENTS.md and CLAUDE.md, and enable --images for AI agent workflows")
+    .option("--agents", "Generate AGENTS.md and enable --images for AI agent workflows")
     .option("--once", "Compile every page once, print the results, and exit (no watch, no UI)")
     .action(async (projectDirs: string[], options: WatchOptions, command: Command) => {
       const parent: WatchOptions = command.parent?.opts() ?? {};
